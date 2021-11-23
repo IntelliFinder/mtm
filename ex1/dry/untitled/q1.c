@@ -7,7 +7,7 @@ char* stringDuplicator(char* s, int times);
 
 
 int main() {
-    char* s = "H";
+    char* s = "Hello";
     int times = 3;
     char* out = stringDuplicator( s, times );
     puts( out );
