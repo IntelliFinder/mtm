@@ -49,7 +49,7 @@ int main() {
     ErrorCode er = mergeSortedLists(list1,list2, mergedOut);
     printList(*mergedOut);
 
-    return 0;
+    return er;
 
 }
 //null
@@ -62,7 +62,7 @@ int main2() {
     ErrorCode er = mergeSortedLists(list1,list2, mergedOut);
     printList(*mergedOut);
 
-    return 0;
+    return er;
 
 }
 //not sorted
@@ -75,7 +75,7 @@ int main3() {
     ErrorCode er = mergeSortedLists(list1,list2, mergedOut);
     printList(*mergedOut);
 
-    return 0;
+    return er;
 
 }
 //kaze
@@ -88,7 +88,7 @@ int main4() {
     ErrorCode er = mergeSortedLists(list1,list2, mergedOut);
     printList(*mergedOut);
 
-    return 0;
+    return er;
 
 }
 
@@ -102,7 +102,7 @@ ErrorCode mergeSortedLists( Node list1, Node list2, Node *mergedOut)
         return UNSORTED_LIST;
     }
     Node start = createNode(0,NULL);
-    if(start->x == NULL){
+    if(start == NULL){
         *mergedOut = NULL;
         return MEMORY_ERROR;
     }
@@ -115,7 +115,13 @@ ErrorCode mergeSortedLists( Node list1, Node list2, Node *mergedOut)
         start->x = list2->x;
         list2 = list2->next;
     }
-    Node run = start; //memory leak
+    Node run = start;
+    /*
+    printf("address of run is: %p\n",(void *)run);
+    printf("address of start is: %p\n",(void *)start);
+    printf("address of mergeout is: %p\n",(void *)*mergedOut);
+    printf("address of &mergout  is: %p\n",(void *)mergedOut );
+    */
     while (list1 != NULL || list2 != NULL)
     {
         run->next = createNode(0,NULL); //0 is default
