@@ -3,58 +3,111 @@
 #include <assert.h>
 
 #include <malloc.h>
-//set is an array
 
-typedef struct node{
+//set is an array
+#define FIRST_NAME = "trash"
+
+typedef struct AmountSet_t {
     char* name;
     double amount;
-    struct node * next;
-}node;
+    struct AmountSet_t* next;
+    struct AmountSet_t* iterator;
+}*AmountSet;
 
-struct AmountSet_t {
-    int size;
-    node first;
-    int iterator;
-};
+
+typedef enum AmountSetResult_t {
+    AS_SUCCESS = 0,
+    AS_OUT_OF_MEMORY,
+    AS_NULL_ARGUMENT,
+    AS_ITEM_ALREADY_EXISTS,
+    AS_ITEM_DOES_NOT_EXIST,
+    AS_INSUFFICIENT_AMOUNT
+} AmountSetResult;
 
 AmountSet asCreate(){
     AmountSet set = malloc(sizeof (*set));
     if(set == NULL){
         return NULL;
     }
-    set->first = NULL;
-    set->amount_array = NULL;
+    set->name = malloc(sizeof *(set->name));
+    //no need to actually set a real name for first
+    set->amount = 0;
     //in add we will check if size =0 and set elements and amount array
-    set->iterator = 0;
-    set->size = 0;
+    set->iterator = NULL;
+    set->next = NULL;
     return set;
 }
 
 void asDestroy(AmountSet set) {
     if (set == NULL)
         return;
-    double *outAmount;
-    while (asGetAmount(set, set->elements, outAmount)) {
+
+    while (asGetSize(set)) {
         asDelete(set, asGetFirst(set));
     }
-    free(set->elements);
-    free(set->amount_array);
+    free(set->name);
     free(set);
 }
 AmountSet asCopy(AmountSet set){//iterator isn't copied
     if(set == NULL)
         return -1;
     AmountSet ans = asCreate();
-    if(set->size == 0){
-        return  ans;
-    }
+    assert(ans != NULL);
+    if(ans == NULL)
+        return NULL;
     //maybe iterator should be copied here
-    ans->size = set->size;
-    ans->elements = malloc(*(ans->elements))
-    for (int i = 0; i < set->size; ++i) {
+    AmountSet setRun = set->next;//remember that first is trash
 
+    AmountSet ansRun = ans;
+    while(setRun != NULL){
+        ansRun->next = malloc(sizeof (*ansRun->next));
+        assert(ansRun->next != NULL);
+        if(ansRun->next == NULL)
+            return NULL;
+
+        ansRun = ansRun->next;
+        ansRun->name = malloc(sizeof (char)* (1+strlen(setRun->name)));
+        assert(ansRun->name != NULL);
+        if(ansRun->name == NULL)
+            return NULL;
+
+        strcpy(ansRun->name,set->name);
+        setRun = setRun->next;
+    }
+    return ans;
+}
+
+char* asGetNext(AmountSet set)
+{
+    if( set->iterator == NULL )
+        return NULL;
+    AmountSet current_set = set->iterator;
+    AmoountSet next = current_set->next;
+    return next->name;
+}
+char* asGetFirst(AmountSet set)
+{
+    if( set == NULL )
+        return NULL;
+    AmountSet viable = set->next;
+    return viable->name;
+}
+AmountSetResult asClear(AmountSet set)
+{
+    if( set == NULL)
+    {
+        return AS_NULL_ARGUMENT;
+    }
+    AmountSet iter = set->next;
+    free(set);
+    while( iter != NULL )
+    {
+        set = iter;
+        iter = set->next;
+        free(set);
     }
 
+    return AS_SUCCESS;
 }
 
 //for quick tests
