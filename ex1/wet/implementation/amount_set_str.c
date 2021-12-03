@@ -3,7 +3,7 @@
 #include <assert.h>
 
 #include <malloc.h>
-#include <string.h>
+
 //set is an array
 #define FIRST_NAME = "trash"
 
@@ -13,6 +13,16 @@ typedef struct AmountSet_t {
     struct AmountSet_t* next;
     struct AmountSet_t* iterator;
 }*AmountSet;
+
+
+typedef enum AmountSetResult_t {
+    AS_SUCCESS = 0,
+    AS_OUT_OF_MEMORY,
+    AS_NULL_ARGUMENT,
+    AS_ITEM_ALREADY_EXISTS,
+    AS_ITEM_DOES_NOT_EXIST,
+    AS_INSUFFICIENT_AMOUNT
+} AmountSetResult;
 
 AmountSet asCreate(){
     AmountSet set = malloc(sizeof (*set));
@@ -66,45 +76,53 @@ AmountSet asCopy(AmountSet set){//iterator isn't copied
     }
     return ans;
 }
-
-int asGetSize(AmountSet set){
-    if(set == NULL)
-        return -1;
-    int ans = 0;
-    AmountSet setRun = set->next;
-    while (setRun != NULL){
-        ans++;
-        setRun = setRun->next;
-    }
-    return ans;
-}
-
-bool asContains(AmountSet set, const char* element){
-    if(set == NULL || element == NULL)
-        return false;
-    AmountSet setRun = set->next;
-    while (setRun != NULL){
-        if(0==strcmp(setRun->name,element))
-            return true;
-        setRun = setRun->next;
-    }
-    return false;
-}
-
-char* asGetNext(AmountSet set)
+AmountSetResult asChangeAmount(AmountSet set, const char* element, double amount)
 {
-    if( set->iterator == NULL )
-        return NULL;
-    AmountSet current_set = set->iterator;
-    AmoountSet next = current_set->next;
-    return next->name;
+    if( element == NULL )
+    {
+        return AS_NULL_ARGUMENT;
+    }
+    if( set== NULL )
+    {
+        return AS_NULL_ARGUMENT;
+    }
+    set = set->next;
+    while( set != NULL )
+    {
+        if ( *(set->name) == *element)
+        {
+            if( set->amount >= amount )
+            {
+                set->amount -=amount;
+            }
+            else{
+                return AS_INSUFFICIENT_AMOUNT;
+            }
+        }
+        set=set->next;
+    }
+    return AS_ITEM_DOES_NOT_EXIST;
 }
-char* asGetFirst(AmountSet set)
+
+AmountSetResult asDelete(AmountSet set, const char* element)
 {
-    if( set == NULL )
-        return NULL;
-    AmountSet viable = set->next;
-    return viable->name;
+    if( set == NULL)
+    {
+        return AS_NULL_ARGUMENT;
+    }
+    prev = set;
+    set = set->next;
+    while(set != NULL)
+    {
+        if( *(set->name) == *element )
+        {
+            prev->next = set->next;
+            free(set);
+            return AS_SUCCESS;
+        }
+        set = set->next;
+    }
+    return AS_ITEM_DOES_NOT_EXIST
 }
 AmountSetResult asClear(AmountSet set)
 {
@@ -123,6 +141,23 @@ AmountSetResult asClear(AmountSet set)
 
     return AS_SUCCESS;
 }
+char* asGetNext(AmountSet set)
+{
+    if( set->iterator == NULL )
+        return NULL;
+    AmountSet current_set = set->iterator;
+    AmoountSet next = current_set->next;
+    return next->name;
+}
+char* asGetFirst(AmountSet set)
+{
+    if( set == NULL )
+        return NULL;
+    AmountSet viable = set->next;
+    return viable->name;
+
+}
+
 
 //for quick tests
 int main() {
