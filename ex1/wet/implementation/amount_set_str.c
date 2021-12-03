@@ -4,13 +4,22 @@
 
 #include <malloc.h>
 //set is an array
+typedef struct nameAndAmount{
+    char* name;
+    double amount;
+}nameAndAmount;
+
+typedef struct node{
+    nameAndAmount nAA;
+    struct node * next;
+}node;
 
 struct AmountSet_t {
     int size;
-    char** elements;
-    int* amount_array;
+    node first;
     int iterator;
 };
+
 AmountSet asCreate(){
     AmountSet set = malloc(sizeof (*set));
     if(set == NULL){
