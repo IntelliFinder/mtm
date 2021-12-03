@@ -3,7 +3,7 @@
 #include <assert.h>
 
 #include <malloc.h>
-
+#include <string.h>
 //set is an array
 #define FIRST_NAME = "trash"
 
@@ -13,16 +13,6 @@ typedef struct AmountSet_t {
     struct AmountSet_t* next;
     struct AmountSet_t* iterator;
 }*AmountSet;
-
-
-typedef enum AmountSetResult_t {
-    AS_SUCCESS = 0,
-    AS_OUT_OF_MEMORY,
-    AS_NULL_ARGUMENT,
-    AS_ITEM_ALREADY_EXISTS,
-    AS_ITEM_DOES_NOT_EXIST,
-    AS_INSUFFICIENT_AMOUNT
-} AmountSetResult;
 
 AmountSet asCreate(){
     AmountSet set = malloc(sizeof (*set));
@@ -75,6 +65,30 @@ AmountSet asCopy(AmountSet set){//iterator isn't copied
         setRun = setRun->next;
     }
     return ans;
+}
+
+int asGetSize(AmountSet set){
+    if(set == NULL)
+        return -1;
+    int ans = 0;
+    AmountSet setRun = set->next;
+    while (setRun != NULL){
+        ans++;
+        setRun = setRun->next;
+    }
+    return ans;
+}
+
+bool asContains(AmountSet set, const char* element){
+    if(set == NULL || element == NULL)
+        return false;
+    AmountSet setRun = set->next;
+    while (setRun != NULL){
+        if(0==strcmp(setRun->name,element))
+            return true;
+        setRun = setRun->next;
+    }
+    return false;
 }
 
 char* asGetNext(AmountSet set)
