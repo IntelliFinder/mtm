@@ -39,7 +39,7 @@ void asDestroy(AmountSet set) {
 }
 AmountSet asCopy(AmountSet set){//iterator isn't copied
     if(set == NULL)
-        return -1;
+        return NULL;
     AmountSet ans = asCreate();
     assert(ans != NULL);
     if(ans == NULL)
@@ -55,13 +55,13 @@ AmountSet asCopy(AmountSet set){//iterator isn't copied
             return NULL;
 
         ansRun = ansRun->next;
-        ans->next = NULL;
+        ansRun->next = NULL;
         ansRun->name = malloc(sizeof (char)* (1+strlen(setRun->name)));
         assert(ansRun->name != NULL);
         if(ansRun->name == NULL)
             return NULL;
 
-        strcpy(ansRun->name,set->name);
+        strcpy(ansRun->name,setRun->name);
         setRun = setRun->next;
     }
     return ans;
@@ -113,7 +113,7 @@ AmountSetResult asRegister(AmountSet set, const char* element)
     if(asContains(set,element))
         return AS_ITEM_ALREADY_EXISTS;
     AmountSet ph = set;
-    while(ph->next!=NULL && 0 < strcmp(ph->next->name,element))
+    while(ph->next!=NULL && 0 > strcmp(ph->next->name,element))
     {
         ph=ph->next;
     }
