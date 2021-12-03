@@ -109,18 +109,25 @@ AmountSetResult asRegister(AmountSet set, const char* element)
     {
         return AS_NULL_ARGUMENT;
     }
+    if(asContains(set,element))
+        return AS_ITEM_ALREADY_EXISTS;
     AmountSet ph = set;
-    while( ph!=NULL )
+    while(ph->next!=NULL && 0 < strcmp(ph->next->name,element))
     {
-        if( *(ph->name) == *element )
-        {
-            return AS_ITEM_ALREADY_EXISTS;
-        }
         ph=ph->next;
     }
-    AmountSet new = asCreate();
-    *(new) = { element, 0, set->next , NULL};
-    set->next = new;
+    AmountSet new = malloc(sizeof (*set));
+    if(new == NULL){
+        return AS_OUT_OF_MEMORY;
+    }
+    new->name = malloc(sizeof *(set->name) * (strlen(element)+1));
+    if(new->name == NULL)
+        return AS_OUT_OF_MEMORY;
+    strcpy(new->name,element);
+    new->amount = 0;
+    new->iterator = NULL;
+    new->next = ph->next;
+    ph ->next = new;
     return AS_SUCCESS;
 }
 AmountSetResult asChangeAmount(AmountSet set, const char* element, double amount)
@@ -136,11 +143,11 @@ AmountSetResult asChangeAmount(AmountSet set, const char* element, double amount
     set = set->next;
     while( set != NULL )
     {
-        if ( *(set->name) == *element)
+        if (0 == strcmp((set->name),element))
         {
-            if( set->amount >= amount )
+            if( set->amount + amount >= 0 )
             {
-                set->amount -=amount;
+                set->amount +=amount;
             }
             else{
                 return AS_INSUFFICIENT_AMOUNT;
@@ -157,19 +164,21 @@ AmountSetResult asDelete(AmountSet set, const char* element)
     {
         return AS_NULL_ARGUMENT;
     }
-    prev = set;
+    AmountSet prev = set;
     set = set->next;
     while(set != NULL)
     {
-        if( *(set->name) == *element )
+        if( strcmp((set->name),element)==0 )
         {
             prev->next = set->next;
+            free(set->name);
             free(set);
             return AS_SUCCESS;
         }
+        prev = set;
         set = set->next;
     }
-    return AS_ITEM_DOES_NOT_EXIST
+    return AS_ITEM_DOES_NOT_EXIST;
 }
 AmountSetResult asClear(AmountSet set)
 {
@@ -178,11 +187,13 @@ AmountSetResult asClear(AmountSet set)
         return AS_NULL_ARGUMENT;
     }
     AmountSet iter = set->next;
+    free(set->name);
     free(set);
     while( iter != NULL )
     {
         set = iter;
         iter = set->next;
+        free(set->name);
         free(set);
     }
 
@@ -193,7 +204,8 @@ char* asGetNext(AmountSet set)
     if( set->iterator == NULL )
         return NULL;
     AmountSet current_set = set->iterator;
-    AmoountSet next = current_set->next;
+    AmountSet next = current_set->next;
+    set->iterator = next;
     return next->name;
 }
 char* asGetFirst(AmountSet set)
@@ -201,6 +213,7 @@ char* asGetFirst(AmountSet set)
     if( set == NULL )
         return NULL;
     AmountSet viable = set->next;
+    set->iterator = viable;
     return viable->name;
 
 }
