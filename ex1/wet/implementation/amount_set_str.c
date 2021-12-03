@@ -55,6 +55,7 @@ AmountSet asCopy(AmountSet set){//iterator isn't copied
             return NULL;
 
         ansRun = ansRun->next;
+        ans->next = NULL;
         ansRun->name = malloc(sizeof (char)* (1+strlen(setRun->name)));
         assert(ansRun->name != NULL);
         if(ansRun->name == NULL)
@@ -99,7 +100,7 @@ AmountSetResult asGetAmount(AmountSet set, const char* element, double* outAmoun
         assert(run!=NULL);
         run = run->next;
     }
-    assert(strcmp(run->name,element));
+    assert(!strcmp(run->name,element));
     *outAmount = run->amount;
     return AS_SUCCESS;
 }
@@ -229,7 +230,7 @@ int main() {
 
     asChangeAmount(as,"moshe",2.5);
     asChangeAmount(as,"yosi",1.5);
-    printf("size of cpy %dn\n", asGetSize(cpy));
+    printf("size of cpy %d\n", asGetSize(cpy));
     printf("cpy contains yosi %d\n", asContains(cpy,"yosi"));
     printf("cpy contains moshe %d\n", asContains(cpy,"moshe"));
     double firstAmount;
