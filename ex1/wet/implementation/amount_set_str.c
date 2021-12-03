@@ -3,7 +3,7 @@
 #include <assert.h>
 
 #include <malloc.h>
-
+#include <string.h>
 //set is an array
 #define FIRST_NAME = "trash"
 
@@ -14,7 +14,6 @@ typedef struct AmountSet_t {
     struct AmountSet_t* iterator;
 }*AmountSet;
 
-
 AmountSet asCreate(){
     AmountSet set = malloc(sizeof (*set));
     if(set == NULL){
@@ -23,7 +22,6 @@ AmountSet asCreate(){
     set->name = malloc(sizeof *(set->name));
     //no need to actually set a real name for first
     set->amount = 0;
-    //in add we will check if size =0 and set elements and amount array
     set->iterator = NULL;
     set->next = NULL;
     return set;
@@ -41,7 +39,7 @@ void asDestroy(AmountSet set) {
 }
 AmountSet asCopy(AmountSet set){//iterator isn't copied
     if(set == NULL)
-        return NULL;
+        return -1;
     AmountSet ans = asCreate();
     assert(ans != NULL);
     if(ans == NULL)
@@ -68,6 +66,43 @@ AmountSet asCopy(AmountSet set){//iterator isn't copied
     return ans;
 }
 
+int asGetSize(AmountSet set){
+    if(set == NULL)
+        return -1;
+    int ans = 0;
+    AmountSet setRun = set->next;
+    while (setRun != NULL){
+        ans++;
+        setRun = setRun->next;
+    }
+    return ans;
+}
+
+bool asContains(AmountSet set, const char* element){
+    if(set == NULL || element == NULL)
+        return false;
+    AmountSet setRun = set->next;
+    while (setRun != NULL){
+        if(0==strcmp(setRun->name,element))
+            return true;
+        setRun = setRun->next;
+    }
+    return false;
+}
+AmountSetResult asGetAmount(AmountSet set, const char* element, double* outAmount){
+    if(set == NULL || element == NULL || outAmount == NULL)
+        return AS_NULL_ARGUMENT;
+    if(!asContains(set, element))
+        return AS_ITEM_DOES_NOT_EXIST;
+    AmountSet run = set->next;
+    while (0 != strcmp(run->name,element)){
+        assert(run!=NULL);
+        run = run->next;
+    }
+    assert(strcmp(run->name,element));
+    *outAmount = run->amount;
+    return AS_SUCCESS;
+}
 AmountSetResult asRegister(AmountSet set, const char* element)
 {
     if(set == NULL)
@@ -173,6 +208,26 @@ char* asGetFirst(AmountSet set)
 
 //for quick tests
 int main() {
-    printf("Hello, World!\n");
+    AmountSet as = asCreate();
+    asRegister(as,"yosi");
+
+    AmountSet cpy = asCopy(as);
+    asRegister(as,"moshe");
+
+    asChangeAmount(as,"moshe",2.5);
+    asChangeAmount(as,"yosi",1.5);
+    printf("size of cpy %dn\n", asGetSize(cpy));
+    printf("cpy contains yosi %d\n", asContains(cpy,"yosi"));
+    printf("cpy contains moshe %d\n", asContains(cpy,"moshe"));
+    double firstAmount;
+    char* first = asGetFirst(as);
+    if (asGetAmount(as, first, &firstAmount) == AS_SUCCESS) {
+        printf("First amount: %f\n", firstAmount);
+    }
+    printf("size of as %d\n", asGetSize(as));
+    asDelete(as,"moshe");
+    printf("size of as %d\n", asGetSize(as));
+
+    asDestroy(as);
     return 0;
 }
