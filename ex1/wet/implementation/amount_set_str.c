@@ -15,15 +15,6 @@ typedef struct AmountSet_t {
 }*AmountSet;
 
 
-typedef enum AmountSetResult_t {
-    AS_SUCCESS = 0,
-    AS_OUT_OF_MEMORY,
-    AS_NULL_ARGUMENT,
-    AS_ITEM_ALREADY_EXISTS,
-    AS_ITEM_DOES_NOT_EXIST,
-    AS_INSUFFICIENT_AMOUNT
-} AmountSetResult;
-
 AmountSet asCreate(){
     AmountSet set = malloc(sizeof (*set));
     if(set == NULL){
@@ -50,7 +41,7 @@ void asDestroy(AmountSet set) {
 }
 AmountSet asCopy(AmountSet set){//iterator isn't copied
     if(set == NULL)
-        return -1;
+        return NULL;
     AmountSet ans = asCreate();
     assert(ans != NULL);
     if(ans == NULL)
@@ -75,6 +66,27 @@ AmountSet asCopy(AmountSet set){//iterator isn't copied
         setRun = setRun->next;
     }
     return ans;
+}
+
+AmountSetResult asRegister(AmountSet set, const char* element)
+{
+    if(set == NULL)
+    {
+        return AS_NULL_ARGUMENT;
+    }
+    AmountSet ph = set;
+    while( ph!=NULL )
+    {
+        if( *(ph->name) == *element )
+        {
+            return AS_ITEM_ALREADY_EXISTS;
+        }
+        ph=ph->next;
+    }
+    AmountSet new = asCreate();
+    *(new) = { element, 0, set->next , NULL};
+    set->next = new;
+    return AS_SUCCESS;
 }
 AmountSetResult asChangeAmount(AmountSet set, const char* element, double amount)
 {
