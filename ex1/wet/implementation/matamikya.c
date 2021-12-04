@@ -3,7 +3,7 @@
 #include <string.h>
 #include <assert.h>
 
-#include <mtamikya.h>
+#include <matamikya.h>
 
 /** Type for representing a Matamikya warehouse */
 typedef struct Matamikya_t
@@ -11,7 +11,7 @@ typedef struct Matamikya_t
     int item_id;
     int amount;
 
-}*Matamikya;
+} *Matamikya;
 
 /** Type for additional custom data of a product */
 typedef void MtmProductData_t{

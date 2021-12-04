@@ -117,6 +117,7 @@ AmountSetResult asGetAmount(AmountSet set, const char* element, double* outAmoun
     *outAmount = run->amount;
     return AS_SUCCESS;
 }
+//must be in lexicogrpahic order
 AmountSetResult asRegister(AmountSet set, const char* element)
 {
     if(set == NULL)
@@ -126,7 +127,7 @@ AmountSetResult asRegister(AmountSet set, const char* element)
     if(asContains(set,element))
         return AS_ITEM_ALREADY_EXISTS;
     AmountSet ph = set;
-    while(ph->next!=NULL && 0 > strcmp(ph->next->name,element))
+    while(ph->next!=NULL && strcmp((ph->next)->name,element) < 0 )
     {
         ph=ph->next;
     }
