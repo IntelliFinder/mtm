@@ -41,8 +41,9 @@ void asDestroy(AmountSet set) {
     free(set);
 }
 AmountSet asCopy(AmountSet set){//iterator isn't copied
-    if(set == NULL)
+    if(set == NULL){
         return NULL;
+    }
     AmountSet ans = asCreate();
     assert(ans != NULL);
     if(ans == NULL){
@@ -55,15 +56,17 @@ AmountSet asCopy(AmountSet set){//iterator isn't copied
     while(setRun != NULL){
         ansRun->next = malloc(sizeof (*ansRun->next));
         assert(ansRun->next != NULL);
-        if(ansRun->next == NULL)
+        if(ansRun->next == NULL){
             return NULL;
-
+        }
         ansRun = ansRun->next;
         ansRun->next = NULL;
         ansRun->name = malloc(sizeof (char)* (1+strlen(setRun->name)));
         assert(ansRun->name != NULL);
         if(ansRun->name == NULL)
+        {
             return NULL;
+        }
 
         strcpy(ansRun->name,setRun->name);
         setRun = setRun->next;
