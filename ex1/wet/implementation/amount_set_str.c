@@ -75,8 +75,9 @@ AmountSet asCopy(AmountSet set){//iterator isn't copied
 }
 
 int asGetSize(AmountSet set){
-    if(set == NULL)
+    if(set == NULL){
         return -1;
+    }
     int ans = 0;
     AmountSet setRun = set->next;
     while (setRun != NULL){
@@ -88,11 +89,14 @@ int asGetSize(AmountSet set){
 
 bool asContains(AmountSet set, const char* element){
     if(set == NULL || element == NULL)
-        return false;
+    {
+            return false;
+    }
     AmountSet setRun = set->next;
     while (setRun != NULL){
-        if(0==strcmp(setRun->name,element))
+        if(0==strcmp(setRun->name,element)){
             return true;
+        }
         setRun = setRun->next;
     }
     return false;
