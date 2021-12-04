@@ -32,7 +32,9 @@ AmountSet asCreate(){
 
 void asDestroy(AmountSet set) {
     if (set == NULL)
+    {
         return;
+    }
 
     while (asGetSize(set)) {
         asDelete(set, asGetFirst(set));
@@ -79,7 +81,7 @@ int asGetSize(AmountSet set){
         return -1;
     }
     int ans = 0;
-    AmountSet setRun = set->next;
+    AmountSet setRun = set->next; //first is trash
     while (setRun != NULL){
         ans++;
         setRun = setRun->next;
