@@ -20,6 +20,9 @@ AmountSet asCreate(){
         return NULL;
     }
     set->name = malloc(sizeof *(set->name));
+    if( set->name == NULL ){//allocation failure{
+        return NULL;
+    }
     //no need to actually set a real name for first
     set->amount = 0;
     set->iterator = NULL;
