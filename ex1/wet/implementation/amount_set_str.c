@@ -45,11 +45,12 @@ AmountSet asCopy(AmountSet set){//iterator isn't copied
         return NULL;
     AmountSet ans = asCreate();
     assert(ans != NULL);
-    if(ans == NULL)
+    if(ans == NULL){
         return NULL;
+    }
+    set->iterator = NULL;//iterator undefined after funtion call 
     //maybe iterator should be copied here
     AmountSet setRun = set->next;//remember that first is trash
-
     AmountSet ansRun = ans;
     while(setRun != NULL){
         ansRun->next = malloc(sizeof (*ansRun->next));
