@@ -8,13 +8,13 @@
 /** Type for representing a Matamikya warehouse */
 typedef struct Matamikya_t
 {
-    int item_id;
-    int amount;
+    SetElement 
 
 } *Matamikya;
 
 /** Type for additional custom data of a product */
-typedef void MtmProductData_t{
+typedef void MtmProductData_t
+{
     int item_id;
     int amount;
 
