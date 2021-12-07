@@ -6,7 +6,7 @@
 * Generic List Container
 *
 * Implements a list container type.
-* The list his an internal iterator for external use. For all functions
+* The list has an internal iterator for external use. For all functions
 * where the state of the iterator after calling that function is not stated,
 * it is undefined. That is you cannot assume anything about it.
 *
