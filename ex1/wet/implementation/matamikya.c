@@ -19,6 +19,7 @@ typedef void MtmProductData_t{
     int amount;
     char* units;
     MatamikyaAmountType amountType;
+    double discount; //percent*(1/100)
 
 } *MtmProductData;
 
@@ -121,6 +122,6 @@ MatamikyaResult mtmNewProduct(Matamikya matamikya, const unsigned int id, const 
     customData->amount = amount;
     
     MtmProductData product = MtmCopyData( customData ); // why do we need more details other than customData?
-
+    setAdd( matamilya, product );//suppose setadd already copmapares using compare function, dont see any other way
     return MATAMIKYA_SUCCESS;
 }
