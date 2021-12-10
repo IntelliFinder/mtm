@@ -51,7 +51,7 @@ AmountSet asCopy(AmountSet set){//iterator isn't copied
     if(ans == NULL){
         return NULL;
     }
-    set->iterator = NULL;//iterator undefined after funtion call 
+    set->iterator = NULL;//iterator undefined after funtion call
     //maybe iterator should be copied here
     AmountSet setRun = set->next;//remember that first is trash
     AmountSet ansRun = ans;
@@ -92,7 +92,7 @@ int asGetSize(AmountSet set){
 bool asContains(AmountSet set, const char* element){
     if(set == NULL || element == NULL)
     {
-            return false;
+        return false;
     }
     AmountSet setRun = set->next;
     while (setRun != NULL){
@@ -221,6 +221,8 @@ char* asGetNext(AmountSet set)
     AmountSet current_set = set->iterator;
     AmountSet next = current_set->next;
     set->iterator = next;
+    if(next == NULL)
+        return NULL;
     return next->name;
 }
 char* asGetFirst(AmountSet set)
@@ -233,17 +235,42 @@ char* asGetFirst(AmountSet set)
 
 }
 
+void printASResult(AmountSetResult asr){
+    switch (asr){
+        case AS_SUCCESS:
+            printf("AS_SUCCESS\n");
+            break;
+        case AS_NULL_ARGUMENT:
+            printf("AS_NULL_ARGUMENT\n");
+            break;
+        case AS_ITEM_DOES_NOT_EXIST:
+            printf("AS_ITEM_DOES_NOT_EXIST");
+            break;
+        case AS_OUT_OF_MEMORY:
+            printf("AS_OUT_OF_MEMORY");
+            break;
+        case AS_ITEM_ALREADY_EXISTS:
+            printf("AS_ITEM_ALREADY_EXISTS");
+            break;
+        case AS_INSUFFICIENT_AMOUNT:
+            printf("AS_INSUFFICIENT_AMOUNT");
+            break;
+        default:
+            break;
+    }
+
+}
 
 //for quick tests
-int main() {
+int main1() {
     AmountSet as = asCreate();
-    asRegister(as,"yosi");
+    printASResult(asRegister(as,"yosi"));
 
     AmountSet cpy = asCopy(as);
-    asRegister(as,"moshe");
+    printASResult(asRegister(as,"moshe"));
 
-    asChangeAmount(as,"moshe",2.5);
-    asChangeAmount(as,"yosi",1.5);
+    printASResult(asChangeAmount(as,"moshe",2.5));
+    printASResult(asChangeAmount(as,"yosi",1.5));
     printf("size of cpy %d\n", asGetSize(cpy));
     printf("cpy contains yosi %d\n", asContains(cpy,"yosi"));
     printf("cpy contains moshe %d\n", asContains(cpy,"moshe"));
@@ -253,9 +280,29 @@ int main() {
         printf("First amount: %f\n", firstAmount);
     }
     printf("size of as %d\n", asGetSize(as));
-    asDelete(as,"moshe");
+    printASResult(asDelete(as,"moshe"));
     printf("size of as %d\n", asGetSize(as));
-
+    asDestroy(cpy);
     asDestroy(as);
+    return 0;
+}
+int main(){
+    AmountSet as = asCreate();
+    printASResult(asRegister(as,"a"));
+    printASResult(asRegister(as,"c"));
+    printASResult(asRegister(as,"bb"));
+    printASResult(asRegister(as,"ba"));
+    printASResult(asRegister(as,"z"));
+    printf("%s\n", asGetFirst(as));
+    for (int i = 0; i < 5; ++i) {
+        printf("%s\n", asGetNext(as));
+    }
+    printASResult(asDelete(as,"bb"));
+    printf("%s\n", asGetFirst(as));
+    for (int i = 0; i < 5; ++i) {
+        printf("%s\n", asGetNext(as));
+    }
+    asDestroy(as);
+    printf("end");
     return 0;
 }
