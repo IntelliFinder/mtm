@@ -3,9 +3,10 @@
 #include <string.h>
 #include <assert.h>
 
-#include <matamikya.h>
-#include <set.h>
-#include <list.h>
+#include "matamikya.h"
+#include "set.h"
+#include "list.h"
+#include "amount_set.h"
 
 /** Type for representing a Matamikya warehouse */
 typedef struct Matamikya_t{
