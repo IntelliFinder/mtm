@@ -6,13 +6,12 @@
 #include <string.h>
 //set is an array
 #define FIRST_NAME = "trash"
-
-typedef struct AmountSet_t {
+ struct AmountSet_t {
     char* name;
     double amount;
     struct AmountSet_t* next;
     struct AmountSet_t* iterator;
-}*AmountSet;
+};
 
 AmountSet asCreate(){
     AmountSet set = malloc(sizeof (*set));
