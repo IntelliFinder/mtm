@@ -1,6 +1,8 @@
-#include <stdio.h>
+#include "hellomake.h"
 
 int main() {
-    printf("Hello, World!\n");
-    return 0;
+    // call a function in another file
+    myPrintHelloMake();
+
+    return(0);
 }
