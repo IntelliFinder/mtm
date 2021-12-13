@@ -20,6 +20,7 @@ typedef void MtmProductData_t{
     char* units;
     MatamikyaAmountType amountType;
     double discount; //percent*(1/100)
+    //,aybe compare function
 
 } *MtmProductData;
 

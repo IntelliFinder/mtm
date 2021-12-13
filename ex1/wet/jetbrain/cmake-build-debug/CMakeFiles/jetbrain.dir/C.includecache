@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex1/wet/jetbrain/library.c
+library.h
+/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex1/wet/jetbrain/library.h
+stdio.h
+-
+
+/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex1/wet/jetbrain/library.h
+

@@ -1,0 +1,2 @@
+/usr/bin/ar.exe qc libjetbrain.a CMakeFiles/jetbrain.dir/library.c.o
+/usr/bin/ranlib.exe libjetbrain.a
