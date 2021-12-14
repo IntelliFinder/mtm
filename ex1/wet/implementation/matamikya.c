@@ -9,21 +9,21 @@
 #include "amount_set.h"
 
 /** Type for representing a Matamikya warehouse */
-typedef struct Matamikya_t{
+struct Matamikya_t{
     Set mtm;
     List cart;
-} *Matamikya;
+};
 
 /** Type for additional custom data of a product */
-typedef void MtmProductData_t{
-    int id;
+void MtmProductData_t{
+    unsigned int id;
     int amount;
     char* units;
     MatamikyaAmountType amountType;
     double discount; //percent*(1/100)
     //,aybe compare function
 
-} *MtmProductData;
+};
 
 typedef void Order_t{
     unsigned int id;
