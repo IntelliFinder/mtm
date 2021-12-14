@@ -23,7 +23,7 @@ typedef struct MtmProductData_t{
     double discount; //percent*(1/100)
     //,aybe compare function
 
-}*MtmProductData;
+}*MtmProduct;
 
 typedef struct Order_t{
     unsigned int id;
@@ -43,7 +43,7 @@ int main() {
     Matamikya matamikya = { setCreate( copyMtmProductData, freeMtmProductData\
                                                     , compareMtmProductData) };
     MtmProductData data = { 1,1, "Apple" };
-    setAdd(Matmikya->mtm, data);                                                    
+    setAdd(Matmikya->mtm, data);
     Matamikya copy = copyMtmProductData( matamikya );
     printf("%d", compareMtmProductData(matamikya, copy) );
     freeMtmProductData( matamikya );
@@ -52,10 +52,10 @@ int main() {
 }
 
 
-MtmProductData findProductInSet(Set products, const unsigned int productId){
+MtmProduct findProductInSet(Set products, const unsigned int productId){
     if (products==NULL)
         return NULL;
-    MtmProductData mpd = setGetFirst(products);
+    MtmProduct mpd = setGetFirst(products);
     while (mpd != NULL){
         if (productId == mpd->id)
             return mpd;
@@ -69,7 +69,7 @@ SetElement copyMtmProductData( SetElement set_element )
         return NULL;
     }
     MtmProductData product = malloc(sizeof(*product));
-    char* units = malloc(sizeof(strlen( set_element->units) + 1 ));
+    char* units = malloc(sizeof(strlen(set_element->units) + 1 ));
     product->id = set_element->id;
     product->amount = set_element->amount;
     product->units = units;
@@ -138,14 +138,14 @@ MatamikyaResult mtmNewProduct(Matamikya matamikya, const unsigned int id, const 
     if ( amount<0 || !(amountType == MATAMIKYA_INTEGER_AMOUNT || (amountType == MATAMIKYA_ANY_AMOUNT|| (amountType == MATAMIKYA_HALF_INTEGER_AMOUNT )){
         return MATAMIKYA_INVALID_AMOUNT;
     }
-    //go over all elements in set check id take maximum and add one 
+    //go over all elements in set check id take maximum and add one
     if( setIsIn(matamikya->mtm, customData) ){
         return MATAMIKYA_PRODUCT_ALREADY_EXIST;
     }
     customData->name = name;
     customData->id =id;
     customData->amount = amount;
-    
+
     MtmProductData product = MtmCopyData( customData ); // why do we need more details other than customData?
     setAdd( matamilya, product );//suppose setadd already copmapares using compare function, dont see any other way
     return MATAMIKYA_SUCCESS;
@@ -169,7 +169,7 @@ unsigned int mtmCreateNewOrder(Matamikya matamikya){
     maxID++;
     Order newOrder = malloc(sizeof(*newOrder));
     newOrder->id=maxID;
-    newOrder->itemsSet= setCreate();
+    newOrder->itemsSet= setCreate(copyElements,);
     setAdd(matamikya->cart,newOrder);
     return maxID;//id will start with 1 and not a 0
 }
@@ -182,8 +182,8 @@ Order findOrderWithID(const Set cart,const unsigned int orderId){
     }
     return NULL;
 }
-MtmProductData mtmProductDataCreate(unsigned int id, int amount,char* units, MatamikyaAmountType amountType, double discount){
-    MtmProductData mpd = malloc(sizeof(*mpd));
+MtmProduct mtmProductCreate(unsigned int id, int amount,char* units, MatamikyaAmountType amountType, double discount){
+    MtmProduct mpd = malloc(sizeof(*mpd));
     mpd->amount = amount;
     mpd->id = id;
     mpd->units = units;
@@ -193,14 +193,14 @@ MtmProductData mtmProductDataCreate(unsigned int id, int amount,char* units, Mat
 }
 MatamikyaResult mtmChangeProductAmountInOrder(Matamikya matamikya, const unsigned int orderId,
                                               const unsigned int productId, const double amount){
-    if (Matamikya==NULL)
+    if (matamikya==NULL)
         return MATAMIKYA_NULL_ARGUMENT;
-    Order orderToChange = findOrderWithID(matamikya->cart);
+    Order orderToChange = findOrderWithID(matamikya->cart,orderId);
     orderToChange=5;
     if (orderToChange==NULL)
         return MATAMIKYA_ORDER_NOT_EXIST;
-    MtmProductData prodInMTM = findProductInSet(matamikya->mtm,productId);
-    MtmProductData prodInOrder = findProductInSet(orderToChange->itemsSet,productId);
+    MtmProduct prodInMTM = findProductInSet(matamikya->mtm,productId);
+    MtmProduct prodInOrder = findProductInSet(orderToChange->itemsSet,productId);
     if (prodInMTM == NULL) {
 
 
@@ -212,14 +212,14 @@ MatamikyaResult mtmChangeProductAmountInOrder(Matamikya matamikya, const unsigne
         if(amount<0)
             return MATAMIKYA_INVALID_AMOUNT;
         if (amount>0){
-            setAdd(orderToChange->itemsSet, mtmProductDataCreate(productId, amount, prodInMTM->units, prodInMTM->amountType,prodInMTM->discount));
+            setAdd(orderToChange->itemsSet, mtmProductCreate(productId, amount, prodInMTM->units, prodInMTM->amountType,prodInMTM->discount));
             return MATAMIKYA_SUCCESS;
         }
     }
     assert(prodInOrder);
     if (amount>0){
         prodInOrder->amount = prodInOrder->amount + amount;
-        return MATAMIKYA_SUCCESS
+        return MATAMIKYA_SUCCESS;
     }
     if (amount < 0){
         prodInOrder->amount += amount;
