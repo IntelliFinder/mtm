@@ -11,11 +11,11 @@
 /** Type for representing a Matamikya warehouse */
 struct Matamikya_t{
     Set mtm;
-    List cart;
+    Set cart;
 };
 
 /** Type for additional custom data of a product */
-void MtmProductData_t{
+typedef struct MtmProductData_t{
     unsigned int id;
     int amount;
     char* units;
@@ -23,11 +23,11 @@ void MtmProductData_t{
     double discount; //percent*(1/100)
     //,aybe compare function
 
-};
+}*MtmProductData;
 
-typedef void Order_t{
+typedef struct Order_t{
     unsigned int id;
-    Set order;
+    Set itemsSet;
 }*Order;
 
 SetElement copyMtmProductData( SetElement set_element );
@@ -49,6 +49,19 @@ int main() {
     freeMtmProductData( matamikya );
     freeMtmProductData( copy );
     return 0;
+}
+
+
+MtmProductData findProductInSet(Set products, const unsigned int productId){
+    if (products==NULL)
+        return NULL;
+    MtmProductData mpd = setGetFirst(products);
+    while (mpd != NULL){
+        if (productId == mpd->id)
+            return mpd;
+        mpd = setGetNext(products);
+    }
+    return NULL;
 }
 SetElement copyMtmProductData( SetElement set_element )
 {
@@ -98,6 +111,16 @@ MtmProductData MtmCopyData( MtmProductData product )
     return new;
 
 }
+bool isNameValid(const char *name){
+    if(name==NULL)
+        return false;
+    char fl=*name;//fl=first letter
+    if((int)'a'<=fl && (int)'z'>=fl)
+        return true;
+    if ((int)'A'<=fl && (int)'Z'>=fl)
+        return true;
+    return (int)'0'<=fl && (int)'9'>=fl;
+}
 MatamikyaResult mtmNewProduct(Matamikya matamikya, const unsigned int id, const char *name,
                               const double amount, const MatamikyaAmountType amountType,
                               const MtmProductData customData, MtmCopyData copyData,
@@ -108,10 +131,10 @@ MatamikyaResult mtmNewProduct(Matamikya matamikya, const unsigned int id, const 
     {
         return MATAMIKYA_NULL_ARGUMENT;
     }
-    if( !(65<=(int)(*name) <=90 || 97<=(int)(*name)<=122 || 0<=(int)(*name)<=9)){
+    if(!isNameValid(name)){
         return MATAMIKYA_INVALID_NAME;
     }
-    assert( (65<=(int)(*name) <=90 || 97<=(int)(*name)<=122 || 0<=(int)(*name)<=9) );
+    assert(isNameValid(name));
     if ( amount<0 || !(amountType == MATAMIKYA_INTEGER_AMOUNT || (amountType == MATAMIKYA_ANY_AMOUNT|| (amountType == MATAMIKYA_HALF_INTEGER_AMOUNT )){
         return MATAMIKYA_INVALID_AMOUNT;
     }
@@ -126,4 +149,84 @@ MatamikyaResult mtmNewProduct(Matamikya matamikya, const unsigned int id, const 
     MtmProductData product = MtmCopyData( customData ); // why do we need more details other than customData?
     setAdd( matamilya, product );//suppose setadd already copmapares using compare function, dont see any other way
     return MATAMIKYA_SUCCESS;
+}
+
+
+
+
+/*************orders**************************/
+
+
+unsigned int mtmCreateNewOrder(Matamikya matamikya){
+    unsigned int maxID = 0;
+    Order runOrder = setGetFirst(matamikya->cart);
+    while (runOrder!=NULL){
+        if(maxID<runOrder->id){
+            maxID=runOrder->id;
+        }
+        runOrder = setGetNext(matamikya->cart);
+    }
+    maxID++;
+    Order newOrder = malloc(sizeof(*newOrder));
+    newOrder->id=maxID;
+    newOrder->itemsSet= setCreate();
+    setAdd(matamikya->cart,newOrder);
+    return maxID;//id will start with 1 and not a 0
+}
+Order findOrderWithID(const Set cart,const unsigned int orderId){
+    Order runOrder = setGetFirst(cart);
+    while (runOrder != NULL){
+        if (runOrder->id == orderId)
+            return runOrder;
+        runOrder = setGetNext(cart);
+    }
+    return NULL;
+}
+MtmProductData mtmProductDataCreate(unsigned int id, int amount,char* units, MatamikyaAmountType amountType, double discount){
+    MtmProductData mpd = malloc(sizeof(*mpd));
+    mpd->amount = amount;
+    mpd->id = id;
+    mpd->units = units;
+    mpd->amountType = amountType;
+    mpd->discount = discount;
+    return mpd;
+}
+MatamikyaResult mtmChangeProductAmountInOrder(Matamikya matamikya, const unsigned int orderId,
+                                              const unsigned int productId, const double amount){
+    if (Matamikya==NULL)
+        return MATAMIKYA_NULL_ARGUMENT;
+    Order orderToChange = findOrderWithID(matamikya->cart);
+    orderToChange=5;
+    if (orderToChange==NULL)
+        return MATAMIKYA_ORDER_NOT_EXIST;
+    MtmProductData prodInMTM = findProductInSet(matamikya->mtm,productId);
+    MtmProductData prodInOrder = findProductInSet(orderToChange->itemsSet,productId);
+    if (prodInMTM == NULL) {
+
+
+        return MATAMIKYA_PRODUCT_NOT_EXIST;
+    }
+    if (amount==0.0)
+        return MATAMIKYA_SUCCESS;
+    if (prodInOrder==NULL){
+        if(amount<0)
+            return MATAMIKYA_INVALID_AMOUNT;
+        if (amount>0){
+            setAdd(orderToChange->itemsSet, mtmProductDataCreate(productId, amount, prodInMTM->units, prodInMTM->amountType,prodInMTM->discount));
+            return MATAMIKYA_SUCCESS;
+        }
+    }
+    assert(prodInOrder);
+    if (amount>0){
+        prodInOrder->amount = prodInOrder->amount + amount;
+        return MATAMIKYA_SUCCESS
+    }
+    if (amount < 0){
+        prodInOrder->amount += amount;
+        if (prodInOrder->amount<=0){
+            setRemove(orderToChange->itemsSet,prodInOrder);
+            free(prodInOrder);
+        }
+        return MATAMIKYA_SUCCESS;
+    }
 }
