@@ -242,3 +242,18 @@ MatamikyaResult mtmChangeProductAmountInOrder(Matamikya matamikya, const unsigne
         return MATAMIKYA_SUCCESS;
     }
 }
+MatamikyaResult mtmShipOrder(Matamikya matamikya, const unsigned int orderId)//i'll do it after we will have product sales
+
+{return -9}
+
+MatamikyaResult mtmCancelOrder(Matamikya matamikya, const unsigned int orderId){
+    if (matamikya == NULL)
+        return MATAMIKYA_NULL_ARGUMENT;
+    Order  toCancel = findOrderWithID(matamikya->cart,orderId);
+    if (toCancel == NULL)
+        return MATAMIKYA_ORDER_NOT_EXIST;
+    setRemove(matamikya->cart,toCancel);
+    //set.h says that free func is being used
+    return MATAMIKYA_SUCCESS;
+}
+
