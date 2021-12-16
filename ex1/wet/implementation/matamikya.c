@@ -159,33 +159,34 @@ MtmProduct mtmProductCreate(unsigned int id, int amount,char* units, MatamikyaAm
     mpd->customData = customData;
     return mpd;
 }
-copySetElements itemSetCopyElement(MtmProduct mp){
+SetElement itemSetCopyElement(SetElement mp1){
+    MtmProduct mp = (MtmProduct)(mp1);
     MtmProduct ans = mtmProductCreate(mp->id, mp->amount, mp->units, mp->amountType, mp->discount, mp->customData);
-    return (void*)ans;
+    return ans;
 }
-freeSetElements itemSetFreeElement(MtmProduct mp){
+void itemSetFreeElement(SetElement mp){
     free(mp);
-    //I think we dont need to free mp->customData because there could be one customData for many products
+    //i think we dont need to free mp->customData because there could be one customData for many products
 }
-int compareSetElements(SetElement mp1,SetElement mp2){//compare by id
-    if( mp1 == NULL || mp2 == NULL ){
-        return
-    }
-    int c = ((MtmProduct)mp1->id - (MtmProduct)mp2->id);
-    return c;
+int itemSetCompareElement(SetElement mp11,SetElement mp21){//compare by id
+    MtmProduct mp1 = mp11;
+    MtmProduct mp2 = mp21;
+    return ((int)(mp1->id) - (int)(mp2->id));
 }
-copySetElements cartSetCopyElement(Order order){
+SetElement cartSetCopyElement(SetElement order){
     Order ans = malloc(sizeof(*ans));
-    ans->itemsSet = itemSetCopyElement(order->itemsSet);
+    ans->itemsSet = itemSetCopyElement((Order)(order)->itemsSet);
     ans->id = order->id;
     return ans;
 }
-freeSetElements cartSetFreeElement(Order order){
-    itemSetFreeElement((MtmProductData)order->itemsSet);
+void cartSetFreeElement(SetElement order){
+    itemSetFreeElement((Order)(order)->itemsSet);
     free(order);
 }
-compareSetElements cartSetCompareElement(Order order1,Order order2){
-    return (int*)(order1->id - order2->id);
+int cartSetCompareElement(SetElement order11,SetElement order21){
+    Order order1 = order11;
+    Order order2 = order21;
+    return (int)order1->id - (int)order2->id;
 }
 
 
