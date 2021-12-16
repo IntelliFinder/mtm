@@ -16,7 +16,7 @@ struct Matamikya_t{
 
 /** Type for additional custom data of a product */
 typedef struct MtmProduct_t{
-    unsigned int id;
+    unsigned int id; //const
     double amount;
     char* units;
     MatamikyaAmountType amountType;
@@ -28,7 +28,7 @@ typedef struct MtmProduct_t{
 }*MtmProduct;
 
 typedef struct Order_t{
-    unsigned int id;
+    unsigned int id; //const
     Set itemsSet;
 }*Order;
 
@@ -42,18 +42,19 @@ int compareSetElements( SetElement setElement, SetElement setElement );
 
 
 int main() {
-    Matamikya matamikya = { setCreate( copyMtmProductData, freeMtmProductData\
-                                                    , compareMtmProductData) };
-    MtmProductData data = { 1,1, "Apple" };
+    Matamikya matamikya = matamikyaCreate();
+    matamikya->mtm =  setCreate( copyMtmProductData, freeMtmProductData, compareMtmProductData) ;
+    MtmProductData data = malloc(sizeof(*MtmProductData));
+    /* *data = { 1,1, "Apple" };
     setAdd(Matmikya->mtm, data);
     Matamikya copy = copyMtmProductData( matamikya );
     printf("%d", compareMtmProductData(matamikya, copy) );
     freeMtmProductData( matamikya );
-    freeMtmProductData( copy );
+    freeMtmProductData( copy );*/
     return 0;
 }
 
-
+/*
 MtmProduct findProductInSet(Set products, const unsigned int productId){
     if (products==NULL)
         return NULL;
@@ -153,7 +154,10 @@ MatamikyaResult mtmNewProduct(Matamikya matamikya, const unsigned int id, const 
     setAdd( matamilya, product );//suppose setadd already copmapares using compare function, dont see any other way
     return MATAMIKYA_SUCCESS;
 }
+ */
+
 /************************I start here my code****************/
+/*
 MtmProduct mtmProductCreate(unsigned int id, int amount,char* units, MatamikyaAmountType amountType, double discount, MtmProductData customData){
     MtmProduct mpd = malloc(sizeof(*mpd));
     mpd->amount = amount;
@@ -196,10 +200,10 @@ Matamikya matamikyaCreate(){
 }
 
 
-
+*/
 
 /*************orders**************************/
-
+/*
 unsigned int mtmCreateNewOrder(Matamikya matamikya){
     unsigned int maxID = 0;
     Order runOrder = setGetFirst(matamikya->cart);
@@ -265,7 +269,7 @@ MatamikyaResult mtmChangeProductAmountInOrder(Matamikya matamikya, const unsigne
         return MATAMIKYA_SUCCESS;
     }
 }
-/*
+
 MatamikyaResult mtmShipOrder(Matamikya matamikya, const unsigned int orderId)//i'll do it after we will have product sales
 {
     if(matamikya == NULL)
@@ -278,7 +282,7 @@ MatamikyaResult mtmShipOrder(Matamikya matamikya, const unsigned int orderId)//i
         if
     }
 }
-*/
+
 MatamikyaResult mtmCancelOrder(Matamikya matamikya, const unsigned int orderId){
     if (matamikya == NULL)
         return MATAMIKYA_NULL_ARGUMENT;
@@ -289,4 +293,4 @@ MatamikyaResult mtmCancelOrder(Matamikya matamikya, const unsigned int orderId){
     //set.h says that free func is being used
     return MATAMIKYA_SUCCESS;
 }
-
+*/
