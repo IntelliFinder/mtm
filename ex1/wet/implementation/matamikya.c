@@ -265,6 +265,7 @@ MatamikyaResult mtmChangeProductAmountInOrder(Matamikya matamikya, const unsigne
         return MATAMIKYA_SUCCESS;
     }
 }
+/*
 MatamikyaResult mtmShipOrder(Matamikya matamikya, const unsigned int orderId)//i'll do it after we will have product sales
 {
     if(matamikya == NULL)
@@ -277,7 +278,7 @@ MatamikyaResult mtmShipOrder(Matamikya matamikya, const unsigned int orderId)//i
         if
     }
 }
-
+*/
 MatamikyaResult mtmCancelOrder(Matamikya matamikya, const unsigned int orderId){
     if (matamikya == NULL)
         return MATAMIKYA_NULL_ARGUMENT;
