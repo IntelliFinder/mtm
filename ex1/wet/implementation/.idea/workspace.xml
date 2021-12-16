@@ -7,7 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9ac8613b-3665-469f-bf85-a8d28c1caf02" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../demo/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/../demo/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/matamikya.c" beforeDir="false" afterPath="$PROJECT_DIR$/matamikya.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -51,7 +51,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1639677559853</updated>
-      <workItem from="1639677561970" duration="2599000" />
+      <workItem from="1639677561970" duration="4261000" />
     </task>
     <servers />
   </component>

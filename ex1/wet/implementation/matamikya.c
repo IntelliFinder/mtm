@@ -22,7 +22,7 @@ typedef struct MtmProduct_t{
     MatamikyaAmountType amountType;
     double discount; //percent*(1/100)
     double amountSold;//only being used for mtm
-    //,aybe compare function
+    //maybe compare function
     MtmProductData customData;
 
 }*MtmProduct;
@@ -32,25 +32,16 @@ typedef struct Order_t{
     Set itemsSet;
 }*Order;
 
-SetElement copyMtmProductData( SetElement set_element );
-void freeMtmProductData( SetElement set_element );
-int compareMtmProductData( SetElement set_element_1,SetElement set_element_2 );
-
-void FreeListElement( SetElement setElement );
-SetElement copySetElements( SetElement SetElement );
-int compareSetElements( SetElement setElement, SetElement setElement );
-
-
 int main() {
     Matamikya matamikya = matamikyaCreate();
-    matamikya->mtm =  setCreate( copyMtmProductData, freeMtmProductData, compareMtmProductData) ;
-    MtmProductData data = malloc(sizeof(*MtmProductData));
-    /* *data = { 1,1, "Apple" };
+    matamikya->mtm =    NULL;
+    /*
     setAdd(Matmikya->mtm, data);
     Matamikya copy = copyMtmProductData( matamikya );
     printf("%d", compareMtmProductData(matamikya, copy) );
     freeMtmProductData( matamikya );
-    freeMtmProductData( copy );*/
+    freeMtmProductData( copy );
+     */
     return 0;
 }
 
@@ -157,7 +148,7 @@ MatamikyaResult mtmNewProduct(Matamikya matamikya, const unsigned int id, const 
  */
 
 /************************I start here my code****************/
-/*
+
 MtmProduct mtmProductCreate(unsigned int id, int amount,char* units, MatamikyaAmountType amountType, double discount, MtmProductData customData){
     MtmProduct mpd = malloc(sizeof(*mpd));
     mpd->amount = amount;
@@ -192,15 +183,15 @@ freeSetElements cartSetFreeElement(Order order){
 compareSetElements cartSetCompareElement(Order  order1,Order order2){
     return order1->id - order2->id;
 }
+
+
+
 Matamikya matamikyaCreate(){
     Matamikya ans = malloc(sizeof(*ans));
     ans->mtm = setCreate(itemSetCopyElement,itemSetFreeElement,itemSetCompareElement);
     ans->cart = setCreate(cartSetCopyElement,cartSetFreeElement,cartSetCompareElement);
     return ans;
 }
-
-
-*/
 
 /*************orders**************************/
 /*
