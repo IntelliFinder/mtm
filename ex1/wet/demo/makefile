@@ -1,14 +1,11 @@
 CC = gcc
-OBJ = matamikya.o  matamikya_tests.o matamikya_main.o #libas.a libmtm.a
+#OBJ = matamikya.o libas.a libmtm.a
 EXEC = prog
-DEBUG_FLAG = -L. -lmtm -lm -las
-C_FLAG = -g
+DEBUG_FLAG = -L. -lmtm
 COMP_FLAG = -std=c99 -Werror -Wall -pedantic-errors
 
-$(EXEC) : $(OBJ)
-	$(CC) $(DEBUG_FLAG) $(COMP_FLAG) -o $@
-matamikya.o : matamikya.c matamikya.h set.h list.h amount_set.h
-	$(CC) $(C_FLAG) $(COMP_FLAG) -c $*.c
+$(EXEC) :
+	$(CC) $(COMP_FLAG) -o matamikya matamikya.c $(DEBUG_FLAG)
 clean:
 	rm -f $(OBJ) $(EXEC)
 
