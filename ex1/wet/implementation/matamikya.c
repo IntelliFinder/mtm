@@ -71,7 +71,11 @@ MtmProduct mtmProductCreate(unsigned int id, double amount,char* name, Matamikya
     mpd->prodPrice = prodPrice;
     return mpd;
 }
-
+void mtmProductDestroy(MtmProduct mp){
+    free(mp->name);
+    mp->freeData(mp->customData);
+    free(mp);
+}
 
 /*=============================Set=============================================*/
 MtmProduct findProductInSet(Set products, const unsigned int productId){
