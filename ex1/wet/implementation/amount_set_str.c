@@ -259,7 +259,7 @@ void printASResult(AmountSetResult asr){
     }
 
 }
-
+/*
 //for quick tests
 int main1() {
     AmountSet as = asCreate();
@@ -305,3 +305,4 @@ int main(){
     printf("end");
     return 0;
 }
+*/
