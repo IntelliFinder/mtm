@@ -21,7 +21,8 @@ struct Matamikya_t{
 typedef struct MtmProduct_t{
     unsigned int id; //const
     double amount;
-    char* units;
+    char* name;
+
     MatamikyaAmountType amountType;
     double discount; //percent*(1/100)
     double amountSold;//only being used for mtm, remember that when created needs to be 0
@@ -50,7 +51,7 @@ int main() {
     return 0;
 }
 
-MtmProduct mtmProductCreate(unsigned int id, double amount,char* units, MatamikyaAmountType amountType,
+MtmProduct mtmProductCreate(unsigned int id, double amount,char* name, MatamikyaAmountType amountType,
                             double discount, double amountSold, MtmProductData customData,MtmCopyData copyData, MtmFreeData freeData,MtmGetProductPrice prodPrice)
 {
     if(customData == NULL){
@@ -59,8 +60,8 @@ MtmProduct mtmProductCreate(unsigned int id, double amount,char* units, Matamiky
     MtmProduct mpd = malloc(sizeof(*mpd));
     mpd->amount = amount;
     mpd->id = id;
-    mpd->units = malloc(sizeof( strlen(units) + 1 ));
-    *(mpd->units) = *units;
+    mpd->name = malloc(sizeof( strlen(name) + 1 ));
+    *(mpd->name) = *name;
     mpd->amountType = amountType;
     mpd->discount = discount;
     mpd->amountSold = amountSold;
@@ -88,7 +89,7 @@ MtmProduct findProductInSet(Set products, const unsigned int productId){
 
 SetElement itemSetCopyElement(SetElement mp1){
     MtmProduct mp = (MtmProduct)(mp1);
-    MtmProduct ans = mtmProductCreate(mp->id, mp->amount,mp->units, mp->amountType, mp->discount, mp->amountSold, mp->customData,mp->copyData, mp->freeData,mp->prodPrice);
+    MtmProduct ans = mtmProductCreate(mp->id, mp->amount,mp->name, mp->amountType, mp->discount, mp->amountSold, mp->customData,mp->copyData, mp->freeData,mp->prodPrice);
     return ans;
 }
 void itemSetFreeElement(SetElement mpV){
@@ -200,7 +201,10 @@ MatamikyaResult mtmNewProduct(Matamikya matamikya, const unsigned int id, const 
     if( setIsIn(matamikya->mtm, customData) ){
         return MATAMIKYA_PRODUCT_ALREADY_EXIST;
     }
-    MtmProduct product = copyData( customData ); // why do we need more details other than customData?
+    MtmProduct product = mtmProductCreate(id, amount,name, amountType,
+                                          discount, amountSold, MtmProductData customData,MtmCopyData copyData, MtmFreeData freeData,MtmGetProductPrice prodPrice)
+
+
     setAdd( matamikya->mtm, product );
     return MATAMIKYA_SUCCESS;
 }
@@ -260,7 +264,7 @@ MatamikyaResult mtmChangeProductAmountInOrder(Matamikya matamikya, const unsigne
         if(amount<0)
             return MATAMIKYA_INVALID_AMOUNT;
         if (amount>0){
-            setAdd(orderToChange->itemsSet, mtmProductCreate(prodInMTM->id, prodInMTM->amount,prodInMTM->units, prodInMTM->amountType,
+            setAdd(orderToChange->itemsSet, mtmProductCreate(prodInMTM->id, prodInMTM->amount,prodInMTM->name, prodInMTM->amountType,
                                              prodInMTM->discount, prodInMTM->amountSold, prodInMTM->customData,prodInMTM->copyData,
                                              prodInMTM->freeData,prodInMTM->prodPrice) );
             return MATAMIKYA_SUCCESS;
