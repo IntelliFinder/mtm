@@ -58,6 +58,9 @@ bool testCheckSort(){
     asDestroy(as);
     return true;
 }
+bool testCheckCopy() {
+
+}
 static MtmProductData copyDouble(MtmProductData number) {
     double *copy = malloc(sizeof(*copy));
     if (copy) {

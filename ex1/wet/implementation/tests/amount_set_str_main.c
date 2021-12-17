@@ -5,7 +5,9 @@ int main()
 {
     RUN_TEST(testCreate);
     RUN_TEST(testDestroy);
-    RUN_TEST(testCheckSort)
+    RUN_TEST(testCheckSort);
+    RUN_TEST(testCheckCopy);
+
     /*
     RUN_TEST(testModifyProducts);
     RUN_TEST(testModifyOrders);

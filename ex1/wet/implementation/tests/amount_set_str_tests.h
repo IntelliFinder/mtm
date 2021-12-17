@@ -5,10 +5,13 @@
 
 bool testCreate();
 bool testDestroy();
+bool testCheckSort();
+bool testCheckCopy();
+/*
 bool testModifyProducts();
 bool testModifyOrders();
 bool testPrintInventory();
 bool testPrintOrder();
 bool testPrintBestSelling();
-
+*/
 #endif /* MTM_TESTS_H_ */
