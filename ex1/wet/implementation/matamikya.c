@@ -61,7 +61,7 @@ MtmProduct findProductInSet(Set products, const unsigned int productId){
     return NULL;
 }
 
-/*SetElement copyMtmProductData( SetElement set_element )
+SetElement copyMtmProductData( SetElement set_element )
 {
     if( set_element == NULL ){
         return NULL;
@@ -119,7 +119,7 @@ bool isNameValid(const char *name){
         return true;
     return (int)'0'<=fl && (int)'9'>=fl;
 }
- /*
+
 MatamikyaResult mtmNewProduct(Matamikya matamikya, const unsigned int id, const char *name,
                               const double amount, const MatamikyaAmountType amountType,
                               const MtmProductData customData, MtmCopyData copyData,
@@ -149,7 +149,7 @@ MatamikyaResult mtmNewProduct(Matamikya matamikya, const unsigned int id, const 
     setAdd( matamilya, product );//suppose setadd already copmapares using compare function, dont see any other way
     return MATAMIKYA_SUCCESS;
 }
- */
+
 
 /************************I start here my code****************/
 
