@@ -154,6 +154,9 @@ MatamikyaResult mtmNewProduct(Matamikya matamikya, const unsigned int id, const 
 /************************I start here my code****************/
 
 MtmProduct mtmProductCreate(unsigned int id, int amount,char* units, MatamikyaAmountType amountType, double discount, MtmProductData customData){
+    if(customData == NULL){
+        return NULL;
+    }
     MtmProduct mpd = malloc(sizeof(*mpd));
     mpd->amount = amount;
     mpd->id = id;
