@@ -197,13 +197,16 @@ int cartSetCompareElement(SetElement order11,SetElement order21){
     return (int)order1->id - (int)order2->id;
 }
 
-
-
 Matamikya matamikyaCreate(){
     Matamikya ans = malloc(sizeof(*ans));
     ans->mtm = setCreate(itemSetCopyElement,itemSetFreeElement,itemSetCompareElement);
     ans->cart = setCreate(cartSetCopyElement,cartSetFreeElement,cartSetCompareElement);
     return ans;
+}
+void matamikyaDestroy(Matamikya matamikya){
+    setDestroy(matamikya->mtm);
+    setDestroy(matamikya->cart);
+    free(matamikya);
 }
 MatamikyaResult mtmClearProduct(Matamikya matamikya, const unsigned int id){
     if (matamikya == NULL)
