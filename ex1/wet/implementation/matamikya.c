@@ -241,6 +241,28 @@ Order findOrderWithID(const Set cart,const unsigned int orderId){
     }
     return NULL;
 }
+bool isAmountValid(const MtmProduct mp,const double wantedAmount){
+    double diff = (double)prodInOrder->amount - (int)prodInOrder->amount;
+    if( mp->amountType == MATAMIKYA_INTEGER_AMOUNT ){
+        if( diff <= 0.001 || diff >= 0.999){
+           return true;
+        } else{
+            return false;
+        }
+    }
+   if( mp->amountType == MATAMIKYA_HALF_INTEGER_AMOUNT ){
+       if( diff <= 0.001 || diff >= 0.999){
+          return true;
+        }
+       if( (diff-0.5) <= 0.001 || (diff-0.5)>=-0.001){
+           return true;
+       }
+       return false;
+    }
+    asssert(mp->amountType==MATAMIKYA_ANY_AMOUNT);
+    return true;
+
+}
 
 MatamikyaResult mtmChangeProductAmountInOrder(Matamikya matamikya, const unsigned int orderId,
                                               const unsigned int productId, const double amount){
@@ -274,20 +296,23 @@ MatamikyaResult mtmChangeProductAmountInOrder(Matamikya matamikya, const unsigne
     }
     assert(prodInOrder);
     if (amount>0){
-        prodInOrder->amount = prodInOrder->amount + amount;
-        if( (double)prodInOrder->amount - (int) ){
+        if(isAmountValid(prodInOrder, prodInOrder->amount+amount) ){
+                if(prodInMTM->amount >= prodInOrder->amount + amount){}
+                prodInOrder->amount = prodInOrder->amount + amount;
 
+                  return MATAMIKYA_SUCCESS;
         }
-        return MATAMIKYA_SUCCESS;
+        return MATAMIKYA_INVALID_AMOUNT;
     }
     else{
         assert(amount<0);
-        prodInOrder->amount += amount;
-        if (prodInOrder->amount<=0){
-            setRemove(orderToChange->itemsSet,prodInOrder);
-            //free(prodInOrder); //unnecessary already done by set
+        if(isAmountValid(prodInOrder, prodInOrder->amount+amount) ) {
+            prodInOrder->amount += amount;
+            if (prodInOrder->amount<=0){
+                setRemove(orderToChange->itemsSet,prodInOrder);
+            }
+            return MATAMIKYA_SUCCESS;
         }
-        return MATAMIKYA_SUCCESS;
     }
     return MATAMIKYA_SUCCESS;
 }
