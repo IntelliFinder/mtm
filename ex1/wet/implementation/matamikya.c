@@ -21,7 +21,7 @@ typedef struct MtmProduct_t{
     char* units;
     MatamikyaAmountType amountType;
     double discount; //percent*(1/100)
-    double amountSold;//only being used for mtm
+    double amountSold;//only being used for mtm, remember that when created needs to be 0
     //maybe compare function
     MtmProductData customData;
     MtmCopyData copyData;
@@ -296,19 +296,35 @@ MatamikyaResult mtmChangeProductAmountInOrder(Matamikya matamikya, const unsigne
     return MATAMIKYA_SUCCESS;
 }
 
-/*
-MatamikyaResult mtmShipOrder(Matamikya matamikya, const unsigned int orderId)//i'll do it after we will have product sales
+
+MatamikyaResult mtmShipOrder(Matamikya matamikya, const unsigned int orderId)
 {
     if(matamikya == NULL)
         return MATAMIKYA_NULL_ARGUMENT;
     Order shipOrder = findOrderWithID(matamikya->cart,orderId);
     if (shipOrder == NULL)
         return MATAMIKYA_ORDER_NOT_EXIST;
-    MtmProduct mpSell = setGetFirst(shipOrder->itemsSet);
-    while (mpSell != NULL){
-        if
+    MtmProduct mpOrderSell = setGetFirst(shipOrder->itemsSet);
+    //check there is enough amount in warehouse
+    MtmProduct mpMtmSell;
+    while (mpOrderSell != NULL){
+        mpMtmSell = findProductInSet(matamikya->mtm,mpOrderSell->id);
+        if (mpOrderSell->amount > mpMtmSell->amount)
+            return MATAMIKYA_INSUFFICIENT_AMOUNT;
+        mpOrderSell = setGetNext(shipOrder->itemsSet);
     }
-}*/
+    //now we can actually ship
+    mpOrderSell = setGetFirst(shipOrder->itemsSet);
+    while (mpOrderSell != NULL){
+        mpMtmSell = findProductInSet(matamikya->mtm,mpOrderSell->id);
+        mpMtmSell->amountSold += mpOrderSell->amount;//assumes amount is good and not 0.0011
+        mpMtmSell->amount -= mpOrderSell->amount;
+
+        mpOrderSell = setGetNext(shipOrder->itemsSet);
+    }
+    mtmCancelOrder(matamikya,orderId);
+    return MATAMIKYA_SUCCESS;
+}
 
 MatamikyaResult mtmCancelOrder(Matamikya matamikya, const unsigned int orderId){
     if (matamikya == NULL)
