@@ -24,6 +24,9 @@ typedef struct MtmProduct_t{
     double amountSold;//only being used for mtm
     //maybe compare function
     MtmProductData customData;
+    MtmCopyData copyData;
+    MtmFreeData freeData;
+    MtmGetProductPrice prodPrice;
 
 }*MtmProduct;
 
@@ -165,7 +168,9 @@ SetElement itemSetCopyElement(SetElement mp1){
     MtmProduct ans = mtmProductCreate(mp->id, mp->amount, mp->units, mp->amountType, mp->discount, mp->customData);
     return ans;
 }
-void itemSetFreeElement(SetElement mp){
+void itemSetFreeElement(SetElement mpV){
+    MtmProduct mp = mpV;
+    mp->freeData(mp->customData);
     free(mp);
     //i think we dont need to free mp->customData because there could be one customData for many products
 }
@@ -200,6 +205,23 @@ Matamikya matamikyaCreate(){
     ans->cart = setCreate(cartSetCopyElement,cartSetFreeElement,cartSetCompareElement);
     return ans;
 }
+MatamikyaResult mtmClearProduct(Matamikya matamikya, const unsigned int id){
+    if (matamikya == NULL)
+        return MATAMIKYA_NULL_ARGUMENT;
+    MtmProduct mpClear = findProductInSet(matamikya->mtm,id);
+    if (mpClear == NULL)
+        return MATAMIKYA_PRODUCT_NOT_EXIST;
+    setRemove(matamikya->mtm,mpClear);
+    //remove from all orders
+    Order runOrder = setGetFirst(matamikya->cart);
+    while (runOrder!=NULL){
+        mpClear = findProductInSet(runOrder->itemsSet,id);
+        setRemove(runOrder->itemsSet,mpClear);
+        runOrder = setGetNext(matamikya->cart);
+    }
+    return MATAMIKYA_SUCCESS;
+}
+
 
 /*************orders**************************/
 
@@ -270,6 +292,7 @@ MatamikyaResult mtmChangeProductAmountInOrder(Matamikya matamikya, const unsigne
     }
     return MATAMIKYA_SUCCESS;
 }
+
 /*
 MatamikyaResult mtmShipOrder(Matamikya matamikya, const unsigned int orderId)//i'll do it after we will have product sales
 {
