@@ -204,9 +204,9 @@ MatamikyaResult mtmNewProduct(Matamikya matamikya, const unsigned int id, const 
     MtmProduct product = mtmProductCreate(id, amount,name, amountType,                                    
                                           discount, amountSold, customData,copyData, freeData,prodPrice); //go over all elements in set check id take maximum and add one
     if( setIsIn(matamikya->mtm, product) ){
-
+        mtmProductDestroy( product );
         return MATAMIKYA_PRODUCT_ALREADY_EXIST;
-    }
+    
     setAdd( matamikya->mtm, product );
     return MATAMIKYA_SUCCESS;
 }
