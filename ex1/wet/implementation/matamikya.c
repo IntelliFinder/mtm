@@ -7,9 +7,7 @@
 #include "set.h"
 #include "list.h"
 #include "amount_set.h"
-#include "matamikya_set.c"
-#include "matamikya_matamikya.c"
-#include "matamikya_order.c"
+
 
 /** Type for representing a Matamikya warehouse */
 struct Matamikya_t{
@@ -40,7 +38,7 @@ typedef struct Order_t{
 
 int main() {
     Matamikya matamikya = matamikyaCreate();
-    matamikya->mtm =    NULL;
+    matamikya->mtm = NULL;
     /*
     setAdd(Matmikya->mtm, data);
     Matamikya copy = copyMtmProductData( matamikya );
@@ -50,98 +48,6 @@ int main() {
      */
     return 0;
 }
-/*=====================Matamikya===============================================*/
-
-MtmProductData MtmCopyData( MtmProductData product )
-{
-    if( product == NULL ){
-        return NULL;
-    }
-    char* name = malloc(strlen(*product->units) + 1);
-    if( name ==NULL)
-    {
-        return NULL;
-    }
-    *name = *(product->units);
-    MtmProductData new = { product->id, product->amount, name, product->amountType };
-    return new;
-
-}
-
-Matamikya matamikyaCreate(){
-    Matamikya ans = malloc(sizeof(*ans));
-    ans->mtm = setCreate(itemSetCopyElement,itemSetFreeElement,itemSetCompareElement);
-    ans->cart = setCreate(cartSetCopyElement,cartSetFreeElement,cartSetCompareElement);
-    return ans;
-}
-void matamikyaDestroy(Matamikya matamikya){
-    setDestroy(matamikya->mtm);
-    setDestroy(matamikya->cart);
-    free(matamikya);
-}
-MatamikyaResult mtmClearProduct(Matamikya matamikya, const unsigned int id){
-    if (matamikya == NULL)
-        return MATAMIKYA_NULL_ARGUMENT;
-    MtmProduct mpClear = findProductInSet(matamikya->mtm,id);
-    if (mpClear == NULL)
-        return MATAMIKYA_PRODUCT_NOT_EXIST;
-    setRemove(matamikya->mtm,mpClear);
-    //remove from all orders
-    Order runOrder = setGetFirst(matamikya->cart);
-    while (runOrder!=NULL){
-        mpClear = findProductInSet(runOrder->itemsSet,id);
-        setRemove(runOrder->itemsSet,mpClear);
-        runOrder = setGetNext(matamikya->cart);
-    }
-    return MATAMIKYA_SUCCESS;
-}
-MatamikyaResult mtmNewProduct(Matamikya matamikya, const unsigned int id, const char *name,
-                              const double amount, const MatamikyaAmountType amountType,
-                              const MtmProductData customData, MtmCopyData copyData,
-                              MtmFreeData freeData, MtmGetProductPrice prodPrice)
-{ //matamikya non-null
-    if( matamikya == NULL || name==NULL || amountType ==NULL ||
-        customData ==NULL || freeData ==NULL || prodPrice ==NULL )
-    {
-        return MATAMIKYA_NULL_ARGUMENT;
-    }
-    if(!isNameValid(name)){
-        return MATAMIKYA_INVALID_NAME;
-    }
-    assert(isNameValid(name));
-    if ( amount<0 || !(amountType == MATAMIKYA_INTEGER_AMOUNT || (amountType == MATAMIKYA_ANY_AMOUNT|| (amountType == MATAMIKYA_HALF_INTEGER_AMOUNT )){
-        return MATAMIKYA_INVALID_AMOUNT;
-    }
-    //go over all elements in set check id take maximum and add one
-    if( setIsIn(matamikya->mtm, customData) ){
-        return MATAMIKYA_PRODUCT_ALREADY_EXIST;
-    }
-    customData->name = name;
-    customData->id =id;
-    customData->amount = amount;
-
-    MtmProductData product = MtmCopyData( customData ); // why do we need more details other than customData?
-    setAdd( matamilya, product );//suppose setadd already copmapares using compare function, dont see any other way
-    return MATAMIKYA_SUCCESS;
-}
-
-
-MtmProduct mtmProductCreate(unsigned int id, int amount,char* units, MatamikyaAmountType amountType, double discount, MtmProductData customData){
-    if(customData == NULL){
-        return NULL;
-    }
-    MtmProduct mpd = malloc(sizeof(*mpd));
-    mpd->amount = amount;
-    mpd->id = id;
-    mpd->units = units;
-    mpd->amountType = amountType;
-    mpd->discount = discount;
-    mpd->customData = customData;
-    return mpd;
-}
-
-
-/*===============================end matamikya===========================================*/
 
 /*************orders**************************/
 
@@ -350,3 +256,93 @@ int cartSetCompareElement(SetElement order11,SetElement order21){
 
 /**==============================end set=========================================**/
 
+
+/*=====================Matamikya===============================================*/
+
+MtmProductData MtmProductCopyData( MtmProductData product )
+{
+    if( product == NULL ){
+        return NULL;
+    }
+    MtmProduct new = *(MtmProduct*)product;
+    return new;
+
+}
+
+Matamikya matamikyaCreate(){
+    Matamikya ans = malloc(sizeof(*ans));
+    ans->mtm = setCreate(itemSetCopyElement,itemSetFreeElement,itemSetCompareElement);
+    ans->cart = setCreate(cartSetCopyElement,cartSetFreeElement,cartSetCompareElement);
+    if ( ans->mtm == NULL || ans->cart == NULL ){
+        return NULL;
+    }
+    return ans;
+}
+void matamikyaDestroy(Matamikya matamikya){
+    setDestroy(matamikya->mtm);
+    setDestroy(matamikya->cart);
+    free(matamikya);
+}
+MatamikyaResult mtmClearProduct(Matamikya matamikya, const unsigned int id){
+    if (matamikya == NULL)
+        return MATAMIKYA_NULL_ARGUMENT;
+    MtmProduct mpClear = findProductInSet(matamikya->mtm,id);
+    if (mpClear == NULL)
+        return MATAMIKYA_PRODUCT_NOT_EXIST;
+    setRemove(matamikya->mtm,mpClear);
+    //remove from all orders
+    Order runOrder = setGetFirst(matamikya->cart);
+    while (runOrder!=NULL){
+        mpClear = findProductInSet(runOrder->itemsSet,id);
+        setRemove(runOrder->itemsSet,mpClear);
+        runOrder = setGetNext(matamikya->cart);
+    }
+    return MATAMIKYA_SUCCESS;
+}
+MatamikyaResult mtmNewProduct(Matamikya matamikya, const unsigned int id, const char *name,
+                              const double amount, const MatamikyaAmountType amountType,
+                              const MtmProductData customData, MtmCopyData copyData,
+                              MtmFreeData freeData, MtmGetProductPrice prodPrice)
+{ //matamikya non-null
+    if( matamikya == NULL || name==NULL || amountType ==NULL ||
+        customData ==NULL || freeData ==NULL || prodPrice ==NULL )
+    {
+        return MATAMIKYA_NULL_ARGUMENT;
+    }
+    if(!isNameValid(name)){
+        return MATAMIKYA_INVALID_NAME;
+    }
+    assert(isNameValid(name));
+    if ( amount<0 || !(amountType == MATAMIKYA_INTEGER_AMOUNT || (amountType == MATAMIKYA_ANY_AMOUNT|| (amountType == MATAMIKYA_HALF_INTEGER_AMOUNT )){
+        return MATAMIKYA_INVALID_AMOUNT;
+    }
+    //go over all elements in set check id take maximum and add one
+    if( setIsIn(matamikya->mtm, customData) ){
+        return MATAMIKYA_PRODUCT_ALREADY_EXIST;
+    }
+    customData->name = name;
+    customData->id =id;
+    customData->amount = amount;
+
+    MtmProductData product = MtmCopyData( customData ); // why do we need more details other than customData?
+    setAdd( matamilya, product );//suppose setadd already copmapares using compare function, dont see any other way
+    return MATAMIKYA_SUCCESS;
+}
+
+
+MtmProduct mtmProductCreate(unsigned int id, int amount,char* units, MatamikyaAmountType amountType, double discount, MtmProductData customData){
+    if(customData == NULL){
+        return NULL;
+    }
+    MtmProduct mpd = malloc(sizeof(*mpd));
+    mpd->amount = amount;
+    mpd->id = id;
+    mpd->units = units;
+    mpd->amountType = amountType;
+    mpd->discount = discount;
+    mpd->customData = customData;
+    return mpd;
+}
+
+
+/*===============================end matamikya===========================================*/
