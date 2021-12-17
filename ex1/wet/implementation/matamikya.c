@@ -61,11 +61,11 @@ MtmProduct mtmProductCreate(unsigned int id, double amount,char* name, Matamikya
     mpd->amount = amount;
     mpd->id = id;
     mpd->name = malloc(sizeof( strlen(name) + 1 ));
-    *(mpd->name) = *name;
+    strcpy((mpd->name),name);
     mpd->amountType = amountType;
     mpd->discount = discount;
     mpd->amountSold = amountSold;
-    mpd->customData = customData;
+    mpd->customData = copyData(customData);
     mpd->copyData = copyData;
     mpd->freeData = freeData;
     mpd->prodPrice = prodPrice;
@@ -197,14 +197,12 @@ MatamikyaResult mtmNewProduct(Matamikya matamikya, const unsigned int id, const 
     if ( amount<0){
         return MATAMIKYA_INVALID_AMOUNT;
     }
-    //go over all elements in set check id take maximum and add one
-    if( setIsIn(matamikya->mtm, customData) ){
+    MtmProduct product = mtmProductCreate(id, amount,name, amountType,                                    
+                                          discount, amountSold, customData,copyData, freeData,prodPrice); //go over all elements in set check id take maximum and add one
+    if( setIsIn(matamikya->mtm, product) ){
+
         return MATAMIKYA_PRODUCT_ALREADY_EXIST;
     }
-    MtmProduct product = mtmProductCreate(id, amount,name, amountType,
-                                          discount, amountSold, MtmProductData customData,MtmCopyData copyData, MtmFreeData freeData,MtmGetProductPrice prodPrice)
-
-
     setAdd( matamikya->mtm, product );
     return MATAMIKYA_SUCCESS;
 }
