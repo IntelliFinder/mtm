@@ -269,6 +269,9 @@ MatamikyaResult mtmChangeProductAmountInOrder(Matamikya matamikya, const unsigne
     assert(prodInOrder);
     if (amount>0){
         prodInOrder->amount = prodInOrder->amount + amount;
+        if( (double)prodInOrder->amount - (int) ){
+
+        }
         return MATAMIKYA_SUCCESS;
     }
     else{
@@ -325,5 +328,8 @@ MatamikyaResult mtmCancelOrder(Matamikya matamikya, const unsigned int orderId){
 }
 
 
-
+MatamikyaResult mtmPrintInventory(Matamikya matamikya, FILE *output)
+{
+    
+}
 /**=============================end orders=============================**/
