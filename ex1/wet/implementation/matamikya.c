@@ -9,6 +9,8 @@
 #include "amount_set.h"
 
 
+
+
 /** Type for representing a Matamikya warehouse */
 struct Matamikya_t{
     Set mtm;
@@ -28,7 +30,6 @@ typedef struct MtmProduct_t{
     MtmCopyData copyData;
     MtmFreeData freeData;
     MtmGetProductPrice prodPrice;
-
 }*MtmProduct;
 
 typedef struct Order_t{
@@ -49,118 +50,28 @@ int main() {
     return 0;
 }
 
-/*************orders**************************/
-
-unsigned int mtmCreateNewOrder(Matamikya matamikya){
-    unsigned int maxID = 0;
-    Order runOrder = setGetFirst(matamikya->cart);
-    while (runOrder!=NULL){
-        if(maxID<runOrder->id){
-            maxID=runOrder->id;
-        }
-        runOrder = setGetNext(matamikya->cart);
-    }
-    maxID++;
-    Order newOrder = malloc(sizeof(*newOrder));
-    newOrder->id=maxID;
-    newOrder->itemsSet= setCreate(itemSetCopyElement, itemSetFreeElement, itemSetCompareElement);
-    setAdd(matamikya->cart,newOrder);
-    return maxID;//id will start with 1 and not a 0
-}
-Order findOrderWithID(const Set cart,const unsigned int orderId){
-    Order runOrder = setGetFirst(cart);
-    while (runOrder != NULL){
-        if (runOrder->id == orderId)
-            return runOrder;
-        runOrder = setGetNext(cart);
-    }
-    return NULL;
-}
-
-MatamikyaResult mtmChangeProductAmountInOrder(Matamikya matamikya, const unsigned int orderId,
-                                              const unsigned int productId, const double amount){
-    if (matamikya==NULL)
-        return MATAMIKYA_NULL_ARGUMENT;
-    Order orderToChange = findOrderWithID(matamikya->cart,orderId);
-
-    if (orderToChange==NULL)
-        return MATAMIKYA_ORDER_NOT_EXIST;
-    MtmProduct prodInMTM = findProductInSet(matamikya->mtm,productId);
-    MtmProduct prodInOrder = findProductInSet(orderToChange->itemsSet,productId);
-    if (prodInMTM == NULL) {
-
-
-        return MATAMIKYA_PRODUCT_NOT_EXIST;
-    }
-    if (amount==0.0)
-        return MATAMIKYA_SUCCESS;
-    if (prodInOrder==NULL){
-        if(amount<0)
-            return MATAMIKYA_INVALID_AMOUNT;
-        if (amount>0){
-            setAdd(orderToChange->itemsSet, mtmProductCreate(productId, amount, prodInMTM->units, prodInMTM->amountType,prodInMTM->discount,prodInMTM->customData));
-            return MATAMIKYA_SUCCESS;
-        }
-    }
-    assert(prodInOrder);
-    if (amount>0){
-        prodInOrder->amount = prodInOrder->amount + amount;
-        return MATAMIKYA_SUCCESS;
-    }
-    else{
-        assert(amount<0);
-        prodInOrder->amount += amount;
-        if (prodInOrder->amount<=0){
-            setRemove(orderToChange->itemsSet,prodInOrder);
-            free(prodInOrder);
-        }
-        return MATAMIKYA_SUCCESS;
-    }
-    return MATAMIKYA_SUCCESS;
-}
-
-
-MatamikyaResult mtmShipOrder(Matamikya matamikya, const unsigned int orderId)
+MtmProduct mtmProductCreate(unsigned int id, double amount,char* units, MatamikyaAmountType amountType,
+                            double discount, double amountSold, MtmProductData customData,MtmCopyData copyData, MtmFreeData freeData,MtmGetProductPrice prodPrice)
 {
-    if(matamikya == NULL)
-        return MATAMIKYA_NULL_ARGUMENT;
-    Order shipOrder = findOrderWithID(matamikya->cart,orderId);
-    if (shipOrder == NULL)
-        return MATAMIKYA_ORDER_NOT_EXIST;
-    MtmProduct mpOrderSell = setGetFirst(shipOrder->itemsSet);
-    //check there is enough amount in warehouse
-    MtmProduct mpMtmSell;
-    while (mpOrderSell != NULL){
-        mpMtmSell = findProductInSet(matamikya->mtm,mpOrderSell->id);
-        if (mpOrderSell->amount > mpMtmSell->amount)
-            return MATAMIKYA_INSUFFICIENT_AMOUNT;
-        mpOrderSell = setGetNext(shipOrder->itemsSet);
+    if(customData == NULL){
+        return NULL;
     }
-    //now we can actually ship
-    mpOrderSell = setGetFirst(shipOrder->itemsSet);
-    while (mpOrderSell != NULL){
-        mpMtmSell = findProductInSet(matamikya->mtm,mpOrderSell->id);
-        mpMtmSell->amountSold += mpOrderSell->amount;//assumes amount is good and not 0.0011
-        mpMtmSell->amount -= mpOrderSell->amount;
-
-        mpOrderSell = setGetNext(shipOrder->itemsSet);
-    }
-    mtmCancelOrder(matamikya,orderId);
-    return MATAMIKYA_SUCCESS;
+    MtmProduct mpd = malloc(sizeof(*mpd));
+    mpd->amount = amount;
+    mpd->id = id;
+    mpd->units = malloc(sizeof( strlen(units) + 1 ));
+    *(mpd->units) = *units;
+    mpd->amountType = amountType;
+    mpd->discount = discount;
+    mpd->amountSold = amountSold;
+    mpd->customData = customData;
+    mpd->copyData = copyData;
+    mpd->freeData = freeData;
+    mpd->prodPrice = prodPrice;
+    return mpd;
 }
 
-MatamikyaResult mtmCancelOrder(Matamikya matamikya, const unsigned int orderId){
-    if (matamikya == NULL)
-        return MATAMIKYA_NULL_ARGUMENT;
-    Order  toCancel = findOrderWithID(matamikya->cart,orderId);
-    if (toCancel == NULL)
-        return MATAMIKYA_ORDER_NOT_EXIST;
-    setRemove(matamikya->cart,toCancel);
-    //set.h says that free func is being used
-    return MATAMIKYA_SUCCESS;
-}
 
-/**=============================end orders=============================**/
 /*=============================Set=============================================*/
 MtmProduct findProductInSet(Set products, const unsigned int productId){
     if (products==NULL){
@@ -175,53 +86,9 @@ MtmProduct findProductInSet(Set products, const unsigned int productId){
     return NULL;
 }
 
-
-SetElement copyMtmProductData( SetElement set_element )
-{
-    if( set_element == NULL ){
-        return NULL;
-    }
-    MtmProductData product = malloc(sizeof(*product));
-    char* units = malloc(sizeof(strlen(set_element->units) + 1 ));
-    product->id = set_element->id;
-    product->amount = set_element->amount;
-    product->units = units;
-    return product;
-}
-
-void freeMtmProductData( SetElement set_element )
-{
-    free(set_element->units);
-    free(set_element);
-}
-int compareMtmProductData( SetElement set_element_1, SetElement set_element_2 )
-{
-    if( set_element_1==NULL || set_element_2==NULL ){
-        return 0; //maybe not
-    }
-    if( set_element_1->id > set_element_2->id ){
-        return 1;
-    }
-    assert( set_element_1 <= set_element_2 );
-    if( set_element_1->id > set_element_2  ){
-        return -1;
-    }
-    return 0;
-}
-
-bool isNameValid(const char *name){
-    if(name==NULL)
-        return false;
-    char fl=*name;//fl=first letter
-    if((int)'a'<=fl && (int)'z'>=fl)
-        return true;
-    if ((int)'A'<=fl && (int)'Z'>=fl)
-        return true;
-    return (int)'0'<=fl && (int)'9'>=fl;
-}
 SetElement itemSetCopyElement(SetElement mp1){
     MtmProduct mp = (MtmProduct)(mp1);
-    MtmProduct ans = mtmProductCreate(mp->id, mp->amount, mp->units, mp->amountType, mp->discount, mp->customData);
+    MtmProduct ans = mtmProductCreate(mp->id, mp->amount,mp->units, mp->amountType, mp->discount, mp->amountSold, mp->customData,mp->copyData, mp->freeData,mp->prodPrice);
     return ans;
 }
 void itemSetFreeElement(SetElement mpV){
@@ -253,6 +120,20 @@ int cartSetCompareElement(SetElement order11,SetElement order21){
     return (int)order1->id - (int)order2->id;
 }
 
+bool isNameValid(const char *name){
+    if(name==NULL){
+        return false;
+    }
+    char fl=*name;//fl=first letter
+    if((int)'a'<=fl && (int)'z'>=fl){
+        return true;
+
+    }
+    if ((int)'A'<=fl && (int)'Z'>=fl){
+        return true;
+    }
+    return ((int)'0'<=fl && (int)'9'>=fl);
+}
 
 /**==============================end set=========================================**/
 
@@ -304,8 +185,7 @@ MatamikyaResult mtmNewProduct(Matamikya matamikya, const unsigned int id, const 
                               const MtmProductData customData, MtmCopyData copyData,
                               MtmFreeData freeData, MtmGetProductPrice prodPrice)
 { //matamikya non-null
-    if( matamikya == NULL || name==NULL || amountType ==NULL ||
-        customData ==NULL || freeData ==NULL || prodPrice ==NULL )
+    if( matamikya == NULL)
     {
         return MATAMIKYA_NULL_ARGUMENT;
     }
@@ -313,36 +193,135 @@ MatamikyaResult mtmNewProduct(Matamikya matamikya, const unsigned int id, const 
         return MATAMIKYA_INVALID_NAME;
     }
     assert(isNameValid(name));
-    if ( amount<0 || !(amountType == MATAMIKYA_INTEGER_AMOUNT || (amountType == MATAMIKYA_ANY_AMOUNT|| (amountType == MATAMIKYA_HALF_INTEGER_AMOUNT )){
+    if ( amount<0){
         return MATAMIKYA_INVALID_AMOUNT;
     }
     //go over all elements in set check id take maximum and add one
     if( setIsIn(matamikya->mtm, customData) ){
         return MATAMIKYA_PRODUCT_ALREADY_EXIST;
     }
-    customData->name = name;
-    customData->id =id;
-    customData->amount = amount;
-
-    MtmProductData product = MtmCopyData( customData ); // why do we need more details other than customData?
-    setAdd( matamilya, product );//suppose setadd already copmapares using compare function, dont see any other way
+    MtmProduct product = copyData( customData ); // why do we need more details other than customData?
+    setAdd( matamikya->mtm, product );
     return MATAMIKYA_SUCCESS;
 }
 
 
-MtmProduct mtmProductCreate(unsigned int id, int amount,char* units, MatamikyaAmountType amountType, double discount, MtmProductData customData){
-    if(customData == NULL){
-        return NULL;
+/*===============================end matamikya===========================================*/
+
+/*************orders**************************/
+
+unsigned int mtmCreateNewOrder(Matamikya matamikya){
+    unsigned int maxID = 0;
+    Order runOrder = setGetFirst(matamikya->cart);
+    while (runOrder!=NULL){
+        if(maxID<runOrder->id){
+            maxID=runOrder->id;
+        }
+        runOrder = setGetNext(matamikya->cart);
     }
-    MtmProduct mpd = malloc(sizeof(*mpd));
-    mpd->amount = amount;
-    mpd->id = id;
-    mpd->units = units;
-    mpd->amountType = amountType;
-    mpd->discount = discount;
-    mpd->customData = customData;
-    return mpd;
+    maxID++;
+    Order newOrder = malloc(sizeof(*newOrder));
+    newOrder->id=maxID;
+    newOrder->itemsSet= setCreate(itemSetCopyElement, itemSetFreeElement, itemSetCompareElement);
+    setAdd(matamikya->cart,newOrder);
+    return maxID;//id will start with 1 and not a 0
+}
+Order findOrderWithID(const Set cart,const unsigned int orderId){
+    Order runOrder = setGetFirst(cart);
+    while (runOrder != NULL){
+        if (runOrder->id == orderId)
+            return runOrder;
+        runOrder = setGetNext(cart);
+    }
+    return NULL;
+}
+
+MatamikyaResult mtmChangeProductAmountInOrder(Matamikya matamikya, const unsigned int orderId,
+                                              const unsigned int productId, const double amount){
+    if (matamikya==NULL)
+    {
+        return MATAMIKYA_NULL_ARGUMENT;
+    }
+    Order orderToChange = findOrderWithID(matamikya->cart,orderId);
+
+    if (orderToChange==NULL)
+    {
+        return MATAMIKYA_ORDER_NOT_EXIST;
+    }
+    MtmProduct prodInMTM = findProductInSet(matamikya->mtm,productId);
+    MtmProduct prodInOrder = findProductInSet(orderToChange->itemsSet,productId);
+    if (prodInMTM == NULL) {
+        return MATAMIKYA_PRODUCT_NOT_EXIST;
+    }
+    if (amount==0.0){
+        return MATAMIKYA_SUCCESS;
+    }
+    if (prodInOrder==NULL){
+        if(amount<0)
+            return MATAMIKYA_INVALID_AMOUNT;
+        if (amount>0){
+            setAdd(orderToChange->itemsSet, mtmProductCreate(prodInMTM->id, prodInMTM->amount,prodInMTM->units, prodInMTM->amountType,
+                                             prodInMTM->discount, prodInMTM->amountSold, prodInMTM->customData,prodInMTM->copyData,
+                                             prodInMTM->freeData,prodInMTM->prodPrice) );
+            return MATAMIKYA_SUCCESS;
+        }
+    }
+    assert(prodInOrder);
+    if (amount>0){
+        prodInOrder->amount = prodInOrder->amount + amount;
+        return MATAMIKYA_SUCCESS;
+    }
+    else{
+        assert(amount<0);
+        prodInOrder->amount += amount;
+        if (prodInOrder->amount<=0){
+            setRemove(orderToChange->itemsSet,prodInOrder);
+            //free(prodInOrder); //unnecessary already done by set
+        }
+        return MATAMIKYA_SUCCESS;
+    }
+    return MATAMIKYA_SUCCESS;
 }
 
 
-/*===============================end matamikya===========================================*/
+MatamikyaResult mtmShipOrder(Matamikya matamikya, const unsigned int orderId)
+{
+    if(matamikya == NULL)
+        return MATAMIKYA_NULL_ARGUMENT;
+    Order shipOrder = findOrderWithID(matamikya->cart,orderId);
+    if (shipOrder == NULL)
+        return MATAMIKYA_ORDER_NOT_EXIST;
+    MtmProduct mpOrderSell = setGetFirst(shipOrder->itemsSet);
+    //check there is enough amount in warehouse
+    MtmProduct mpMtmSell;
+    while (mpOrderSell != NULL){
+        mpMtmSell = findProductInSet(matamikya->mtm,mpOrderSell->id);
+        if (mpOrderSell->amount > mpMtmSell->amount)
+            return MATAMIKYA_INSUFFICIENT_AMOUNT;
+        mpOrderSell = setGetNext(shipOrder->itemsSet);
+    }
+    //now we can actually ship
+    mpOrderSell = setGetFirst(shipOrder->itemsSet);
+    while (mpOrderSell != NULL){
+        mpMtmSell = findProductInSet(matamikya->mtm,mpOrderSell->id);
+        mpMtmSell->amountSold += mpOrderSell->amount;//assumes amount is good and not 0.0011
+        mpMtmSell->amount -= mpOrderSell->amount;
+
+        mpOrderSell = setGetNext(shipOrder->itemsSet);
+    }
+    mtmCancelOrder(matamikya,orderId);
+    return MATAMIKYA_SUCCESS;
+}
+
+MatamikyaResult mtmCancelOrder(Matamikya matamikya, const unsigned int orderId){
+    if (matamikya == NULL)
+        return MATAMIKYA_NULL_ARGUMENT;
+    Order  toCancel = findOrderWithID(matamikya->cart,orderId);
+    if (toCancel == NULL)
+        return MATAMIKYA_ORDER_NOT_EXIST;
+    setRemove(matamikya->cart,toCancel);
+    //free function used as in initialization
+    return MATAMIKYA_SUCCESS;
+}
+
+/**=============================end orders=============================**/
