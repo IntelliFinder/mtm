@@ -141,11 +141,33 @@ bool isNameValid(const char *name){
     }
     return ((int)'0'<=fl && (int)'9'>=fl);
 }
+bool isAmountValid(const MtmProduct mp,const double wantedAmount){
+    double diff = (double)prodInOrder->amount - (int)prodInOrder->amount;
+    if( mp->amountType == MATAMIKYA_INTEGER_AMOUNT ){
+        if( diff <= 0.001 || diff >= 0.999){
+            return true;
+        } else{
+            return false;
+        }
+    }
+    if( mp->amountType == MATAMIKYA_HALF_INTEGER_AMOUNT ){
+        if( diff <= 0.001 || diff >= 0.999){
+            return true;
+        }
+        if( (diff-0.5) <= 0.001 || (diff-0.5)>=-0.001){
+            return true;
+        }
+        return false;
+    }
+    asssert(mp->amountType==MATAMIKYA_ANY_AMOUNT);
+    return true;
 
-/**==============================end set=========================================**/
+}
+
+/**==============================end set and help functions=========================================**/
 
 
-/*=====================Matamikya===============================================*/
+/**=====================Matamikya===============================================**/
 
 MtmProductData MtmProductCopyData( MtmProductData product )
 {
@@ -200,11 +222,13 @@ MatamikyaResult mtmNewProduct(Matamikya matamikya, const unsigned int id, const 
         return MATAMIKYA_INVALID_NAME;
     }
     assert(isNameValid(name));
-    if ( amount<0){
+    MtmProduct product = mtmProductCreate(id, amount,name, amountType,
+                                          discount, amountSold, customData,copyData, freeData,prodPrice); //go over all elements in set check id take maximum and add one
+    if ( amount<0 || !isAmountValid(product,amount)){
+        mtmProductDestroy(product);
         return MATAMIKYA_INVALID_AMOUNT;
     }
-    MtmProduct product = mtmProductCreate(id, amount,name, amountType,                                    
-                                          discount, amountSold, customData,copyData, freeData,prodPrice); //go over all elements in set check id take maximum and add one
+
     if( setIsIn(matamikya->mtm, product) ) {
         mtmProductDestroy(product);
         return MATAMIKYA_PRODUCT_ALREADY_EXIST;
@@ -243,27 +267,37 @@ Order findOrderWithID(const Set cart,const unsigned int orderId){
     }
     return NULL;
 }
-bool isAmountValid(const MtmProduct mp,const double wantedAmount){
-    double diff = (double)prodInOrder->amount - (int)prodInOrder->amount;
-    if( mp->amountType == MATAMIKYA_INTEGER_AMOUNT ){
-        if( diff <= 0.001 || diff >= 0.999){
-           return true;
-        } else{
-            return false;
-        }
+MatamikyaResult mtmChangeProductAmount(Matamikya matamikya, const unsigned int id, const double amount){
+    if (matamikya==NULL)
+    {
+        return MATAMIKYA_NULL_ARGUMENT;
     }
-   if( mp->amountType == MATAMIKYA_HALF_INTEGER_AMOUNT ){
-       if( diff <= 0.001 || diff >= 0.999){
-          return true;
-        }
-       if( (diff-0.5) <= 0.001 || (diff-0.5)>=-0.001){
-           return true;
-       }
-       return false;
+    MtmProduct prodInMTM = findProductInSet(matamikya->mtm,productId);
+    if (prodInMTM == NULL) {
+        return MATAMIKYA_PRODUCT_NOT_EXIST;
     }
-    asssert(mp->amountType==MATAMIKYA_ANY_AMOUNT);
-    return true;
-
+    if (amount==0.0){
+        return MATAMIKYA_SUCCESS;
+    }
+    if (amount>0){
+        if(isAmountValid(prodInMTM, prodInMtm->amount+amount) ){
+            prodInMtm->amount = prodInMtm->amount + amount;
+            return MATAMIKYA_SUCCESS;
+        }
+        return MATAMIKYA_INVALID_AMOUNT;
+    }
+    else{
+        assert(amount<0);
+        if (prodInMTM->amount + amount < 0){
+            return MATAMIKYA_INSUFFICIENT_AMOUNT;
+        }
+        assert(prodInMTM->amount + amount >= 0);
+        if(isAmountValid(prodInMtm, prodInMTM->amount + amount) ) {
+            prodInMtm->amount += amount;
+            return MATAMIKYA_SUCCESS;
+        }
+        return MATAMIKYA_INVALID_AMOUNT;
+    }
 }
 
 MatamikyaResult mtmChangeProductAmountInOrder(Matamikya matamikya, const unsigned int orderId,
@@ -301,16 +335,15 @@ MatamikyaResult mtmChangeProductAmountInOrder(Matamikya matamikya, const unsigne
     assert(prodInOrder);
     if (amount>0){
         if(isAmountValid(prodInOrder, prodInOrder->amount+amount) ){
-                if(prodInMTM->amount >= prodInOrder->amount + amount){}
-                prodInOrder->amount = prodInOrder->amount + amount;
-
-                  return MATAMIKYA_SUCCESS;
+            //if(prodInMTM->amount >= prodInOrder->amount + amount) { dont need to check it, read MATAMIKYA.h
+            prodInOrder->amount = prodInOrder->amount + amount;
+            return MATAMIKYA_SUCCESS;
         }
         return MATAMIKYA_INVALID_AMOUNT;
     }
     else{
         assert(amount<0);
-        if (prodInOrder->amount<=0){
+        if (prodInOrder->amount + amount<=0){
             setRemove(orderToChange->itemsSet,prodInOrder);
             return MATAMIKYA_SUCCESS;
         }
