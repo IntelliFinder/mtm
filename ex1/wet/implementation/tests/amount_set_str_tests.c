@@ -92,8 +92,19 @@ bool testCheckClear() {
     ASSERT_TEST(asRegister(as,"a")== AS_SUCCESS);
     ASSERT_TEST(asGetSize(as) == 1);
     asDestroy(as);
+    return true;
 }
+bool testCheckChangeAmount() {
+    mountSet as = asCreate();
+    ASSERT_TEST(asRegister(as,"a")== AS_SUCCESS);
+    ASSERT_TEST(asChangeAmount(as,"yosi",1.5)== AS_ITEM_DOES_NOT_EXIST);
+    ASSERT_TEST(asChangeAmount(as,"a",1.5)== AS_SUCCESS);
+    ASSERT_TEST(asChangeAmount(as,"a",-1.56)== AS_INSUFFICIENT_AMOUNT);
+    ASSERT_TEST(asChangeAmount(as,"a",-1.5)== AS_SUCCESS);
+    asDestroy(as);
+    return true;
 
+}
 /*
 static MtmProductData copyDouble(MtmProductData number) {
     double *copy = malloc(sizeof(*copy));
