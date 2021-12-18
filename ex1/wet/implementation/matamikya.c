@@ -141,7 +141,7 @@ bool isNameValid(const char *name){
     return ((int)'0'<=fl && (int)'9'>=fl);
 }
 bool isAmountValid(const MtmProduct mp,const double wantedAmount){
-    double diff = (double)prodInOrder->amount - (int)prodInOrder->amount;
+    double diff = (double)mp->amount - (int)mp->amount;
     if( mp->amountType == MATAMIKYA_INTEGER_AMOUNT ){
         if( diff <= 0.001 || diff >= 0.999){
             return true;
