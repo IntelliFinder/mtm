@@ -59,8 +59,33 @@ bool testCheckSort(){
     return true;
 }
 bool testCheckCopy() {
+    AmountSet as = asCreate();
+    ASSERT_OR_DESTROY(asRegister(as,"yosi") == AS_SUCCESS);
 
+    AmountSet cpy = asCopy(as);
+    ASSERT_OR_DESTROY(asRegister(as,"moshe")== AS_SUCCESS);
+
+    ASSERT_OR_DESTROY(asChangeAmount(as,"moshe",2.5)== AS_SUCCESS);
+    ASSERT_OR_DESTROY(asChangeAmount(as,"yosi",1.5)== AS_SUCCESS);
+    ASSERT_OR_DESTROY(asGetSize(cpy) == 1);
+    ASSERT_OR_DESTROY(asContains(cpy,"yosi") == true);
+    ASSERT_OR_DESTROY(asContains(cpy,"moshe") == false);
+    double firstAmount;
+    char* first = asGetFirst(as);
+    if (asGetAmount(as, first, &firstAmount) == AS_SUCCESS) {
+        ASSERT_OR_DESTROY(firstAmount == 2.5);
+    } else
+        return false;
+    ASSERT_OR_DESTROY(asGetSize(as) == 2);
+    ASSERT_OR_DESTROY(asDelete(as,"moshe") == AS_SUCCESS);
+    ASSERT_OR_DESTROY(asGetSize(as)== 1);
+    asDestroy(cpy);
+    asDestroy(as);
+
+    return 0;
 }
+}
+
 static MtmProductData copyDouble(MtmProductData number) {
     double *copy = malloc(sizeof(*copy));
     if (copy) {
