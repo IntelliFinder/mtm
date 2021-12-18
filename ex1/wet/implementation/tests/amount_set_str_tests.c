@@ -45,7 +45,7 @@ bool testCheckSort(){
     ASSERT_TEST(asChangeAmount(as,"a",2.4) == AS_SUCCESS);
     ASSERT_TEST(0==strcmp(asGetNext(as),"c"));
     ASSERT_TEST(0==strcmp(asGetNext(as),"z"));
-    ASSERT_TEST(0==(asDelete(as,"bb") == AS_SUCCESS));
+    ASSERT_TEST((asDelete(as,"bb") == AS_SUCCESS));
 
     ASSERT_TEST(0==strcmp(asGetFirst(as),"a"));
     ASSERT_TEST(0==strcmp(asGetNext(as),"ba"));
