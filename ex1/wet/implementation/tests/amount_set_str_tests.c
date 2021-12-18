@@ -8,19 +8,19 @@
 #include <stdlib.h>
 #include <string.h>
 
-//#define ASSERT_OR_DESTROY(expr) ASSERT_TEST_WITH_FREE((expr), matamikyaDestroy(mtm))
+#define ASSERT_OR_DESTROY(expr) ASSERT_TEST_WITH_FREE((expr), asDestroy(as))
 
 
 bool testCreate() {
-    AmountSet am = asCreate();
-    ASSERT_TEST(am != NULL);
-    asDestroy(am);
+    AmountSet as = asCreate();
+    ASSERT_TEST(as != NULL);
+    asDestroy(as);
     return true;
 }
 
 bool testDestroy() {
-    AmountSet am = asCreate();
-    asDestroy(am);
+    AmountSet as = asCreate();
+    asDestroy(as);
     /* try to elicit undefined behavior in case matamikyaDestroy has bugs */
     AmountSet mtm2 = asCreate();
     ASSERT_TEST(mtm2 != NULL);

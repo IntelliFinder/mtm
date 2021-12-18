@@ -34,7 +34,6 @@ void asDestroy(AmountSet set) {
     {
         return;
     }
-
     while (asGetSize(set)) {
         asDelete(set, asGetFirst(set));
     }
@@ -50,7 +49,7 @@ AmountSet asCopy(AmountSet set){//iterator isn't copied
     if(ans == NULL){
         return NULL;
     }
-    set->iterator = NULL;//iterator undefined after funtion call
+    set->iterator = NULL;//iterator undefined after function call
     //maybe iterator should be copied here
     AmountSet setRun = set->next;//remember that first is trash
     AmountSet ansRun = ans;
