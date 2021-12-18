@@ -35,20 +35,20 @@ typedef struct Order_t{
     unsigned int id; //const
     Set itemsSet;
 }*Order;
-
+/*
 int main() {
     Matamikya matamikya = matamikyaCreate();
     matamikya->mtm = NULL;
-    /*
+    
     setAdd(Matmikya->mtm, data);
     Matamikya copy = copyMtmProductData( matamikya );
     printf("%d", compareMtmProductData(matamikya, copy) );
     freeMtmProductData( matamikya );
     freeMtmProductData( copy );
-     */
+
     return 0;
 }
-
+*/
 MtmProduct mtmProductCreate(unsigned int id, double amount,const char* name, MatamikyaAmountType amountType,
                              double amountSold, MtmProductData customData,MtmCopyData copyData, MtmFreeData freeData,MtmGetProductPrice prodPrice)
 {
@@ -413,7 +413,7 @@ MatamikyaResult mtmPrintBestSelling(Matamikya matamikya, FILE *output){
             maxMp = runMp;
         runMp = setGetNext(matamikya->mtm);
     }
-    mtmPrintIncomeLine(maxMp->name,maxMp->id,maxMp->amountSold, output);
+    mtmPrintIncomeLine(maxMp->name,maxMp->id,maxMp->prodPrice(maxMp->customData,maxMp->amountSold), output);
     return MATAMIKYA_SUCCESS;
 }
 MatamikyaResult mtmPrintInventory(Matamikya matamikya, FILE *output)
