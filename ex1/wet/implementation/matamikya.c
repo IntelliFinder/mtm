@@ -258,6 +258,9 @@ unsigned int mtmCreateNewOrder(Matamikya matamikya){
     return maxID;//id will start with 1 and not a 0
 }
 Order findOrderWithID(const Set cart,const unsigned int orderId){
+    if(cart == NULL){
+        return NULL;
+    }
     Order runOrder = setGetFirst(cart);
     while (runOrder != NULL){
         if (runOrder->id == orderId)
@@ -396,14 +399,14 @@ MatamikyaResult mtmCancelOrder(Matamikya matamikya, const unsigned int orderId){
 }
 
 
-MatamikyaResult mtmPrintInventory(Matamikya matamikya, FILE *output)
-{//notice that set already sorts them by id so you print setGetFirst and then getNext in loop
-    
-}
+
 /**=============================end orders=============================**/
 
 /*============================================PRINT==================================================*/
-MatamikyaResult mtmPrintBestSelling(Matamikya matamikya, FILE *output){//not done
+MatamikyaResult mtmPrintBestSelling(Matamikya matamikya, FILE *output){
+    if( matamikya->mtm == NULL ){
+        return MATAMIKYA_NULL_ARGUMENT;
+    }
     MtmProduct maxMp = setGetFirst(matamikya->mtm);
     MtmProduct runMp = setGetFirst(matamikya->mtm);
     while (runMp != NULL){
@@ -413,7 +416,8 @@ MatamikyaResult mtmPrintBestSelling(Matamikya matamikya, FILE *output){//not don
             maxMp = runMp;
         runMp = setGetNext(matamikya->mtm);
     }
-    //now here print maxMp
+    mtmPrintIncomeLine(maxMp->name,maxMp->id,maxMp->amountSold, output);
+    return MATAMIKYA_SUCCESS;
 }
 MatamikyaResult mtmPrintInventory(Matamikya matamikya, FILE *output)
 {
@@ -421,8 +425,9 @@ MatamikyaResult mtmPrintInventory(Matamikya matamikya, FILE *output)
         return MATAMIKYA_NULL_ARGUMENT;
     }
     fprintf(output, "Inventory Status:\n");
-    Set iter = setCopy(matamikya->mtm);
+    Set iter = setCopy(matamikya->mtm); //maybe remove
     if(setGetSize(iter) == -1){
+        setDestroy(iter);
         return MATAMIKYA_SUCCESS;
     }
     int size = setGetSize(iter);
@@ -435,14 +440,20 @@ MatamikyaResult mtmPrintInventory(Matamikya matamikya, FILE *output)
         prod = setGetNext(iter);
         mtmPrintProductDetails(prod->name,  prod->id, prod->amount, prod->prodPrice(prod->customData, prod->amountSold), output);
     }
+    setDestroy(iter); // maybe use matamikya
     return MATAMIKYA_SUCCESS;
 }
 MatamikyaResult mtmPrintOrder(Matamikya matamikya, const unsigned int orderId, FILE *output){
     if(  matamikya == NULL){
         reutrn MATAMIKYA_NULL_ARGUMENT;
     }
+    int totalOrderPrice=0;
     mtmPrintOrderHeading(ourderId, output);
-    Set iter = matamikya->cart;
+    if( findOrderWithId( matamikya->cart, orderId ) == NULL ){
+        return MATAMIKYA_ORDER_NOT_EXIST;
+    }
+    Set iter = findOrderWithId( matamikya->cart, orderId )->itemsSet;
+
     if(setGetSize(iter) == -1){
         return MATAMIKYA_SUCCESS;
     }
@@ -451,11 +462,13 @@ MatamikyaResult mtmPrintOrder(Matamikya matamikya, const unsigned int orderId, F
     for(int i=0; i<size; i++){
         if( i==0 ){
             prod = setGetFirst(iter);
+            total += ;
             mtmPrintProductDetails(prod->name,  prod->id, prod->amount, prod->prodPrice(prod->customData, prod->amountSold), output);
         }
         prod = setGetNext(iter);
         mtmPrintProductDetails(prod->name,  prod->id, prod->amount, prod->prodPrice(prod->customData, prod->amountSold), output);
     }
+    mtmPrintOrderSummary(totalOrderPrice,output);
     return MATAMIKYA_SUCCESS;
 }
 
