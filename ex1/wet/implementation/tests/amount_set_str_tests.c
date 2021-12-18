@@ -16,9 +16,9 @@
 *#define NO_SELLING_OUT_FILE "tests/printed_no_selling.txt"
 *#define NO_SELLING_TEST_FILE "tests/expected_no_selling.txt"
 *#define BEST_SELLING_TEST_FILE "tests/expected_best_selling.txt"
-*/
-#define ASSERT_OR_DESTROY(expr) ASSERT_TEST_WITH_FREE((expr), matamikyaDestroy(mtm))
 
+#define ASSERT_OR_DESTROY(expr) ASSERT_TEST_WITH_FREE((expr), matamikyaDestroy(mtm))
+*/
 
 bool testCreate() {
     AmountSet am = asCreate();
