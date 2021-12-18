@@ -7,6 +7,7 @@ bool testCreate();
 bool testDestroy();
 bool testCheckSort();
 bool testCheckCopy();
+bool testCheckClear();
 /*
 bool testModifyProducts();
 bool testModifyOrders();

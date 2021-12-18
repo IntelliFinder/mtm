@@ -19,6 +19,7 @@
 */
 #define ASSERT_OR_DESTROY(expr) ASSERT_TEST_WITH_FREE((expr), matamikyaDestroy(mtm))
 
+
 bool testCreate() {
     AmountSet am = asCreate();
     ASSERT_TEST(am != NULL);
@@ -37,55 +38,63 @@ bool testDestroy() {
 }
 bool testCheckSort(){
     AmountSet as = asCreate();
-    ASSERT_OR_DESTROY(asRegister(as,"a")== AS_SUCCESS);
-    ASSERT_OR_DESTROY(asRegister(as,"c")== AS_SUCCESS);
-    ASSERT_OR_DESTROY(asRegister(as,"bb")== AS_SUCCESS);
-    ASSERT_OR_DESTROY(asRegister(as,"ba")== AS_SUCCESS);
-    ASSERT_OR_DESTROY(asRegister(as,"z")== AS_SUCCESS);
-    ASSERT_OR_DESTROY(asRegister(as,"a")== AS_ITEM_ALREADY_EXISTS);
+    ASSERT_TEST(asRegister(as,"a")== AS_SUCCESS);
+    ASSERT_TEST(asRegister(as,"c")== AS_SUCCESS);
+    ASSERT_TEST(asRegister(as,"bb")== AS_SUCCESS);
+    ASSERT_TEST(asRegister(as,"ba")== AS_SUCCESS);
+    ASSERT_TEST(asRegister(as,"z")== AS_SUCCESS);
+    ASSERT_TEST(asRegister(as,"a")== AS_ITEM_ALREADY_EXISTS);
 
-    ASSERT_OR_DESTROY(0==strcmp(asGetFirst(as),"a"));
-    ASSERT_OR_DESTROY(0==strcmp(asGetNext(as),"ba"));
-    ASSERT_OR_DESTROY(0==strcmp(asGetNext(as),"bb"));
-    ASSERT_OR_DESTROY(strcmp(asGetNext(as),"c"));
-    ASSERT_OR_DESTROY(strcmp(asGetNext(as),"z"));
-    ASSERT_OR_DESTROY(asDelete(as,"bb") == AS_SUCCESS);
+    ASSERT_TEST(0==strcmp(asGetFirst(as),"a"));
+    ASSERT_TEST(0==strcmp(asGetNext(as),"ba"));
+    ASSERT_TEST(0==strcmp(asGetNext(as),"bb"));
+    ASSERT_TEST(strcmp(asGetNext(as),"c"));
+    ASSERT_TEST(strcmp(asGetNext(as),"z"));
+    ASSERT_TEST(asDelete(as,"bb") == AS_SUCCESS);
 
-    ASSERT_OR_DESTROY(0==strcmp(asGetFirst(as),"a"));
-    ASSERT_OR_DESTROY(0==strcmp(asGetNext(as),"ba"));
-    ASSERT_OR_DESTROY(strcmp(asGetNext(as),"c"));
-    ASSERT_OR_DESTROY(strcmp(asGetNext(as),"z"));
+    ASSERT_TEST(0==strcmp(asGetFirst(as),"a"));
+    ASSERT_TEST(0==strcmp(asGetNext(as),"ba"));
+    ASSERT_TEST(strcmp(asGetNext(as),"c"));
+    ASSERT_TEST(strcmp(asGetNext(as),"z"));
     asDestroy(as);
     return true;
 }
 bool testCheckCopy() {
     AmountSet as = asCreate();
-    ASSERT_OR_DESTROY(asRegister(as,"yosi") == AS_SUCCESS);
+    ASSERT_TEST(asRegister(as,"yosi") == AS_SUCCESS);
 
     AmountSet cpy = asCopy(as);
-    ASSERT_OR_DESTROY(asRegister(as,"moshe")== AS_SUCCESS);
+    ASSERT_TEST(asRegister(as,"moshe")== AS_SUCCESS);
 
-    ASSERT_OR_DESTROY(asChangeAmount(as,"moshe",2.5)== AS_SUCCESS);
-    ASSERT_OR_DESTROY(asChangeAmount(as,"yosi",1.5)== AS_SUCCESS);
-    ASSERT_OR_DESTROY(asGetSize(cpy) == 1);
-    ASSERT_OR_DESTROY(asContains(cpy,"yosi") == true);
-    ASSERT_OR_DESTROY(asContains(cpy,"moshe") == false);
+    ASSERT_TEST(asChangeAmount(as,"moshe",2.5)== AS_SUCCESS);
+    ASSERT_TEST(asChangeAmount(as,"yosi",1.5)== AS_SUCCESS);
+    ASSERT_TEST(asGetSize(cpy) == 1);
+    ASSERT_TEST(asContains(cpy,"yosi") == true);
+    ASSERT_TEST(asContains(cpy,"moshe") == false);
     double firstAmount;
     char* first = asGetFirst(as);
     if (asGetAmount(as, first, &firstAmount) == AS_SUCCESS) {
-        ASSERT_OR_DESTROY(firstAmount == 2.5);
+        ASSERT_TEST(firstAmount == 2.5);
     } else
         return false;
-    ASSERT_OR_DESTROY(asGetSize(as) == 2);
-    ASSERT_OR_DESTROY(asDelete(as,"moshe") == AS_SUCCESS);
-    ASSERT_OR_DESTROY(asGetSize(as)== 1);
+    ASSERT_TEST(asGetSize(as) == 2);
+    ASSERT_TEST(asDelete(as,"moshe") == AS_SUCCESS);
+    ASSERT_TEST(asGetSize(as)== 1);
     asDestroy(cpy);
     asDestroy(as);
-
-    return 0;
+    return true;
 }
+bool testCheckClear() {
+    AmountSet as = asCreate();
+    ASSERT_TEST(asRegister(as,"a")== AS_SUCCESS);
+    ASSERT_TEST(asClear(as) == AS_SUCCESS);
+    ASSERT_TEST(asGetSize(as) == 0);
+    ASSERT_TEST(asRegister(as,"a")== AS_SUCCESS);
+    ASSERT_TEST(asGetSize(as) == 1);
+    asDestroy(as);
 }
 
+/*
 static MtmProductData copyDouble(MtmProductData number) {
     double *copy = malloc(sizeof(*copy));
     if (copy) {
@@ -111,7 +120,7 @@ static double buy10Get10ForFree(MtmProductData basePrice, const double amount) {
     }
     return simplePrice(basePrice, realAmount);
 }
-/*
+
 bool testModifyProducts() {
     Matamikya mtm = matamikyaCreate();
     double basePrice = 8.9;
