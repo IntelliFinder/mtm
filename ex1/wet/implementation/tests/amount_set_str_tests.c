@@ -37,6 +37,7 @@ bool testDestroy() {
     return true;
 }
 bool testCheckSort(){
+    //also checks iterators's state
     AmountSet as = asCreate();
     ASSERT_TEST(asRegister(as,"a")== AS_SUCCESS);
     ASSERT_TEST(asRegister(as,"c")== AS_SUCCESS);
@@ -46,16 +47,19 @@ bool testCheckSort(){
     ASSERT_TEST(asRegister(as,"a")== AS_ITEM_ALREADY_EXISTS);
 
     ASSERT_TEST(0==strcmp(asGetFirst(as),"a"));
+    ASSERT_TEST(5== asGetSize(as));
     ASSERT_TEST(0==strcmp(asGetNext(as),"ba"));
+    ASSERT_TEST(asContains(as,"z"));
     ASSERT_TEST(0==strcmp(asGetNext(as),"bb"));
-    ASSERT_TEST(strcmp(asGetNext(as),"c"));
-    ASSERT_TEST(strcmp(asGetNext(as),"z"));
-    ASSERT_TEST(asDelete(as,"bb") == AS_SUCCESS);
+    ASSERT_TEST(asChangeAmount(as,"a",2.4) == AS_SUCCESS);
+    ASSERT_TEST(0==strcmp(asGetNext(as),"c"));
+    ASSERT_TEST(0==strcmp(asGetNext(as),"z"));
+    ASSERT_TEST(0==asDelete(as,"bb") == AS_SUCCESS);
 
     ASSERT_TEST(0==strcmp(asGetFirst(as),"a"));
     ASSERT_TEST(0==strcmp(asGetNext(as),"ba"));
-    ASSERT_TEST(strcmp(asGetNext(as),"c"));
-    ASSERT_TEST(strcmp(asGetNext(as),"z"));
+    ASSERT_TEST(0==strcmp(asGetNext(as),"c"));
+    ASSERT_TEST(0==strcmp(asGetNext(as),"z"));
     asDestroy(as);
     return true;
 }
@@ -78,6 +82,7 @@ bool testCheckCopy() {
     } else
         return false;
     ASSERT_TEST(asGetSize(as) == 2);
+    ASSERT_TEST(0== strcmp("yosi",asGetNext(as)));//checked iterator's state
     ASSERT_TEST(asDelete(as,"moshe") == AS_SUCCESS);
     ASSERT_TEST(asGetSize(as)== 1);
     asDestroy(cpy);
