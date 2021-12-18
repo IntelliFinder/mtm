@@ -72,6 +72,8 @@ MtmProduct mtmProductCreate(unsigned int id, double amount,char* name, Matamikya
     return mpd;
 }
 void mtmProductDestroy(MtmProduct mp){
+    if (mp==NULL)
+        return;
     free(mp->name);
     mp->freeData(mp->customData);
     free(mp);
@@ -286,8 +288,10 @@ MatamikyaResult mtmChangeProductAmountInOrder(Matamikya matamikya, const unsigne
     }
     if (prodInOrder==NULL){
         if(amount<0)
-            return MATAMIKYA_INVALID_AMOUNT;
+            return MATAMIKYA_INVALID_AMOUNT;//there is no instruction what to do here
         if (amount>0){
+            if (!isAmountValid(prodInMTM,amount))
+                return MATAMIKYA_INVALID_AMOUNT;
             setAdd(orderToChange->itemsSet, mtmProductCreate(prodInMTM->id, prodInMTM->amount,prodInMTM->name, prodInMTM->amountType,
                                              prodInMTM->discount, prodInMTM->amountSold, prodInMTM->customData,prodInMTM->copyData,
                                              prodInMTM->freeData,prodInMTM->prodPrice) );
@@ -306,15 +310,16 @@ MatamikyaResult mtmChangeProductAmountInOrder(Matamikya matamikya, const unsigne
     }
     else{
         assert(amount<0);
-        if(isAmountValid(prodInOrder, prodInOrder->amount+amount) ) {
-            prodInOrder->amount += amount;
-            if (prodInOrder->amount<=0){
-                setRemove(orderToChange->itemsSet,prodInOrder);
-            }
+        if (prodInOrder->amount<=0){
+            setRemove(orderToChange->itemsSet,prodInOrder);
             return MATAMIKYA_SUCCESS;
         }
+        if(isAmountValid(prodInOrder, prodInOrder->amount+amount) ) {
+            prodInOrder->amount += amount;
+            return MATAMIKYA_SUCCESS;
+        }
+        return MATAMIKYA_INVALID_AMOUNT;
     }
-    return MATAMIKYA_SUCCESS;
 }
 
 
@@ -327,7 +332,7 @@ MatamikyaResult mtmShipOrder(Matamikya matamikya, const unsigned int orderId)
         return MATAMIKYA_ORDER_NOT_EXIST;
     MtmProduct mpOrderSell = setGetFirst(shipOrder->itemsSet);
     //check there is enough amount in warehouse
-    MtmProduct mpMtmSell;
+    MtmProduct mpMtmSell=NULL;
     while (mpOrderSell != NULL){
         mpMtmSell = findProductInSet(matamikya->mtm,mpOrderSell->id);
         if (mpOrderSell->amount > mpMtmSell->amount)
@@ -360,7 +365,19 @@ MatamikyaResult mtmCancelOrder(Matamikya matamikya, const unsigned int orderId){
 
 
 MatamikyaResult mtmPrintInventory(Matamikya matamikya, FILE *output)
-{
+{//notice that set already sorts them by id so you print setGetFirst and then getNext in loop
     
 }
 /**=============================end orders=============================**/
+MatamikyaResult mtmPrintBestSelling(Matamikya matamikya, FILE *output){//not done
+    MtmProduct maxMp = setGetFirst(matamikya->mtm);
+    MtmProduct runMp = setGetFirst(matamikya->mtm);
+    while (runMp != NULL){
+        double incomeRun = runMp->prodPrice(runMp->customData,runMp->amountSold);
+        double incomeMax = maxMp->prodPrice(maxMp->customData,maxMp->amountSold);
+        if (incomeRun>incomeMax)
+            maxMp = runMp;
+        runMp = setGetNext(matamikya->mtm);
+    }
+    //now here print maxMp
+}
