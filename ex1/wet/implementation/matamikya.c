@@ -23,7 +23,6 @@ typedef struct MtmProduct_t{
     double amount;
     char* name;
     MatamikyaAmountType amountType;
-    double discount; //percent*(1/100)
     double amountSold;//only being used for mtm, remember that when created needs to be 0
     //maybe compare function
     MtmProductData customData;
@@ -50,8 +49,8 @@ int main() {
     return 0;
 }
 
-MtmProduct mtmProductCreate(unsigned int id, double amount,char* name, MatamikyaAmountType amountType,
-                            double discount, double amountSold, MtmProductData customData,MtmCopyData copyData, MtmFreeData freeData,MtmGetProductPrice prodPrice)
+MtmProduct mtmProductCreate(unsigned int id, double amount,const char* name, MatamikyaAmountType amountType,
+                             double amountSold, MtmProductData customData,MtmCopyData copyData, MtmFreeData freeData,MtmGetProductPrice prodPrice)
 {
     if(customData == NULL){
         return NULL;
@@ -62,7 +61,6 @@ MtmProduct mtmProductCreate(unsigned int id, double amount,char* name, Matamikya
     mpd->name = malloc(sizeof( strlen(name) + 1 ));
     strcpy((mpd->name),name);
     mpd->amountType = amountType;
-    mpd->discount = discount;
     mpd->amountSold = amountSold;
     mpd->customData = copyData(customData);
     mpd->copyData = copyData;
@@ -94,7 +92,7 @@ MtmProduct findProductInSet(Set products, const unsigned int productId){
 
 SetElement itemSetCopyElement(SetElement mp1){
     MtmProduct mp = (MtmProduct)(mp1);
-    MtmProduct ans = mtmProductCreate(mp->id, mp->amount,mp->name, mp->amountType, mp->discount, mp->amountSold, mp->customData,mp->copyData, mp->freeData,mp->prodPrice);
+    MtmProduct ans = mtmProductCreate(mp->id, mp->amount,mp->name, mp->amountType, mp->amountSold, mp->customData,mp->copyData, mp->freeData,mp->prodPrice);
     return ans;
 }
 void itemSetFreeElement(SetElement mpV){
@@ -158,7 +156,7 @@ bool isAmountValid(const MtmProduct mp,const double wantedAmount){
         }
         return false;
     }
-    asssert(mp->amountType==MATAMIKYA_ANY_AMOUNT);
+    assert(mp->amountType==MATAMIKYA_ANY_AMOUNT);
     return true;
 
 }
@@ -221,8 +219,7 @@ MatamikyaResult mtmNewProduct(Matamikya matamikya, const unsigned int id, const 
         return MATAMIKYA_INVALID_NAME;
     }
     assert(isNameValid(name));
-    MtmProduct product = mtmProductCreate(id, amount,name, amountType,
-                                          discount, amountSold, customData,copyData, freeData,prodPrice); //go over all elements in set check id take maximum and add one
+    MtmProduct product = mtmProductCreate(id, amount,name, amountType,0, customData,copyData, freeData,prodPrice);
     if ( amount<0 || !isAmountValid(product,amount)){
         mtmProductDestroy(product);
         return MATAMIKYA_INVALID_AMOUNT;
@@ -274,7 +271,7 @@ MatamikyaResult mtmChangeProductAmount(Matamikya matamikya, const unsigned int i
     {
         return MATAMIKYA_NULL_ARGUMENT;
     }
-    MtmProduct prodInMTM = findProductInSet(matamikya->mtm,productId);
+    MtmProduct prodInMTM = findProductInSet(matamikya->mtm,id);
     if (prodInMTM == NULL) {
         return MATAMIKYA_PRODUCT_NOT_EXIST;
     }
@@ -282,8 +279,8 @@ MatamikyaResult mtmChangeProductAmount(Matamikya matamikya, const unsigned int i
         return MATAMIKYA_SUCCESS;
     }
     if (amount>0){
-        if(isAmountValid(prodInMTM, prodInMtm->amount+amount) ){
-            prodInMtm->amount = prodInMtm->amount + amount;
+        if(isAmountValid(prodInMTM, prodInMTM->amount + amount) ){
+            prodInMTM->amount = prodInMTM->amount + amount;
             return MATAMIKYA_SUCCESS;
         }
         return MATAMIKYA_INVALID_AMOUNT;
@@ -294,8 +291,8 @@ MatamikyaResult mtmChangeProductAmount(Matamikya matamikya, const unsigned int i
             return MATAMIKYA_INSUFFICIENT_AMOUNT;
         }
         assert(prodInMTM->amount + amount >= 0);
-        if(isAmountValid(prodInMtm, prodInMTM->amount + amount) ) {
-            prodInMtm->amount += amount;
+        if(isAmountValid(prodInMTM, (prodInMTM->amount) + amount) ) {
+            prodInMTM->amount += amount;
             return MATAMIKYA_SUCCESS;
         }
         return MATAMIKYA_INVALID_AMOUNT;
@@ -329,7 +326,7 @@ MatamikyaResult mtmChangeProductAmountInOrder(Matamikya matamikya, const unsigne
             if (!isAmountValid(prodInMTM,amount))
                 return MATAMIKYA_INVALID_AMOUNT;
             setAdd(orderToChange->itemsSet, mtmProductCreate(prodInMTM->id, prodInMTM->amount,prodInMTM->name, prodInMTM->amountType,
-                                             prodInMTM->discount, prodInMTM->amountSold, prodInMTM->customData,prodInMTM->copyData,
+                                              prodInMTM->amountSold, prodInMTM->customData,prodInMTM->copyData,
                                              prodInMTM->freeData,prodInMTM->prodPrice) );
             return MATAMIKYA_SUCCESS;
         }
@@ -445,14 +442,14 @@ MatamikyaResult mtmPrintInventory(Matamikya matamikya, FILE *output)
 }
 MatamikyaResult mtmPrintOrder(Matamikya matamikya, const unsigned int orderId, FILE *output){
     if(  matamikya == NULL){
-        reutrn MATAMIKYA_NULL_ARGUMENT;
+        return MATAMIKYA_NULL_ARGUMENT;
     }
-    int totalOrderPrice=0;
-    mtmPrintOrderHeading(ourderId, output);
-    if( findOrderWithId( matamikya->cart, orderId ) == NULL ){
+    double total=0;
+    mtmPrintOrderHeading(orderId, output);
+    if( findOrderWithID( matamikya->cart, orderId ) == NULL ){
         return MATAMIKYA_ORDER_NOT_EXIST;
     }
-    Set iter = findOrderWithId( matamikya->cart, orderId )->itemsSet;
+    Set iter = findOrderWithID( matamikya->cart, orderId )->itemsSet;
 
     if(setGetSize(iter) == -1){
         return MATAMIKYA_SUCCESS;
@@ -462,13 +459,13 @@ MatamikyaResult mtmPrintOrder(Matamikya matamikya, const unsigned int orderId, F
     for(int i=0; i<size; i++){
         if( i==0 ){
             prod = setGetFirst(iter);
-            total += ;
+            total += prod->prodPrice(prod->customData,prod->amountSold);
             mtmPrintProductDetails(prod->name,  prod->id, prod->amount, prod->prodPrice(prod->customData, prod->amountSold), output);
         }
         prod = setGetNext(iter);
         mtmPrintProductDetails(prod->name,  prod->id, prod->amount, prod->prodPrice(prod->customData, prod->amountSold), output);
     }
-    mtmPrintOrderSummary(totalOrderPrice,output);
+    mtmPrintOrderSummary(total,output);
     return MATAMIKYA_SUCCESS;
 }
 
