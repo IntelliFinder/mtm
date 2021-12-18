@@ -7,7 +7,7 @@
 #include "set.h"
 #include "list.h"
 #include "amount_set.h"
-
+#include "matamikya_print.h"
 
 
 
@@ -22,7 +22,6 @@ typedef struct MtmProduct_t{
     unsigned int id; //const
     double amount;
     char* name;
-
     MatamikyaAmountType amountType;
     double discount; //percent*(1/100)
     double amountSold;//only being used for mtm, remember that when created needs to be 0
@@ -418,7 +417,46 @@ MatamikyaResult mtmPrintBestSelling(Matamikya matamikya, FILE *output){//not don
 }
 MatamikyaResult mtmPrintInventory(Matamikya matamikya, FILE *output)
 {
-    
+    if( matamikya == NULL ){
+        return MATAMIKYA_NULL_ARGUMENT;
+    }
+    fprintf(output, "Inventory Status:\n");
+    Set iter = setCopy(matamikya->mtm);
+    if(setGetSize(iter) == -1){
+        return MATAMIKYA_SUCCESS;
+    }
+    int size = setGetSize(iter);
+    MtmProduct prod;
+    for(int i=0; i<size; i++){
+        if( i==0 ){
+            prod = setGetFirst(iter);
+            mtmPrintProductDetails(prod->name,  prod->id, prod->amount, prod->prodPrice(prod->customData, prod->amountSold), output);
+        }
+        prod = setGetNext(iter);
+        mtmPrintProductDetails(prod->name,  prod->id, prod->amount, prod->prodPrice(prod->customData, prod->amountSold), output);
+    }
+    return MATAMIKYA_SUCCESS;
+}
+MatamikyaResult mtmPrintOrder(Matamikya matamikya, const unsigned int orderId, FILE *output){
+    if(  matamikya == NULL){
+        reutrn MATAMIKYA_NULL_ARGUMENT;
+    }
+    mtmPrintOrderHeading(ourderId, output);
+    Set iter = matamikya->cart;
+    if(setGetSize(iter) == -1){
+        return MATAMIKYA_SUCCESS;
+    }
+    int size = setGetSize(iter);
+    MtmProduct prod;
+    for(int i=0; i<size; i++){
+        if( i==0 ){
+            prod = setGetFirst(iter);
+            mtmPrintProductDetails(prod->name,  prod->id, prod->amount, prod->prodPrice(prod->customData, prod->amountSold), output);
+        }
+        prod = setGetNext(iter);
+        mtmPrintProductDetails(prod->name,  prod->id, prod->amount, prod->prodPrice(prod->customData, prod->amountSold), output);
+    }
+    return MATAMIKYA_SUCCESS;
 }
 
 /*===========================================END PRINT==================================================*/

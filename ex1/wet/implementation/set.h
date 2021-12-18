@@ -13,7 +13,7 @@
 *
 * The following functions are available:
 *   setCreate		- Creates a new empty set
-*   setCopy		- Copies an existing set
+*   setCopy		    - Copies an existing set
 *   setDestroy		- Deletes an existing set and frees all resources
 *   setGetSize		- Returns the size of a given set
 *   setIsIn		- returns weather or not an item exists inside the set.
