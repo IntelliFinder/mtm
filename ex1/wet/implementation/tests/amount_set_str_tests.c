@@ -97,6 +97,17 @@ bool testCheckChangeAmount() {
     ASSERT_TEST(asChangeAmount(as,"a",1.5)== AS_SUCCESS);
     ASSERT_TEST(asChangeAmount(as,"a",-1.56)== AS_INSUFFICIENT_AMOUNT);
     ASSERT_TEST(asChangeAmount(as,"a",-1.5)== AS_SUCCESS);
+    ASSERT_TEST(asChangeAmount(NULL,"b",1)== AS_NULL_ARGUMENT );
+    asDestroy(as);
+    return true;
+
+}
+bool testCheckIterator(){
+    AmountSet as = asCreate();
+    ASSERT_TEST(asRegister(as,"hello")== AS_SUCCESS);
+    ASSERT_TEST(asRegister(as,"world")== AS_SUCCESS);
+    ASSERT_TEST(asGetFirst(as)== AS_SUCCESS);
+    ASSERT_TEST(strcmp(asGetFirst(as), "hello")==0);
     asDestroy(as);
     return true;
 

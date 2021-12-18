@@ -226,9 +226,10 @@ char* asGetNext(AmountSet set)
 }
 char* asGetFirst(AmountSet set)
 {
-    if( set == NULL )
+    if( set == NULL ){
         return NULL;
-    AmountSet viable = set->next;
+    }
+    AmountSet viable = set->next;//first element is trash
     set->iterator = viable;
     return viable->name;
 
