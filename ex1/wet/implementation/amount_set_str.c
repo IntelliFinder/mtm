@@ -162,6 +162,7 @@ AmountSetResult asChangeAmount(AmountSet set, const char* element, double amount
             if( set->amount + amount >= 0 )
             {
                 set->amount +=amount;
+                return AS_SUCCESS;
             }
             else{
                 return AS_INSUFFICIENT_AMOUNT;

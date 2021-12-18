@@ -45,7 +45,7 @@ bool testCheckSort(){
     ASSERT_TEST(asChangeAmount(as,"a",2.4) == AS_SUCCESS);
     ASSERT_TEST(0==strcmp(asGetNext(as),"c"));
     ASSERT_TEST(0==strcmp(asGetNext(as),"z"));
-    ASSERT_TEST(0==asDelete(as,"bb") == AS_SUCCESS);
+    ASSERT_TEST(0==(asDelete(as,"bb") == AS_SUCCESS));
 
     ASSERT_TEST(0==strcmp(asGetFirst(as),"a"));
     ASSERT_TEST(0==strcmp(asGetNext(as),"ba"));
@@ -91,7 +91,7 @@ bool testCheckClear() {
     return true;
 }
 bool testCheckChangeAmount() {
-    mountSet as = asCreate();
+    AmountSet as = asCreate();
     ASSERT_TEST(asRegister(as,"a")== AS_SUCCESS);
     ASSERT_TEST(asChangeAmount(as,"yosi",1.5)== AS_ITEM_DOES_NOT_EXIST);
     ASSERT_TEST(asChangeAmount(as,"a",1.5)== AS_SUCCESS);
