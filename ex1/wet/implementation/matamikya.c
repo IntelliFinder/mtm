@@ -402,6 +402,8 @@ MatamikyaResult mtmPrintInventory(Matamikya matamikya, FILE *output)
     
 }
 /**=============================end orders=============================**/
+
+/*============================================PRINT==================================================*/
 MatamikyaResult mtmPrintBestSelling(Matamikya matamikya, FILE *output){//not done
     MtmProduct maxMp = setGetFirst(matamikya->mtm);
     MtmProduct runMp = setGetFirst(matamikya->mtm);
@@ -414,3 +416,9 @@ MatamikyaResult mtmPrintBestSelling(Matamikya matamikya, FILE *output){//not don
     }
     //now here print maxMp
 }
+MatamikyaResult mtmPrintInventory(Matamikya matamikya, FILE *output)
+{
+    
+}
+
+/*===========================================END PRINT==================================================*/
