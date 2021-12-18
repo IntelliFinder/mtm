@@ -9,11 +9,5 @@ bool testCheckSort();
 bool testCheckCopy();
 bool testCheckClear();
 bool testCheckChangeAmount();
-/*
-bool testModifyProducts();
-bool testModifyOrders();
-bool testPrintInventory();
-bool testPrintOrder();
-bool testPrintBestSelling();
-*/
+
 #endif /* MTM_TESTS_H_ */
