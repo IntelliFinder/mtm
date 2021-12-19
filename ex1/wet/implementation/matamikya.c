@@ -96,8 +96,7 @@ SetElement itemSetCopyElement(SetElement mp1){
     return ans;
 }
 void itemSetFreeElement(SetElement mpV){
-    MtmProduct
-    mp = mpV;
+    MtmProduct mp = mpV;
     //mp->freeData(mp->customData);
     free(mp);
     //i think we dont need to free mp->customData because there could be one customData for many products
@@ -116,9 +115,12 @@ SetElement cartSetCopyElement(SetElement orderV){
 }
 void cartSetFreeElement(SetElement orderV){
     Order order = orderV;
-    setDestroy(orderV->itemsSet);
-    //itemSetFreeElement(order->itemsSet);
-    free(orderV);
+    Set set = order->itemsSet;
+    if( set != NULL ){
+        setDestroy( set );
+    }
+    free(order);
+
 }
 int cartSetCompareElement(SetElement order11,SetElement order21){
     Order order1 = order11;
@@ -241,8 +243,8 @@ unsigned int mtmCreateNewOrder(Matamikya matamikya){
     }
     maxID++;
     Order newOrder = malloc(sizeof(*newOrder));
-    newOrder->id=maxID;
-    newOrder->itemsSet= setCreate(itemSetCopyElement, itemSetFreeElement, itemSetCompareElement);
+    newOrder->id = maxID;
+    newOrder->itemsSet = setCreate(itemSetCopyElement, itemSetFreeElement, itemSetCompareElement);
     setAdd(matamikya->cart,newOrder);
     return maxID;//id will start with 1 and not a 0
 }
@@ -315,8 +317,9 @@ MatamikyaResult mtmChangeProductAmountInOrder(Matamikya matamikya, const unsigne
         if(amount<0)
             return MATAMIKYA_INVALID_AMOUNT;//there is no instruction what to do here
         if (amount>0){
-            if (!isAmountValid(prodInMTM,amount))
+            if (!isAmountValid(prodInMTM,amount)){
                 return MATAMIKYA_INVALID_AMOUNT;
+            }
             setAdd(orderToChange->itemsSet, mtmProductCreate(prodInMTM->id, prodInMTM->amount,prodInMTM->name, prodInMTM->amountType,
                                               prodInMTM->amountSold, prodInMTM->customData,prodInMTM->copyData,
                                              prodInMTM->freeData,prodInMTM->prodPrice) );
