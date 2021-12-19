@@ -96,8 +96,9 @@ SetElement itemSetCopyElement(SetElement mp1){
     return ans;
 }
 void itemSetFreeElement(SetElement mpV){
-    MtmProduct mp = mpV;
-    mp->freeData(mp->customData);
+    MtmProduct
+    mp = mpV;
+    //mp->freeData(mp->customData);
     free(mp);
     //i think we dont need to free mp->customData because there could be one customData for many products
 }
@@ -115,7 +116,8 @@ SetElement cartSetCopyElement(SetElement orderV){
 }
 void cartSetFreeElement(SetElement orderV){
     Order order = orderV;
-    itemSetFreeElement(order->itemsSet);
+    setDestroy(orderV->itemsSet);
+    //itemSetFreeElement(order->itemsSet);
     free(orderV);
 }
 int cartSetCompareElement(SetElement order11,SetElement order21){
@@ -165,16 +167,6 @@ bool isAmountValid(const MtmProduct mp,const double wantedAmount){
 
 
 /**=====================Matamikya===============================================**/
-
-MtmProductData MtmProductCopyData( MtmProductData product )
-{
-    if( product == NULL ){
-        return NULL;
-    }
-    MtmProduct new = *(MtmProduct*)product;
-    return new;
-
-}
 
 Matamikya matamikyaCreate(){
     Matamikya ans = malloc(sizeof(*ans));
