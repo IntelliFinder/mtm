@@ -201,8 +201,9 @@ AmountSetResult asClear(AmountSet set)
         return AS_NULL_ARGUMENT;
     }
     AmountSet iter = set->next;
-    free(set->name);
-    free(set);
+    set->next = NULL;
+    //free(set->name); we need first Node
+    //free(set);
     while( iter != NULL )
     {
         set = iter;
