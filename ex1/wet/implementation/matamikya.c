@@ -149,7 +149,7 @@ bool isNameValid(const char *name){
     return ((int)'0'<=fl && (int)'9'>=fl);
 }
 bool isAmountValid(const MtmProduct mp,const double wantedAmount){
-    double diff = (double)mp->amount - (int)mp->amount;
+    double diff = (double)wantedAmount - (int)wantedAmount;
     if( mp->amountType == MATAMIKYA_INTEGER_AMOUNT ){
         if( diff <= 0.001 || diff >= 0.999){
             return true;
@@ -161,7 +161,7 @@ bool isAmountValid(const MtmProduct mp,const double wantedAmount){
         if( diff <= 0.001 || diff >= 0.999){
             return true;
         }
-        if( (diff-0.5) <= 0.001 || (diff-0.5)>=-0.001){
+        if( (diff-0.5) <= 0.001 && (diff-0.5)>=-0.001){
             return true;
         }
         return false;
@@ -435,8 +435,10 @@ MatamikyaResult mtmPrintInventory(Matamikya matamikya, FILE *output)
             prod = setGetFirst(iter);
             mtmPrintProductDetails(prod->name,  prod->id, prod->amount, prod->prodPrice(prod->customData, prod->amountSold), output);
         }
-        prod = setGetNext(iter);
-        mtmPrintProductDetails(prod->name,  prod->id, prod->amount, prod->prodPrice(prod->customData, prod->amountSold), output);
+        else{
+            prod = setGetNext(iter);
+            mtmPrintProductDetails(prod->name,  prod->id, prod->amount, prod->prodPrice(prod->customData, prod->amountSold), output);
+        }
     }
     setDestroy(iter); // maybe use matamikya
     return MATAMIKYA_SUCCESS;
