@@ -58,7 +58,7 @@ MtmProduct mtmProductCreate(unsigned int id, double amount,const char* name, Mat
     MtmProduct mpd = malloc(sizeof(*mpd));
     mpd->amount = amount;
     mpd->id = id;
-    mpd->name = malloc(sizeof( strlen(name) + 1 ));
+    mpd->name = malloc((1+ strlen(name))*sizeof(char));
     strcpy((mpd->name),name);
     mpd->amountType = amountType;
     mpd->amountSold = amountSold;
@@ -96,10 +96,14 @@ SetElement itemSetCopyElement(SetElement mp1){
     return ans;
 }
 void itemSetFreeElement(SetElement mpV){
+    if (mpV == NULL)
+        return;
     MtmProduct mp = mpV;
-    //mp->freeData(mp->customData);
+    mp->freeData(mp->customData);
+    free(mp->name);
     free(mp);
     //i think we dont need to free mp->customData because there could be one customData for many products
+    //update - we do
 }
 int itemSetCompareElement(SetElement mp11,SetElement mp21){//compare by id
     MtmProduct mp1 = mp11;
@@ -114,6 +118,8 @@ SetElement cartSetCopyElement(SetElement orderV){
     return ans;
 }
 void cartSetFreeElement(SetElement orderV){
+    if (orderV == NULL)
+        return;
     Order order = orderV;
     Set set = order->itemsSet;
     if( set != NULL ){
