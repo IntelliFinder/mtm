@@ -106,7 +106,6 @@ bool testCheckIterator(){
     AmountSet as = asCreate();
     ASSERT_TEST(asRegister(as,"hello")== AS_SUCCESS);
     ASSERT_TEST(asRegister(as,"world")== AS_SUCCESS);
-    ASSERT_TEST(asGetFirst(as)== AS_SUCCESS);
     ASSERT_TEST(strcmp(asGetFirst(as), "hello")==0);
     asDestroy(as);
     return true;
