@@ -11,6 +11,29 @@
 #include "set.h"
 
 /*************orders**************************/
+SetElement cartSetCopyElement(SetElement orderV){
+    Order ans = malloc(sizeof(*ans));
+    Order order = orderV;
+    ans->itemsSet = itemSetCopyElement((Order)(order)->itemsSet);
+    ans->id = order->id;
+    return ans;
+}
+void cartSetFreeElement(SetElement orderV){
+    if (orderV == NULL)
+        return;
+    Order order = orderV;
+    Set set = order->itemsSet;
+    if( set != NULL ){
+        setDestroy( set );
+    }
+    free(order);
+
+}
+int cartSetCompareElement(SetElement order11,SetElement order21){
+    Order order1 = order11;
+    Order order2 = order21;
+    return (int)order1->id - (int)order2->id;
+}
 
 unsigned int mtmCreateNewOrder(Matamikya matamikya){
     unsigned int maxID = 0;
