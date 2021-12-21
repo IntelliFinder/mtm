@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <stdbool.h>
 
+#include "set.h"
+
 typedef enum MatamikyaResult_t {
     MATAMIKYA_SUCCESS = 0,
     MATAMIKYA_NULL_ARGUMENT,
@@ -35,7 +37,7 @@ typedef enum MatamikyaAmountType_t {
 } MatamikyaAmountType;
 
 /** Type for representing a Matamikya warehouse */
-typdef struct Matamikya_t{
+typedef struct Matamikya_t{
     Set mtm;
     Set cart;
 }*Matamikya;
