@@ -14,7 +14,7 @@
 SetElement cartSetCopyElement(SetElement orderV){
     Order ans = malloc(sizeof(*ans));
     Order order = orderV;
-    ans->itemsSet = itemSetCopyElement((Order)(order)->itemsSet);
+    ans->itemsSet = itemSetCopyElement(order->itemsSet);/**====fix bug here**/
     ans->id = order->id;
     return ans;
 }
