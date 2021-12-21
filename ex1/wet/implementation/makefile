@@ -1,16 +1,48 @@
-#CC = gcc
-#OBJ = matamikya.o
-#EXEC = prog
-#DEBUG_FLAG = -DNDEBUG
-#COMP_FLAG = -L. -lmtm -lm -las -std=c99 -Wall -pedantic-errors -Werror
-#
-#$(EXEC) : $(OBJ)
-#	$(CC) $(COMP_FLAG) $(DEBUG_FLAG) -o $^
-#matamikya.o : matamikya_main.c matamikya_tests.c matamikya.c  matamikya_tests.h test_utilities.h  matamikya.h
-#	$(CC) $(COMP_FLAG) $(DEBUG_FLAG) -c matamikya_main.c matamikya_tests.c matamikya.c
-#clean:
-#	rm -f $(OBJ) $(EXEC)
-#
-matamikya : matamikya.c tests/matamikya_main.c tests/matamikya_tests.c
-	gcc -std=c99 -Wall -pedantic-errors -Werror -o matamikya matamikya.c tests/matamikya_main.c tests/matamikya_tests.c -L. -lmtm -lm -las
-#gcc -std=c99 -Wall -pedantic-errors -Werror -DNDEBUG -o matamikya matamikya*.c tests/matamikya*.c  -L. -lmtm -lm -las
+CC=gcc
+OBJS=matamikya.o matamikya_order.o matamikya_product.o matamikya_print.o tests/matamikya_main.o tests/matamikya_tests.o
+OBJS2= amount_set_str.o amount_set_str_node.o amount_set_str_main.o amount_set_str_tests.o 
+EXEC=matamikya
+EXEC2= amount_set_str 
+# OBJ=mtmiya.o
+DEBUG = -g -DNDEBUG# now empty, assign -g for debug
+CFLAGS = -std=c99 -Wall -pedantic-errors -Werror $(DEBUG)
+
+$(EXEC) : $(OBJS)
+	$(CC) $(CFLAG) $(OBJS) -o $@ -L. -lmtm -lm -las
+# $(OBJ): $(OBJS)
+# 	ld -r -o $(OBJ) $(OBJS)
+
+$(EXEC2) : $(OBJS2)
+	$(CC) $(CFLAG) $(OBJS2) -o $@ 
+
+matamikya.o: matamikya.c matamikya.h matamikya_print.h  \
+ matamikya_order.h matamikya_product.h set.h
+
+matamikya_product.o: matamikya_product.c matamikya_product.h matamikya.h \
+set.h
+
+matamikya_order.o: matamikya_order.c matamikya_order.h set.h \
+matamikya_product.h matamikya.h
+
+matamikya_print.o: matamikya_print.c matamikya_print.h
+
+matamikya_main.o: tests/matamikya_main.c tests/matamikya_tests.h \
+ tests/test_utilities.h
+ 
+matamikya_tests.o: tests/matamikya_tests.c tests/matamikya_tests.h \
+ matamikya.h tests/test_utilities.h
+
+amount_set_str.o: amount_set_str.c amount_set_str.h amount_set_str_node.h
+
+amount_set_str_main.o: amount_set_str_main.c amount_set_str_tests.h \
+ tests/test_utilities.h
+
+amount_set_str_tests.o: amount_set_str_tests.c amount_set_str_tests.h \
+ amount_set_str.h tests/test_utilities.h
+
+amount_set_str_node.o: amount_set_str_node.c amount_set_str_node.h \
+ amount_set_str.h
+
+
+clean:
+	rm -f $(OBJS) $(EXEC) $(OBJS2) $(EXEC2) 

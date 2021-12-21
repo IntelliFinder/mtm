@@ -321,7 +321,7 @@ MatamikyaResult mtmChangeProductAmountInOrder(Matamikya matamikya, const unsigne
     }
     if (prodInOrder==NULL){
         if(amount<0)
-            return MATAMIKYA_INVALID_AMOUNT;//there is no instruction what to do here
+            return MATAMIKYA_INVALID_AMOUNT;//there is no instruction what to do here-- snir: i think we should remove thi, later in ship order if there is a problem we throw an error
         if (amount>0){
             if (!isAmountValid(prodInMTM,amount)){
                 return MATAMIKYA_INVALID_AMOUNT;
@@ -358,18 +358,22 @@ MatamikyaResult mtmChangeProductAmountInOrder(Matamikya matamikya, const unsigne
 
 MatamikyaResult mtmShipOrder(Matamikya matamikya, const unsigned int orderId)
 {
-    if(matamikya == NULL)
+    if(matamikya == NULL){
         return MATAMIKYA_NULL_ARGUMENT;
+
+    }
     Order shipOrder = findOrderWithID(matamikya->cart,orderId);
-    if (shipOrder == NULL)
+    if (shipOrder == NULL){
         return MATAMIKYA_ORDER_NOT_EXIST;
+    }
     MtmProduct mpOrderSell = setGetFirst(shipOrder->itemsSet);
     //check there is enough amount in warehouse
     MtmProduct mpMtmSell=NULL;
     while (mpOrderSell != NULL){
         mpMtmSell = findProductInSet(matamikya->mtm,mpOrderSell->id);
-        if (mpOrderSell->amount > mpMtmSell->amount)
+        if (mpOrderSell->amount > mpMtmSell->amount){
             return MATAMIKYA_INSUFFICIENT_AMOUNT;
+        }
         mpOrderSell = setGetNext(shipOrder->itemsSet);
     }
     //now we can actually ship
@@ -410,8 +414,9 @@ MatamikyaResult mtmPrintBestSelling(Matamikya matamikya, FILE *output){
     while (runMp != NULL){
         double incomeRun = runMp->prodPrice(runMp->customData,runMp->amountSold);
         double incomeMax = maxMp->prodPrice(maxMp->customData,maxMp->amountSold);
-        if (incomeRun>incomeMax)
+        if (incomeRun>incomeMax){
             maxMp = runMp;
+        }
         runMp = setGetNext(matamikya->mtm);
     }
     mtmPrintIncomeLine(maxMp->name,maxMp->id,maxMp->prodPrice(maxMp->customData,maxMp->amountSold), output);
