@@ -48,6 +48,7 @@ unsigned int mtmCreateNewOrder(Matamikya matamikya){
     Order newOrder = malloc(sizeof(*newOrder));
     newOrder->id = maxID;
     newOrder->itemsSet = setCreate(itemSetCopyElement, itemSetFreeElement, itemSetCompareElement);
+    assert(newOrder->itemsSet != NULL);
     setAdd(matamikya->cart,newOrder);
     return maxID;//id will start with 1 and not a 0
 }
@@ -123,9 +124,11 @@ MatamikyaResult mtmChangeProductAmountInOrder(Matamikya matamikya, const unsigne
             if (!isAmountValid(prodInMTM,amount)){
                 return MATAMIKYA_INVALID_AMOUNT;
             }
-            setAdd(orderToChange->itemsSet, mtmProductCreate(prodInMTM->id, prodInMTM->amount,prodInMTM->name, prodInMTM->amountType,
-                                              prodInMTM->amountSold, prodInMTM->customData,prodInMTM->copyData,
-                                             prodInMTM->freeData,prodInMTM->prodPrice) );
+            MtmProduct mpAdd= mtmProductCreate(prodInMTM->id, prodInMTM->amount,prodInMTM->name, prodInMTM->amountType,
+                                               prodInMTM->amountSold, prodInMTM->customData,prodInMTM->copyData,
+                                               prodInMTM->freeData,prodInMTM->prodPrice);
+            assert(mpAdd);
+            setAdd(orderToChange->itemsSet, mpAdd);
             return MATAMIKYA_SUCCESS;
         }
     }

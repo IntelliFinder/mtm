@@ -33,7 +33,7 @@ MatamikyaResult mtmPrintInventory(Matamikya matamikya, FILE *output)
     if( matamikya == NULL ){
         return MATAMIKYA_NULL_ARGUMENT;
     }
-    fprintf(output, "Inventory Status:\n");
+    fprintf(output, "Inventory Status:\r\n");
     Set iter = setCopy(matamikya->mtm); //maybe remove
     if(setGetSize(iter) == -1){
         setDestroy(iter);
@@ -44,11 +44,11 @@ MatamikyaResult mtmPrintInventory(Matamikya matamikya, FILE *output)
     for(int i=0; i<size; i++){
         if( i==0 ){
             prod = setGetFirst(iter);
-            mtmPrintProductDetails(prod->name,  prod->id, prod->amount, prod->prodPrice(prod->customData, prod->amountSold), output);
+            mtmPrintProductDetails(prod->name,  prod->id, prod->amount, (*prod->prodPrice)(prod->customData, 1.0), output);
         }
         else{
             prod = setGetNext(iter);
-            mtmPrintProductDetails(prod->name,  prod->id, prod->amount, prod->prodPrice(prod->customData, prod->amountSold), output);
+            mtmPrintProductDetails(prod->name,  prod->id, prod->amount, (*prod->prodPrice)(prod->customData, 1.0), output);
         }
     }
     setDestroy(iter); // maybe use matamikya
@@ -59,11 +59,13 @@ MatamikyaResult mtmPrintOrder(Matamikya matamikya, const unsigned int orderId, F
         return MATAMIKYA_NULL_ARGUMENT;
     }
     double total=0;
-    mtmPrintOrderHeading(orderId, output);
-    if( findOrderWithID( matamikya->cart, orderId ) == NULL ){
+    mtmPrintOrderHeading(orderId, output);//change this, watch expected order
+    Order midOrder = findOrderWithID( matamikya->cart, orderId );
+
+    if( midOrder == NULL ){
         return MATAMIKYA_ORDER_NOT_EXIST;
     }
-    Set iter = findOrderWithID( matamikya->cart, orderId )->itemsSet;
+    Set iter = midOrder->itemsSet;
 
     if(setGetSize(iter) == -1){
         return MATAMIKYA_SUCCESS;
@@ -71,13 +73,14 @@ MatamikyaResult mtmPrintOrder(Matamikya matamikya, const unsigned int orderId, F
     int size = setGetSize(iter);
     MtmProduct prod;
     for(int i=0; i<size; i++){
-        if( i==0 ){
+        if( i==0 ) {
             prod = setGetFirst(iter);
-            total += prod->prodPrice(prod->customData,prod->amountSold);
-            mtmPrintProductDetails(prod->name,  prod->id, prod->amount, prod->prodPrice(prod->customData, prod->amountSold), output);
         }
-        prod = setGetNext(iter);
-        mtmPrintProductDetails(prod->name,  prod->id, prod->amount, prod->prodPrice(prod->customData, prod->amountSold), output);
+        else {
+            prod = setGetNext(iter);
+        }
+        total += (*prod->prodPrice)(prod->customData,prod->amount);
+        mtmPrintProductDetails(prod->name,  prod->id, prod->amount, (*prod->prodPrice)(prod->customData, prod->amount), output);
     }
     mtmPrintOrderSummary(total,output);
     return MATAMIKYA_SUCCESS;
