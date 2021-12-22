@@ -61,9 +61,11 @@ void itemSetFreeElement(SetElement mpV){
         return;
     }
     MtmProduct mp = mpV;
+    mtmProductDestroy(mp);
+    /*
     mp->freeData(mp->customData);
     free(mp->name);
-    free(mp);
+    free(mp);*/
     //i think we dont need to free mp->customData because there could be one customData for many products
     //update - we do
 }
