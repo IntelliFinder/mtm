@@ -149,8 +149,8 @@ MatamikyaResult mtmNewProduct(Matamikya matamikya, const unsigned int id, const 
                               const double amount, const MatamikyaAmountType amountType,
                               const MtmProductData customData, MtmCopyData copyData,
                               MtmFreeData freeData, MtmGetProductPrice prodPrice)
-{ //matamikya non-null
-    if( matamikya == NULL)
+{
+    if( matamikya == NULL || name == NULL || customData == NULL || copyData == NULL || freeData == NULL || prodPrice ==NULL)
     {
         return MATAMIKYA_NULL_ARGUMENT;
     }
