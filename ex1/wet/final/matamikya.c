@@ -18,7 +18,7 @@ void mtmPrintBestSellingProd(FILE* output){
     fprintf(output,"Best Selling Product:\r\n");
 }
 MatamikyaResult mtmPrintBestSelling(Matamikya matamikya, FILE *output){
-    if( matamikya->mtm == NULL ){
+    if( matamikya == NULL ){
         return MATAMIKYA_NULL_ARGUMENT;
     }
     MtmProduct maxMp = setGetFirst(matamikya->mtm);
@@ -44,7 +44,7 @@ MatamikyaResult mtmPrintBestSelling(Matamikya matamikya, FILE *output){
 }
 MatamikyaResult mtmPrintInventory(Matamikya matamikya, FILE *output)
 {
-    if( matamikya == NULL ){
+    if( matamikya == NULL || output == NULL){
         return MATAMIKYA_NULL_ARGUMENT;
     }
     fprintf(output, "Inventory Status:\r\n");

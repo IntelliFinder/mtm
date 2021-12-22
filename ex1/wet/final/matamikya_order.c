@@ -138,11 +138,8 @@ MatamikyaResult mtmChangeProductAmountInOrder(Matamikya matamikya, const unsigne
     }
     if (prodInOrder==NULL){
         if(amount<0)
-            return MATAMIKYA_INVALID_AMOUNT;//there is no instruction what to do here-- snir: i think we should remove thi, later in ship order if there is a problem we throw an error
+            return MATAMIKYA_SUCCESS;
         if (amount>0){
-            if (!isAmountValid(prodInMTM,amount)){
-                return MATAMIKYA_INVALID_AMOUNT;
-            }
             MtmProduct mpAdd= mtmProductCreate(prodInMTM->id, amount,prodInMTM->name, prodInMTM->amountType,
                                                prodInMTM->amountSold, prodInMTM->customData,prodInMTM->copyData,
                                                prodInMTM->freeData,prodInMTM->prodPrice);
