@@ -21,6 +21,11 @@ typedef struct MtmProduct_t{
     MtmGetProductPrice prodPrice;
 }*MtmProduct;
 
+struct Matamikya_t{
+    Set mtm;
+    Set cart;
+};
+
 
 MtmProduct mtmProductCreate(unsigned int id, double amount,const char* name, MatamikyaAmountType amountType,
                             double amountSold, MtmProductData customData,MtmCopyData copyData, MtmFreeData freeData,MtmGetProductPrice prodPrice);

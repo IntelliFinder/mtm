@@ -11,17 +11,18 @@
 
 
 /*============================================PRINT==================================================*/
+
 void mtmPrintNone(FILE* output){
     if(output==NULL){
         return;
     }
-    fprintf(output,"none\r\n");
+    fprintf(output,"none\n");
 }
 void mtmPrintBestSellingProd(FILE* output){
     if(output==NULL){
         return;
     }
-    fprintf(output,"Best Selling Product:\r\n");
+    fprintf(output,"Best Selling Product:\n");
 }
 MatamikyaResult mtmPrintBestSelling(Matamikya matamikya, FILE *output){
     if( matamikya == NULL || output == NULL){
@@ -53,7 +54,7 @@ MatamikyaResult mtmPrintInventory(Matamikya matamikya, FILE *output)
     if( matamikya == NULL || output == NULL){
         return MATAMIKYA_NULL_ARGUMENT;
     }
-    fprintf(output, "Inventory Status:\r\n");
+    fprintf(output, "Inventory Status:\n");
     Set iter = setCopy(matamikya->mtm); //maybe remove
     if(setGetSize(iter) == -1){
         setDestroy(iter);

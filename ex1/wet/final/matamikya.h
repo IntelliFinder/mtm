@@ -37,10 +37,7 @@ typedef enum MatamikyaAmountType_t {
 } MatamikyaAmountType;
 
 /** Type for representing a Matamikya warehouse */
-typedef struct Matamikya_t{
-    Set mtm;
-    Set cart;
-}*Matamikya;
+typedef struct Matamikya_t *Matamikya;
 
 /** Type for additional custom data of a product */
 typedef void *MtmProductData;
