@@ -18,19 +18,16 @@ amount_set_str_element.o: amount_set_str_element.c amount_set_str.h
 amount_set_str_main.o: amount_set_str_main.c amount_set_str_tests.h \
  amount_set_str_test_utilities.h
 amount_set_str_tests.o: amount_set_str_tests.c amount_set_str_tests.h \
- matamikya.h amount_set_str.h amount_set_str_test_utilities.h
+ matamikya.h set.h amount_set_str.h amount_set_str_test_utilities.h
+biadsy_matamikya_tests.o: biadsy_matamikya_tests.c matamikya.h set.h \
+ tests/test_utilities.h
 matamikya.o: matamikya.c matamikya.h set.h matamikya_print.h \
  matamikya_order.h matamikya_product.h
-matamikya_order.o: matamikya_order.c matamikya.h matamikya_print.h \
- matamikya_order.h set.h matamikya_product.h
+matamikya_order.o: matamikya_order.c matamikya.h set.h matamikya_print.h \
+ matamikya_order.h matamikya_product.h
 matamikya_print.o: matamikya_print.c matamikya_print.h
-matamikya_product.o: matamikya_product.c matamikya.h matamikya_product.h \
- set.h matamikya_order.h matamikya_print.h
-matamikya_main.o: tests/matamikya_main.c tests/matamikya_tests.h \
- tests/test_utilities.h
-matamikya_tests.o: tests/matamikya_tests.c tests/matamikya_tests.h \
- matamikya.h tests/test_utilities.h
-
+matamikya_product.o: matamikya_product.c matamikya.h set.h \
+ matamikya_product.h matamikya_order.h matamikya_print.h
 clean:
 	rm -f $(OBJS) $(EXEC) $(OBJSAS) $(EXECAS)
 
