@@ -30,8 +30,9 @@ MtmProduct mtmProductCreate(unsigned int id, double amount,const char* name, Mat
     return mpd;
 }
 void mtmProductDestroy(MtmProduct mp){
-    if (mp==NULL)
+    if (mp==NULL){
         return;
+    }
     free(mp->name);
     (*mp->freeData)(mp->customData);
     free(mp);
@@ -139,7 +140,7 @@ MatamikyaResult mtmClearProduct(Matamikya matamikya, const unsigned int id){
     if (mpClear == NULL){
         return MATAMIKYA_PRODUCT_NOT_EXIST;
     }
-    setRemove(matamikya->mtm,mpClear);
+    setRemove(matamikya->mtm, mpClear);
     //remove from all orders
     Order runOrder = setGetFirst(matamikya->cart);
     while (runOrder!=NULL){
