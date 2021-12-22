@@ -13,6 +13,9 @@
 /*************orders**************************/
 SetElement cartSetCopyElement(SetElement orderV){
     Order ans = malloc(sizeof(*ans));
+    if(ans==NULL){
+        return NULL;
+    }
     Order order = orderV;
     //ans->itemsSet = itemSetCopyElement(order->itemsSet);
     /**====fix bug here**/
@@ -48,6 +51,7 @@ unsigned int mtmCreateNewOrder(Matamikya matamikya){
         }
         runOrder = setGetNext(matamikya->cart);
     }
+    assert(runOrder==NULL);
     maxID++;
     Order newOrder = malloc(sizeof(*newOrder));
     newOrder->id = maxID;
