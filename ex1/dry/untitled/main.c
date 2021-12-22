@@ -3,7 +3,7 @@
 #include <string.h>
 #include <assert.h>
 
-char* stringDuplicator(char* s, int times);
+char* stringDuplicator(const char* s,const int times);
 
 int main() {
     char* s = "Hello";
@@ -14,15 +14,18 @@ int main() {
     return 0;
 }
 
-char* stringDuplicator(char* s, int times) {
-    assert(s);
+char* stringDuplicator(const char* s,const int times) {
+    if(s == NULL)
+		return NULL;
     assert(times > 0);
-    int LEN = strlen(s);
-    char* out = malloc( ((LEN * times) + 1) * sizeof(char));
-    assert(out);
+    int length = strlen(s);
+    char* out = malloc( ((length * times) + 1) * sizeof(char));
+    if(out == NULL){
+		return NULL;
+	}
     char* back = out;
     for (int i = 0; i < times; i++){
-        out = out + LEN;
+        out = out + length;
         strcpy(out, s);
     }
     return back;
