@@ -1,6 +1,6 @@
 #include "amount_set_str_tests.h"
-#include "matamikya.h"
-#include "amount_set_str.h"
+#include "../matamikya.h"
+#include "../amount_set_str.h"
 #include "amount_set_str_test_utilities.h"
 #include <assert.h>
 #include <stdlib.h>

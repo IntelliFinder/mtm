@@ -87,7 +87,7 @@ bool testModifyProducts() {
 
     basePrice = 18.5;
     ASSERT_OR_DESTROY(MATAMIKYA_INVALID_AMOUNT ==
-                      mtmNewProduct(mtm, 7, "Watermelon", 24.54,
+                      mtmNewProduct(mtm, 7, "Watermelon", 24.64,
                                     MATAMIKYA_HALF_INTEGER_AMOUNT, &basePrice, copyDouble,
                                     freeDouble, simplePrice));
     ASSERT_OR_DESTROY(MATAMIKYA_SUCCESS ==
