@@ -40,7 +40,7 @@ void deleteNode( Node list );
 ErrorCode mergeSortedLists( Node list1, Node list2, Node *mergedOut);
 
 //default
-int main() {
+int main1() {
 
     Node list1 = createNode( 2, createNode( 4, createNode( 8, NULL )));
     Node list2 = createNode( 1, createNode( 4, createNode( 9, NULL )));
@@ -79,7 +79,7 @@ int main3() {
 
 }
 //kaze
-int main4() {
+int main() {
 
     Node list1 = createNode( 2, NULL );
     Node list2 = createNode( 3, NULL);
@@ -133,17 +133,17 @@ ErrorCode mergeSortedLists( Node list1, Node list2, Node *mergedOut){
             return MEMORY_ERROR;
         }
         if(list1 == NULL){
-            addNodeAndPromoteList(start,&list2);
+            addNodeAndPromoteList(run,&list2);
         }
         else if(list2 == NULL) {
-            addNodeAndPromoteList(start,&list1);
+            addNodeAndPromoteList(run,&list1);
         }
         else if(list1->x < list2->x){
-            addNodeAndPromoteList(start,&list1);
+            addNodeAndPromoteList(run,&list1);
         }
         else{
             assert(list2->x <= list1->x);
-            addNodeAndPromoteList(start,&list2);
+            addNodeAndPromoteList(run,&list2);
         }
     }
     (*mergedOut)->x = start->x;
