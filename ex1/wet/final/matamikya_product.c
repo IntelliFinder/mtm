@@ -33,7 +33,7 @@ void mtmProductDestroy(MtmProduct mp){
     if (mp==NULL)
         return;
     free(mp->name);
-    mp->freeData(mp->customData);
+    (*mp->freeData)(mp->customData);
     free(mp);
 }
 
