@@ -15,8 +15,9 @@ int main() {
 }
 
 char* stringDuplicator(const char* s,const int times) {
-    if(s == NULL)
+    if(s == NULL){
 		return NULL;
+	}
     assert(times > 0);
     int length = strlen(s);
     char* out = malloc( ((length * times) + 1) * sizeof(char));
