@@ -26,7 +26,7 @@ char* stringDuplicator(const char* s,const int times) {
 	}
     char* back = out;
     for (int i = 0; i < times; i++){
-        out = out + length;
+        out += length;
         strcpy(out, s);
     }
     return back;
