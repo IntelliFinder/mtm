@@ -92,6 +92,8 @@ bool isNameValid(const char *name){
 }
 bool isAmountValid(const MtmProduct mp,const double wantedAmount){
     double diff = (double)wantedAmount - (int)wantedAmount;
+    if(diff<0)
+        diff = -diff;
     if( mp->amountType == MATAMIKYA_INTEGER_AMOUNT ){
         if( diff <= 0.001 || diff >= 0.999){
             return true;
