@@ -12,13 +12,19 @@
 
 /*============================================PRINT==================================================*/
 void mtmPrintNone(FILE* output){
+    if(output==NULL){
+        return;
+    }
     fprintf(output,"none\r\n");
 }
 void mtmPrintBestSellingProd(FILE* output){
+    if(output==NULL){
+        return;
+    }
     fprintf(output,"Best Selling Product:\r\n");
 }
 MatamikyaResult mtmPrintBestSelling(Matamikya matamikya, FILE *output){
-    if( matamikya == NULL ){
+    if( matamikya == NULL || output == NULL){
         return MATAMIKYA_NULL_ARGUMENT;
     }
     MtmProduct maxMp = setGetFirst(matamikya->mtm);
@@ -65,11 +71,12 @@ MatamikyaResult mtmPrintInventory(Matamikya matamikya, FILE *output)
             mtmPrintProductDetails(prod->name,  prod->id, prod->amount, (*prod->prodPrice)(prod->customData, 1.0), output);
         }
     }
+
     setDestroy(iter); // maybe use matamikya
     return MATAMIKYA_SUCCESS;
 }
 MatamikyaResult mtmPrintOrder(Matamikya matamikya, const unsigned int orderId, FILE *output){
-    if(  matamikya == NULL){
+    if(  matamikya == NULL || output ==NULL){
         return MATAMIKYA_NULL_ARGUMENT;
     }
     double total=0;
