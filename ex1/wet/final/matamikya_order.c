@@ -126,7 +126,7 @@ MatamikyaResult mtmChangeProductAmountInOrder(Matamikya matamikya, const unsigne
             if (!isAmountValid(prodInMTM,amount)){
                 return MATAMIKYA_INVALID_AMOUNT;
             }
-            MtmProduct mpAdd= mtmProductCreate(prodInMTM->id, prodInMTM->amount,prodInMTM->name, prodInMTM->amountType,
+            MtmProduct mpAdd= mtmProductCreate(prodInMTM->id, amount,prodInMTM->name, prodInMTM->amountType,
                                                prodInMTM->amountSold, prodInMTM->customData,prodInMTM->copyData,
                                                prodInMTM->freeData,prodInMTM->prodPrice);
             assert(mpAdd);
