@@ -11,6 +11,12 @@
 
 
 /*============================================PRINT==================================================*/
+void mtmPrintNone(FILE* output){
+    fprintf(output,"none\r\n");
+}
+void mtmPrintBestSellingProd(FILE* output){
+    fprintf(output,"Best Selling Product:\r\n");
+}
 MatamikyaResult mtmPrintBestSelling(Matamikya matamikya, FILE *output){
     if( matamikya->mtm == NULL ){
         return MATAMIKYA_NULL_ARGUMENT;
@@ -18,14 +24,22 @@ MatamikyaResult mtmPrintBestSelling(Matamikya matamikya, FILE *output){
     MtmProduct maxMp = setGetFirst(matamikya->mtm);
     MtmProduct runMp = setGetFirst(matamikya->mtm);
     while (runMp != NULL){
-        double incomeRun = runMp->prodPrice(runMp->customData,runMp->amountSold);
-        double incomeMax = maxMp->prodPrice(maxMp->customData,maxMp->amountSold);
+        double incomeRun = (*runMp->prodPrice)(runMp->customData,runMp->amountSold);
+        double incomeMax = (*maxMp->prodPrice)(maxMp->customData,maxMp->amountSold);
         if (incomeRun>incomeMax){
             maxMp = runMp;
         }
         runMp = setGetNext(matamikya->mtm);
     }
-    mtmPrintIncomeLine(maxMp->name,maxMp->id,maxMp->prodPrice(maxMp->customData,maxMp->amountSold), output);
+
+    mtmPrintBestSellingProd(output);
+
+    if((*maxMp->prodPrice)(maxMp->customData,maxMp->amountSold)>0) {
+        mtmPrintIncomeLine(maxMp->name,maxMp->id,(*maxMp->prodPrice)(maxMp->customData,maxMp->amountSold), output);
+    }
+    else{
+        mtmPrintNone(output);
+    }
     return MATAMIKYA_SUCCESS;
 }
 MatamikyaResult mtmPrintInventory(Matamikya matamikya, FILE *output)
