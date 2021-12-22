@@ -44,7 +44,7 @@ int cartSetCompareElement(SetElement order11,SetElement order21){
 
 unsigned int mtmCreateNewOrder(Matamikya matamikya){
     if (matamikya == NULL){
-        return MATAMIKYA_NULL_ARGUMENT;
+        return 0;
     }
     unsigned int maxID = 0;
     Order runOrder = setGetFirst(matamikya->cart);
