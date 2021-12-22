@@ -23,7 +23,7 @@ MtmProduct mtmProductCreate(unsigned int id, double amount,const char* name, Mat
     strcpy((mpd->name),name);
     mpd->amountType = amountType;
     mpd->amountSold = amountSold;
-    mpd->customData = copyData(customData);
+    mpd->customData = (*copyData)(customData);
     mpd->copyData = copyData;
     mpd->freeData = freeData;
     mpd->prodPrice = prodPrice;
@@ -34,7 +34,7 @@ void mtmProductDestroy(MtmProduct mp){
         return;
     }
     free(mp->name);
-    (*mp->freeData)(mp->customData);
+    (*(mp->freeData))(mp->customData);
     free(mp);
 }
 
