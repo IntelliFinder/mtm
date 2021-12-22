@@ -30,7 +30,7 @@ void cartSetFreeElement(SetElement orderV){
     }
     Order order = orderV;
     //Set set = order->itemsSet; directly to set lets see if it matters
-    if( set != NULL ){
+    if( order->itemsSet != NULL ){
         setDestroy( order->itemsSet );
     }
     free(order);
