@@ -86,6 +86,9 @@ MatamikyaResult mtmChangeProductAmount(Matamikya matamikya, const unsigned int i
     if (amount==0.0){
         return MATAMIKYA_SUCCESS;
     }
+    if (!isAmountValid(prodInMTM,amount)){
+        return MATAMIKYA_INVALID_AMOUNT;
+    }
     if (amount>0){
         if(isAmountValid(prodInMTM, prodInMTM->amount + amount) ){
             prodInMTM->amount = prodInMTM->amount + amount;
@@ -126,6 +129,9 @@ MatamikyaResult mtmChangeProductAmountInOrder(Matamikya matamikya, const unsigne
     }
     if (amount==0.0){
         return MATAMIKYA_SUCCESS;
+    }
+    if (!isAmountValid(prodInMTM,amount)){
+        return MATAMIKYA_INVALID_AMOUNT;
     }
     if (prodInOrder==NULL){
         if(amount<0)
