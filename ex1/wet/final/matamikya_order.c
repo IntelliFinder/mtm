@@ -58,6 +58,8 @@ unsigned int mtmCreateNewOrder(Matamikya matamikya){
     newOrder->itemsSet = setCreate(itemSetCopyElement, itemSetFreeElement, itemSetCompareElement);
     assert(newOrder->itemsSet != NULL);
     setAdd(matamikya->cart,newOrder);
+    setDestroy(newOrder->itemsSet);
+    free(newOrder);
     return maxID;//id will start with 1 and not a 0
 }
 Order findOrderWithID(const Set cart,const unsigned int orderId){
@@ -137,6 +139,7 @@ MatamikyaResult mtmChangeProductAmountInOrder(Matamikya matamikya, const unsigne
                                                prodInMTM->freeData,prodInMTM->prodPrice);
             assert(mpAdd);
             setAdd(orderToChange->itemsSet, mpAdd);
+            mtmProductDestroy(mpAdd);
             return MATAMIKYA_SUCCESS;
         }
     }

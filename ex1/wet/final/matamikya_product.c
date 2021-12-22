@@ -174,6 +174,7 @@ MatamikyaResult mtmNewProduct(Matamikya matamikya, const unsigned int id, const 
         return MATAMIKYA_PRODUCT_ALREADY_EXIST;
     }
     setAdd( matamikya->mtm, product );
+    mtmProductDestroy(product);
     return MATAMIKYA_SUCCESS;
 }
 
