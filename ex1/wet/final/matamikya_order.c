@@ -22,7 +22,9 @@ SetElement cartSetCopyElement(SetElement orderV){
 }
 void cartSetFreeElement(SetElement orderV){
     if (orderV == NULL)
+    {
         return;
+    }
     Order order = orderV;
     Set set = order->itemsSet;
     if( set != NULL ){
