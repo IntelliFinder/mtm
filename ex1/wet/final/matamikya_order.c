@@ -26,9 +26,9 @@ void cartSetFreeElement(SetElement orderV){
         return;
     }
     Order order = orderV;
-    Set set = order->itemsSet;
+    //Set set = order->itemsSet; directly to set lets see if it matters
     if( set != NULL ){
-        setDestroy( set );
+        setDestroy( order->itemsSet );
     }
     free(order);
 
