@@ -91,15 +91,8 @@ int main() {
     return er;
 
 }
-void listDestroy(Node start){
-    Node run;
-    do {
-        run = start->next;
-        deleteNode(start);
-        start = run;
-    }
-    while (run != NULL);
-}
+
+
 void addNodeAndPromoteList(Node list,Node *toBeAddedAndPromoted){
     list->x = (*toBeAddedAndPromoted)->x;
     *toBeAddedAndPromoted = (*toBeAddedAndPromoted)->next;
@@ -128,7 +121,7 @@ ErrorCode mergeSortedLists( Node list1, Node list2, Node *mergedOut){
         run->next = createNode(0,NULL); //0 is default
         run = run->next;
         if(run == NULL){
-            listDestroy(start);
+            deleteNode(start);
             *mergedOut = NULL;
             return MEMORY_ERROR;
         }
