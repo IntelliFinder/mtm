@@ -132,11 +132,13 @@ void matamikyaDestroy(Matamikya matamikya){
     free(matamikya);
 }
 MatamikyaResult mtmClearProduct(Matamikya matamikya, const unsigned int id){
-    if (matamikya == NULL)
+    if (matamikya == NULL){
         return MATAMIKYA_NULL_ARGUMENT;
+    }
     MtmProduct mpClear = findProductInSet(matamikya->mtm,id);
-    if (mpClear == NULL)
+    if (mpClear == NULL){
         return MATAMIKYA_PRODUCT_NOT_EXIST;
+    }
     setRemove(matamikya->mtm,mpClear);
     //remove from all orders
     Order runOrder = setGetFirst(matamikya->cart);

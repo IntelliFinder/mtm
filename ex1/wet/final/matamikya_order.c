@@ -203,7 +203,10 @@ MatamikyaResult mtmCancelOrder(Matamikya matamikya, const unsigned int orderId){
     Order  toCancel = findOrderWithID(matamikya->cart,orderId);
     if (toCancel == NULL)
         return MATAMIKYA_ORDER_NOT_EXIST;
+    /**===bug==*/
+    setDestroy( toCancel->itemsSet );
     setRemove(matamikya->cart,toCancel);
+
     //free function used as in initialization
     return MATAMIKYA_SUCCESS;
 }
