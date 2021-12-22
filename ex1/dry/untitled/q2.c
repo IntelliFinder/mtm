@@ -91,11 +91,21 @@ int main4() {
     return er;
 
 }
-
-ErrorCode mergeSortedLists( Node list1, Node list2, Node *mergedOut)
-{
-    if(list1 == NULL || list2 == NULL || mergedOut == NULL)
-    {
+void listDestroy(Node start){
+    Node run;
+    do {
+        run = start->next;
+        deleteNode(start);
+        start = run;
+    }
+    while (run != NULL);
+}
+void addNodeAndPromoteList(Node list,Node *toBeAddedAndPromoted){
+    list->x = (*toBeAddedAndPromoted)->x;
+    *toBeAddedAndPromoted = (*toBeAddedAndPromoted)->next;
+}
+ErrorCode mergeSortedLists( Node list1, Node list2, Node *mergedOut){
+    if(list1 == NULL || list2 == NULL || mergedOut == NULL){
         return EMPTY_LIST;
     }
     if(!isListSorted(list1) || !isListSorted(list2)){
@@ -107,51 +117,33 @@ ErrorCode mergeSortedLists( Node list1, Node list2, Node *mergedOut)
         return MEMORY_ERROR;
     }
     if(list1->x < list2->x){
-        start->x = list1->x;
-        list1 = list1->next;
+        addNodeAndPromoteList(start,&list1);
     }
     else{
-        assert(list2->x <= list1->x); //nice
-        start->x = list2->x;
-        list2 = list2->next;
+        assert(list2->x <= list1->x);
+        addNodeAndPromoteList(start,&list2);
     }
     Node run = start;
-    /*
-    printf("address of run is: %p\n",(void *)run);
-    printf("address of start is: %p\n",(void *)start);
-    printf("address of mergeout is: %p\n",(void *)*mergedOut);
-    printf("address of &mergout  is: %p\n",(void *)mergedOut );
-    */
-    while (list1 != NULL || list2 != NULL)
-    {
+    while (list1 != NULL || list2 != NULL){
         run->next = createNode(0,NULL); //0 is default
         run = run->next;
         if(run == NULL){
-            do {
-                run = start->next;
-                deleteNode(start);
-                start = run;
-            }
-            while (run != NULL);
+            listDestroy(start);
             *mergedOut = NULL;
             return MEMORY_ERROR;
         }
         if(list1 == NULL){
-            run->x = list2->x;
-            list2 = list2->next;
+            addNodeAndPromoteList(start,&list2);
         }
         else if(list2 == NULL) {
-            run->x = list1->x;
-            list1 = list1->next;
+            addNodeAndPromoteList(start,&list1);
         }
         else if(list1->x < list2->x){
-            run->x = list1->x;
-            list1 = list1->next;
+            addNodeAndPromoteList(start,&list1);
         }
         else{
             assert(list2->x <= list1->x);
-            run->x = list2->x;
-            list2 = list2->next;
+            addNodeAndPromoteList(start,&list2);
         }
     }
     (*mergedOut)->x = start->x;
