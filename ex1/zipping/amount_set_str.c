@@ -98,10 +98,12 @@ bool asContains(AmountSet set, const char* element){
     return false;
 }
 AmountSetResult asGetAmount(AmountSet set, const char* element, double* outAmount){
-    if(set == NULL || element == NULL || outAmount == NULL)
+    if(set == NULL || element == NULL || outAmount == NULL){
         return AS_NULL_ARGUMENT;
-    if(!asContains(set, element))
+	}
+    if(!asContains(set, element)){
         return AS_ITEM_DOES_NOT_EXIST;
+	}
     AmountSet run = set->next;
     while (0 != strcmp(run->name,element)){
         assert(run!=NULL);
@@ -118,8 +120,9 @@ AmountSetResult asRegister(AmountSet set, const char* element)
     {
         return AS_NULL_ARGUMENT;
     }
-    if(asContains(set,element))
+    if(asContains(set,element)){
         return AS_ITEM_ALREADY_EXISTS;
+	}
     AmountSet ph = set;
     while(ph->next!=NULL && strcmp((ph->next)->name,element) < 0 )
     {
@@ -130,8 +133,9 @@ AmountSetResult asRegister(AmountSet set, const char* element)
         return AS_OUT_OF_MEMORY;
     }
     new->name = malloc(sizeof *(set->name) * (strlen(element)+1));
-    if(new->name == NULL)
+    if(new->name == NULL){
         return AS_OUT_OF_MEMORY;
+	}
     strcpy(new->name,element);
     new->amount = 0;
     new->iterator = NULL;
@@ -212,13 +216,15 @@ AmountSetResult asClear(AmountSet set)
 }
 char* asGetNext(AmountSet set)
 {
-    if( set->iterator == NULL )
+    if( set->iterator == NULL ){
         return NULL;
+	}
     AmountSet current_set = set->iterator;
     AmountSet next = current_set->next;
     set->iterator = next;
-    if(next == NULL)
+    if(next == NULL){
         return NULL;
+	}
     return next->name;
 }
 char* asGetFirst(AmountSet set)

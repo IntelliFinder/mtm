@@ -45,8 +45,9 @@ MtmProduct findProductInSet(Set products, const unsigned int productId){
     }
     MtmProduct mpd = setGetFirst(products);
     while (mpd != NULL){
-        if (productId == mpd->id)
+        if (productId == mpd->id){
             return mpd;
+		}
         mpd = setGetNext(products);
     }
     return NULL;
@@ -92,8 +93,9 @@ bool isNameValid(const char *name){
 }
 bool isAmountValid(const MtmProduct mp,const double wantedAmount){
     double diff = (double)wantedAmount - (int)wantedAmount;
-    if(diff<0)
+    if(diff<0){
         diff = -diff;
+	}
     if( mp->amountType == MATAMIKYA_INTEGER_AMOUNT ){
         if( diff <= 0.001 || diff >= 0.999){
             return true;

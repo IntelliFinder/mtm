@@ -71,8 +71,9 @@ Order findOrderWithID(const Set cart,const unsigned int orderId){
     }
     Order runOrder = setGetFirst(cart);
     while (runOrder != NULL){
-        if (runOrder->id == orderId)
+        if (runOrder->id == orderId){
             return runOrder;
+		}
         runOrder = setGetNext(cart);
     }
     return NULL;
@@ -137,8 +138,9 @@ MatamikyaResult mtmChangeProductAmountInOrder(Matamikya matamikya, const unsigne
         return MATAMIKYA_INVALID_AMOUNT;
     }
     if (prodInOrder==NULL){
-        if(amount<0)
+        if(amount<0){
             return MATAMIKYA_SUCCESS;
+		}
         if (amount>0){
             MtmProduct mpAdd= mtmProductCreate(prodInMTM->id, amount,prodInMTM->name, prodInMTM->amountType,
                                                prodInMTM->amountSold, prodInMTM->customData,prodInMTM->copyData,
@@ -152,7 +154,6 @@ MatamikyaResult mtmChangeProductAmountInOrder(Matamikya matamikya, const unsigne
     assert(prodInOrder);
     if (amount>0){
         if(isAmountValid(prodInOrder, prodInOrder->amount+amount) ){
-            //if(prodInMTM->amount >= prodInOrder->amount + amount) { dont need to check it, read MATAMIKYA.h
             prodInOrder->amount = prodInOrder->amount + amount;
             return MATAMIKYA_SUCCESS;
         }
@@ -207,12 +208,13 @@ MatamikyaResult mtmShipOrder(Matamikya matamikya, const unsigned int orderId)
 }
 
 MatamikyaResult mtmCancelOrder(Matamikya matamikya, const unsigned int orderId){
-    if (matamikya == NULL)
+    if (matamikya == NULL){
         return MATAMIKYA_NULL_ARGUMENT;
+	}
     Order  toCancel = findOrderWithID(matamikya->cart,orderId);
-    if (toCancel == NULL)
+    if (toCancel == NULL){
         return MATAMIKYA_ORDER_NOT_EXIST;
-    /**===bug==*/
+	}
     //setDestroy( toCancel->itemsSet );
     setRemove(matamikya->cart,toCancel);
 
