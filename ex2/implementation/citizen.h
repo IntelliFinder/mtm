@@ -11,9 +11,9 @@ namespace mtm {
         std::string getFirstName();
         std::string getLastName();
         int getBirthYear();
-        virtual printShort( std::ostream ) ;
-        virtual printLong( std::ostream );
-        virtual clone();
+        virtual void printShort( std::ostream ) ;
+        virtual void printLong( std::ostream );
+        virtual void clone();
 
     };
 
