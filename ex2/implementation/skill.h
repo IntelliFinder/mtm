@@ -9,6 +9,8 @@ namespace mtm {
     public:
         Skill(const unsigned int id, const std::string name, int points, double pro);
 
+        ~Skill() = default;
+
         unsigned int getId() const;
 
         std::string getName() const;

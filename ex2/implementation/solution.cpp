@@ -3,10 +3,7 @@
 #include "skill.h"
 #include "citizen.h"
 
-/**==========================SKILL=========================================
-operator ++(  );
-operator +=( const int amount );
-operator +( const int amount );**/
+/**==========================SKILL=========================================**/
 namespace mtm{
 
     Skill::Skill(const unsigned int id, const std::string name, int points, double pro) : id(id), name(name), points(points), pro(pro) {}
@@ -31,12 +28,11 @@ namespace mtm{
 
 
 
-/**==========================END SKILL=========================================**/
+/**=============================END SKILL=========================================**/
 
-/**===========================CITIZEN=========================================**/
+/**===============================CITIZEN=========================================**/
 namespace mtm{
     Citizen::Citizen(const unsigned int id, const std::string firstName, const std::string lastName, const int birthYear): id(id), firstName(firstName), lastName(lastName), birthYear(birthYear){}
-    Citizen::~Citizen(){} //not needed
     unsigned int Citizen::getId() const { return id; }
     std::string Citizen::getFirstName(){
         return firstName;
@@ -46,6 +42,12 @@ namespace mtm{
     }
     int Citizen::getBirthYear(){
         return birthYear;
+    }
+    void Citizen::printShort( std::ostream str) {
+        str<<std::endl; //placeholder
+    }
+    void Citizen::printLong( std::ostream str ){
+        str<<std::endl; //placeholder
     }
 
 
