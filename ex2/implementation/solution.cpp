@@ -6,13 +6,12 @@
 /**==========================SKILL=========================================**/
 namespace mtm{
 
-    Skill::Skill(const unsigned int id, const std::string name, int points, double pro) : id(id), name(name), points(points), pro(pro) {}
 
     unsigned int Skill::getId() const { return id; }
 
     std::string Skill::getName() const { return name; }
 
-    int Skill::requiredPoints() { return points; }
+    int Skill::requiredPoints() const { return points; }
 
     Skill& Skill::operator++() {
         points = points + 1;
@@ -32,7 +31,6 @@ namespace mtm{
 
 /**===============================CITIZEN=========================================**/
 namespace mtm{
-    Citizen::Citizen(const unsigned int id, const std::string firstName, const std::string lastName, const int birthYear): id(id), firstName(firstName), lastName(lastName), birthYear(birthYear){}
     unsigned int Citizen::getId() const { return id; }
     std::string Citizen::getFirstName(){
         return firstName;
@@ -52,4 +50,16 @@ namespace mtm{
 
 
 }
-/**=======================END CITIZEN=========================================**/
+/**========================END CITIZEN=========================================**/
+
+/**============================MANAGER=========================================**/
+/**========================END MANAGER=========================================**/
+
+/**============================CITY=========================================**/
+/**========================END CITY=========================================**/
+
+/**============================EMPLOYEE=========================================**/
+/**========================END EMPLOYEE=========================================**/
+
+/**============================FACULTY=========================================**/
+/**========================END FACULTY=========================================**/

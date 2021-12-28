@@ -7,7 +7,7 @@ namespace mtm {
         int points;
         double pro;
     public:
-        Skill(const unsigned int id, const std::string name, int points, double pro);
+        Skill(const unsigned int id, const std::string name, int points, double pro) : id(id), name(name), points(points), pro(pro) {}
 
         ~Skill() = default;
 
@@ -15,11 +15,11 @@ namespace mtm {
 
         std::string getName() const;
 
-        int requiredPoints();
+        int requiredPoints() const;
 
         Skill &operator++();
 
-        Skill &operator+=(const int amount);
+        Skill &operator+=(int amount);
 
 
     };

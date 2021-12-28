@@ -7,18 +7,19 @@ namespace mtm {
         const std::string lastName;
         const int birthYear;
     public:
-        Citizen(const unsigned int id, const std::string firstName, const std::string lastName, const int birthYear);
+        Citizen(const unsigned int id, const std::string firstName, const std::string lastName, const int birthYear):
+                                                    id(id), firstName(firstName), lastName(lastName), birthYear(birthYear){}
         ~Citizen() = default;
+        virtual void clone() = 0;
 
-        unsigned int getId() const;
+        virtual unsigned int getId() const;
+        virtual std::string getFirstName();
+        virtual std::string getLastName();
+        virtual int getBirthYear();
 
-        std::string getFirstName();
-        std::string getLastName();
-        int getBirthYear();
 
         virtual void printShort( std::ostream str ) ;
         virtual void printLong( std::ostream str );
-        virtual void clone() = 0;
 
     };
 
