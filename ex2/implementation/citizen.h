@@ -10,11 +10,12 @@ namespace mtm {
         Citizen(const unsigned int id, const std::string firstName, const std::string lastName, const int birthYear);
         ~Citizen();
 
-        int getId() const;
-        /*
+        unsigned int getId() const;
+
         std::string getFirstName();
         std::string getLastName();
         int getBirthYear();
+        /*
         virtual void printShort( std::ostream ) ;
         virtual void printLong( std::ostream );
         virtual void clone();

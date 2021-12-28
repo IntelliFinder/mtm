@@ -9,18 +9,16 @@ namespace mtm {
     public:
         Skill(const unsigned int id, const std::string name, int points, double pro);
 
-        int getId() const;
+        unsigned int getId() const;
 
         std::string getName() const;
-        /*
+
         int requiredPoints();
 
         Skill &operator++();
 
         Skill &operator+=(const int amount);
 
-        Skill operator+(const int amount);
-        */
 
     };
 
