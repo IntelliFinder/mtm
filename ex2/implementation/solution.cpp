@@ -39,6 +39,12 @@ namespace mtm{
     }
 
 
+    std::ostream &operator<<(std::ostream &os, const Skill &sk) {
+        os << sk.getName();
+        return os;
+    }
+
+
     bool operator>(const Skill sk1, const Skill sk2){
         return sk1.getId() > sk2.getId();
     }
@@ -62,6 +68,8 @@ namespace mtm{
     bool operator==(const Skill sk1, const Skill sk2){
         return sk1.getId() == sk2.getId();
     }
+
+
 }
 
 
@@ -85,6 +93,30 @@ namespace mtm{
     }
     void Citizen::printLong( std::ostream str ){
         str<<std::endl; //placeholder
+    }
+    //Citizen* clone() //look! should we implement it?
+
+    bool operator==(Citizen &c1, Citizen &c2) {
+        return c1.getId() == c2.getId();
+    }
+
+    bool operator<=(Citizen &c1, Citizen &c2) {
+        return c1.getId() <= c2.getId();
+    }
+    bool operator>=(Citizen &c1, Citizen &c2) {
+        return c1.getId() >= c2.getId();
+    }
+
+    bool operator!=(Citizen &c1, Citizen &c2) {
+        return c1.getId() != c2.getId();
+    }
+
+    bool operator<(Citizen &c1, Citizen &c2) {
+        return c1.getId() < c2.getId();
+    }
+
+    bool operator>(Citizen &c1, Citizen &c2) {
+        return c1.getId() > c2.getId();
     }
 
 
