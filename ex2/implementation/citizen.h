@@ -18,8 +18,8 @@ namespace mtm {
         virtual int getBirthYear();
 
 
-        virtual void printShort( std::ostream str ) =0;
-        virtual void printLong( std::ostream str ) = 0;
+        virtual void printShort( std::ostream &str ) =0;
+        virtual void printLong( std::ostream &str ) = 0;
 
 
 

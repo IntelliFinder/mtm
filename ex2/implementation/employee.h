@@ -7,19 +7,24 @@
 namespace mtm {
 
     class Employee : public Citizen {
-        double salary;
-        double score;
+        int salary; //course says int
+        int score;
         std::set<Skill> skillSet;
-        bool hasSkill(const Skill skill);
 
     public:
         Employee(const unsigned int id, const std::string firstName, const std::string lastName, const int birthYear)
             : Citizen(id, firstName, lastName, birthYear), salary(0),score(0), skillSet() {}
 
         ~Employee() = default;
-        double getSalary();
-        double getScore();
+        int getSalary();
+        int getScore();
         void learnSkill(const Skill skill);
         void forgetSkill(const int skillId);
+        bool  hasSkill(const int skillId);
+        void setSalary(const int addSalary);
+        void setScore(const int addScore);
+        void printShort(std::ostream &os) override;
+        void printLong(std::ostream &os) override;
+
     };
 }

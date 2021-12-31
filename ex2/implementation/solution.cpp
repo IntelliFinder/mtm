@@ -40,7 +40,7 @@ namespace mtm{
 
 
     std::ostream &operator<<(std::ostream &os, const Skill &sk) {
-        os << sk.getName();
+        os << sk.getName(); // without << std::endl
         return os;
     }
 
@@ -88,10 +88,10 @@ namespace mtm{
     int Citizen::getBirthYear(){
         return birthYear;
     }
-    void Citizen::printShort( std::ostream str) {
+    void Citizen::printShort( std::ostream &str) {
         str<<std::endl; //placeholder
     }
-    void Citizen::printLong( std::ostream str ){
+    void Citizen::printLong( std::ostream &str ){
         str<<std::endl; //placeholder
     }
     //Citizen* clone() //look! should we implement it?
@@ -150,23 +150,28 @@ namespace mtm{
         }
     };
 
-    bool Employee::hasSkill(const Skill skill) {
-        return skillSet.find(skill) != skillSet.end();
-    }
 
-    double Employee::getSalary(){
+    int Employee::getSalary(){
         return salary;
     }
 
-    double Employee::getScore() {
+    int Employee::getScore() {
         return score;
     }
-
+    bool Employee::hasSkill(const int skillId) {
+        for (auto skillPtr = skillSet.begin(); skillPtr!=skillSet.end() ; skillPtr) {
+            if (skillPtr->getId() == skillId){
+                skillSet.erase(skillPtr);
+                return true;
+            }
+        }
+        return false;
+    }
     void Employee::learnSkill(const Skill skill) {
         if (score<skill.requiredPoints()){
             throw CanNotLearnSkill();
         }
-        if(hasSkill(skill)){
+        if(hasSkill(skill.getId())){
             throw SkillAlreadyLearned();
         }
         skillSet.insert(skill);
@@ -183,7 +188,39 @@ namespace mtm{
         throw DidNotLearnSkill();
     }
 
+    void helpForSetInt(int &toChange, const int toAdd){
+        toChange += toAdd;
+        if (toChange < 0){
+            toChange = 0;
+        }
+    }
+    void Employee::setSalary(const int addSalary) {
+        helpForSetInt(salary,addSalary);//here the func is ok
+    }
 
+    void Employee::setScore(const int addScore) {
+        helpForSetInt(score,addScore); //look! course didn't say what to do in case of score < 0
+    }
+
+    void Employee::printShort(std::ostream &os){
+        os <<getFirstName() + " " + getLastName()<<std::endl;
+        std::string salaryStr = std::to_string(salary);
+        std::string scoreStr = std::to_string(score);
+        os << "Salary: " + salaryStr + " Score: " + scoreStr << std::endl;
+    }
+
+    void Employee::printLong(std::ostream &os) {
+        std::string idStr = std::to_string(getId());
+        std::string birthYearStr = std::to_string(getBirthYear());
+        std::string salaryStr = std::to_string(salary);
+        std::string scoreStr = std::to_string(score);
+        os << getFirstName() + " " + getLastName()<<std::endl;
+        os << "id - " + idStr + " birth_year - " + birthYearStr;
+        os << "Salary: " + salaryStr + " Score: " + scoreStr + " Skills: "<< std::endl;
+        for (auto skillPtr = skillSet.begin(); skillPtr!=skillSet.end() ; skillPtr) {
+            os << *skillPtr << std::endl;
+        }
+    }
 
 
 }
