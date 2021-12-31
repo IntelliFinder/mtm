@@ -1,4 +1,5 @@
 #include <iostream>
+
 namespace mtm {
 
     class Skill {
@@ -7,7 +8,7 @@ namespace mtm {
         int points;
         double pro;
     public:
-        Skill(const unsigned int id, const std::string name, int points, double pro) : id(id), name(name), points(points), pro(pro) {}
+        Skill(const unsigned int id, const std::string name, int points) : id(id), name(name), points(points), pro(0.0) {}
 
         ~Skill() = default;
 
@@ -21,23 +22,28 @@ namespace mtm {
 
         Skill &operator+=(int amount);
 
+        Skill &operator+(int amount);
+        //or should it be friend to be able to do amount + Skill sk1
 
-    };
+
+
+
 
 //print operators
 
 //std operators
-    /*
-    Skill operator>(const Skill sk1, const Skill sk2);
 
-    Skill operator<(const Skill sk1, const Skill sk2);
+    friend bool operator>(const Skill sk1, const Skill sk2);
 
-    Skill operator!=(const Skill sk1, const Skill sk2);
+    friend bool operator<(const Skill sk1, const Skill sk2);
 
-    Skill operator>=(const Skill sk1, const Skill sk2);
+    friend bool operator!=(const Skill sk1, const Skill sk2);
 
-    Skill operator<=(const Skill sk1, const Skill sk2);
+    friend bool operator>=(const Skill sk1, const Skill sk2);
 
-    Skill operator==(const Skill sk1, const Skill sk2);
-     */
+    friend bool operator<=(const Skill sk1, const Skill sk2);
+
+    friend bool operator==(const Skill sk1, const Skill sk2);
+     };
+
 } //end namespace

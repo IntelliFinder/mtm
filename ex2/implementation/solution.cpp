@@ -1,17 +1,26 @@
 #include <iostream>
+#include <string>
 
 #include "skill.h"
 #include "citizen.h"
 
 /**==========================SKILL=========================================**/
-namespace mtm{
 
+namespace mtm{
+    struct NegativePoints : public std::exception
+            //Im not sure that this is the way it's supposed tp be
+    {
+        const char * what () const throw ()//look! I hope char* is ok even though we shouldnt use it
+        {
+            return "NegativePoints";
+        }
+    };
 
     unsigned int Skill::getId() const { return id; }
 
     std::string Skill::getName() const { return name; }
 
-    int Skill::requiredPoints() const { return points; }
+    int Skill::requiredPoints() const { return points - pro; }
 
     Skill& Skill::operator++() {
         points = points + 1;
@@ -19,10 +28,40 @@ namespace mtm{
     }
 
     Skill& Skill::operator+=(const int amount) {
+        if (amount<0)
+            throw NegativePoints();
         points = points + amount;
         return *this;
     }
+    Skill &Skill::operator+(int amount){
+        *this += amount;
+        return *this;
+    }
 
+
+    bool operator>(const Skill sk1, const Skill sk2){
+        return sk1.getId() > sk2.getId();
+    }
+
+    bool operator<(const Skill sk1, const Skill sk2){
+        return sk1.getId() < sk2.getId();
+    }
+
+    bool operator!=(const Skill sk1, const Skill sk2){
+        return sk1.getId() != sk2.getId();
+    }
+
+    bool operator>=(const Skill sk1, const Skill sk2){
+        return sk1.getId() >= sk2.getId();
+    }
+
+    bool operator<=(const Skill sk1, const Skill sk2){
+        return sk1.getId() <= sk2.getId();
+    }
+
+    bool operator==(const Skill sk1, const Skill sk2){
+        return sk1.getId() == sk2.getId();
+    }
 }
 
 

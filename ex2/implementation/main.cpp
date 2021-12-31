@@ -7,7 +7,7 @@ using namespace mtm;
 
 int main() {
     std::cout << "Hello!" << std::endl;
-    Skill(15, "basketball", 10, 5.5);
+    Skill(15, "basketball", 10);
     return 0;
 }
 
