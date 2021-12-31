@@ -3,7 +3,7 @@
 
 #include "skill.h"
 #include "citizen.h"
-
+#include "employee.h"
 /**==========================SKILL=========================================**/
 
 namespace mtm{
@@ -123,14 +123,79 @@ namespace mtm{
 }
 /**========================END CITIZEN=========================================**/
 
+/**============================EMPLOYEE=========================================**/
+namespace mtm{
+    struct SkillAlreadyLearned : public std::exception
+        //Im not sure that this is the way it's supposed tp be
+    {
+        const char * what () const throw ()//look! I hope char* is ok even though we shouldnt use it
+        {
+            return "SkillAlreadyLearned";
+        }
+    };
+    struct CanNotLearnSkill : public std::exception
+        //Im not sure that this is the way it's supposed tp be
+    {
+        const char * what () const throw ()//look! I hope char* is ok even though we shouldnt use it
+        {
+            return "CanNotLearnSkill";
+        }
+    };
+    struct DidNotLearnSkill : public std::exception
+        //Im not sure that this is the way it's supposed tp be
+    {
+        const char * what () const throw ()//look! I hope char* is ok even though we shouldnt use it
+        {
+            return "DidNotLearnSkill";
+        }
+    };
+
+    bool Employee::hasSkill(const Skill skill) {
+        return skillSet.find(skill) != skillSet.end();
+    }
+
+    double Employee::getSalary(){
+        return salary;
+    }
+
+    double Employee::getScore() {
+        return score;
+    }
+
+    void Employee::learnSkill(const Skill skill) {
+        if (score<skill.requiredPoints()){
+            throw CanNotLearnSkill();
+        }
+        if(hasSkill(skill)){
+            throw SkillAlreadyLearned();
+        }
+        skillSet.insert(skill);
+        return ;//because its void
+    }
+
+    void Employee::forgetSkill(const int skillId) {
+        for (auto skillPtr = skillSet.begin(); skillPtr!=skillSet.end() ; skillPtr) {
+            if (skillPtr->getId() == skillId){
+                skillSet.erase(skillPtr);
+                return;
+            }
+        }
+        throw DidNotLearnSkill();
+    }
+
+
+
+
+}
+
+/**========================END EMPLOYEE=========================================**/
+
 /**============================MANAGER=========================================**/
 /**========================END MANAGER=========================================**/
 
 /**============================CITY=========================================**/
 /**========================END CITY=========================================**/
 
-/**============================EMPLOYEE=========================================**/
-/**========================END EMPLOYEE=========================================**/
 
 /**============================FACULTY=========================================**/
 /**========================END FACULTY=========================================**/
