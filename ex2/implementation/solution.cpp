@@ -94,7 +94,15 @@ namespace mtm{
     void Citizen::printLong( std::ostream &str ){
         str<<std::endl; //placeholder
     }
-    //Citizen* clone() //look! should we implement it?
+
+    /*Citizen::Citizen(const Citizen &citizen) :  id(citizen.id), firstName(citizen.firstName),
+                                                lastName(citizen.lastName), birthYear(citizen.birthYear){
+    }*/
+
+    Citizen *Citizen::clone() {
+        Citizen *citizenPtr = new Citizen(*this);
+        return citizenPtr;
+    }
 
     bool operator==(Citizen &c1, Citizen &c2) {
         return c1.getId() == c2.getId();
@@ -118,6 +126,8 @@ namespace mtm{
     bool operator>(Citizen &c1, Citizen &c2) {
         return c1.getId() > c2.getId();
     }
+
+
 
 
 }
