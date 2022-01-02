@@ -20,7 +20,7 @@ namespace mtm{
 
     std::string Skill::getName() const { return name; }
 
-    int Skill::requiredPoints() const { return points - pro; }
+    int Skill::requiredPoints() const { return points; }
 
     Skill& Skill::operator++() {
         points = points + 1;
@@ -58,15 +58,15 @@ namespace mtm{
     }
 
     bool operator>=(const Skill sk1, const Skill sk2){
-        return sk1.getId() >= sk2.getId();
+        return !(sk1<sk2); //more efficient
     }
 
     bool operator<=(const Skill sk1, const Skill sk2){
-        return sk1.getId() <= sk2.getId();
+        return !(sk1>sk2);
     }
 
     bool operator==(const Skill sk1, const Skill sk2){
-        return sk1.getId() == sk2.getId();
+        return !(sk1 != sk2);
     }
 
 

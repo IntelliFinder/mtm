@@ -7,9 +7,9 @@ namespace mtm {
         const std::string lastName;
         const int birthYear;
     public:
-        Citizen(const unsigned int id, const std::string firstName, const std::string lastName, const int birthYear):
-                                                    id(id), firstName(firstName), lastName(lastName), birthYear(birthYear){}
-        ~Citizen() = default;
+        Citizen(const unsigned int id, const std::string firstName, const std::string lastName, const int birthYear):id(id), firstName(firstName), lastName(lastName), birthYear(birthYear){}
+        virtual //Ensures to provoke the actual object destructor
+            ~Citizen() = default;
         Citizen(const Citizen&) = default;
         virtual Citizen* clone() = 0;
 

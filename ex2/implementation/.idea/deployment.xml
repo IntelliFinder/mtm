@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" autoUpload="Always" serverName="Remote Host (e7997f42-2377-4b8e-b9a3-cc0e1c8bc15b)">
+    <serverData>
+      <paths name="Remote Host (e7997f42-2377-4b8e-b9a3-cc0e1c8bc15b)">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/snirhordan/mtm/ex2" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+    <option name="myAutoUpload" value="ALWAYS" />
+  </component>
+</project>

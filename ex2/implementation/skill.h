@@ -5,8 +5,7 @@ namespace mtm {
     class Skill {
         const unsigned int id;
         const std::string name;
-        int points;
-        double pro;
+        int points; //points needed to acquire skill
     public:
         Skill(const unsigned int id, const std::string name, int points) : id(id), name(name), points(points), pro(0.0) {}
 
