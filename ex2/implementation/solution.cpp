@@ -7,6 +7,7 @@
 /**==========================SKILL=========================================**/
 
 namespace mtm{
+
     struct NegativePoints : public std::exception
             //Im not sure that this is the way it's supposed tp be
     {
@@ -79,13 +80,13 @@ namespace mtm{
 /**===============================CITIZEN=========================================**/
 namespace mtm{
     unsigned int Citizen::getId() const { return id; }
-    std::string Citizen::getFirstName(){
+    std::string Citizen::getFirstName() const {
         return firstName;
     }
-    std::string Citizen::getLastName(){
+    std::string Citizen::getLastName() const {
         return lastName;
     }
-    int Citizen::getBirthYear(){
+    int Citizen::getBirthYear() const {
         return birthYear;
     }
     void Citizen::printShort( std::ostream &str) {
@@ -93,15 +94,6 @@ namespace mtm{
     }
     void Citizen::printLong( std::ostream &str ){
         str<<std::endl; //placeholder
-    }
-
-    /*Citizen::Citizen(const Citizen &citizen) :  id(citizen.id), firstName(citizen.firstName),
-                                                lastName(citizen.lastName), birthYear(citizen.birthYear){
-    }*/
-
-    Citizen *Citizen::clone() {
-        Citizen *citizenPtr = new Citizen(*this);
-        return citizenPtr;
     }
 
     bool operator==(Citizen &c1, Citizen &c2) {
@@ -126,7 +118,6 @@ namespace mtm{
     bool operator>(Citizen &c1, Citizen &c2) {
         return c1.getId() > c2.getId();
     }
-
 
 
 
@@ -200,7 +191,7 @@ namespace mtm{
 
     void helpForSetInt(int &toChange, const int toAdd){
         toChange += toAdd;
-        if (toChange < 0){
+        if (toChange < 0){ //nice parenthesis!
             toChange = 0;
         }
     }
