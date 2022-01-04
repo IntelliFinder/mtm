@@ -253,18 +253,18 @@ namespace mtm{
     }
 
     void Manager::addEmployee(Employee *employeeToAdd) {
-        for (std::list<Employee>::iterator employeeItr = employeesList.begin();employeeItr != employeesList.end(); employeeItr++) {
-            if ((*employeeToAdd).getId() == employeeItr->getId()){
+        for (std::list<Employee*>::iterator employeeItr = employeesList.begin();employeeItr != employeesList.end(); employeeItr++) {
+            if ((*employeeToAdd).getId() == (*employeeItr)->getId()){
                 throw EmployeeAlreadyHired();
             }
         }
         //employee isn't hired
-        employeesList.push_back(*employeeToAdd);
+        employeesList.push_back(employeeToAdd);
     }
 
     void Manager::removeEmployee(const int id) {
-        for (std::list<Employee>::iterator employeeItr = employeesList.begin();employeeItr != employeesList.end(); employeeItr++) {
-            if (employeeItr->getId() == id){
+        for (std::list<Employee*>::iterator employeeItr = employeesList.begin();employeeItr != employeesList.end(); employeeItr++) {
+            if ((*employeeItr)->getId() == id){
                 employeesList.erase(employeeItr);
                 return;
             }
@@ -287,8 +287,8 @@ namespace mtm{
 
     void Manager::printLong(std::ostream &os) {
         printShort(os);
-        for (std::list<Employee>::iterator employeeItr = employeesList.begin();employeeItr != employeesList.end(); employeeItr++) {
-            employeeItr->printShort(os);
+        for (std::list<Employee*>::iterator employeeItr = employeesList.begin();employeeItr != employeesList.end(); employeeItr++) {
+            (*employeeItr)->printShort(os);
         }
     }
 

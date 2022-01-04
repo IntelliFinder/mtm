@@ -8,7 +8,7 @@ namespace mtm {
 
     class Manager : public Citizen{
         int salary;
-        std::list<Employee> employeesList;//list is good for erasing
+        std::list<Employee*> employeesList;//list is good for erasing
         //set of employees
 
 
