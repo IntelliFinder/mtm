@@ -4,6 +4,7 @@
 #include "skill.h"
 #include "citizen.h"
 #include "employee.h"
+#include "manager.h"
 /**==========================SKILL=========================================**/
 
 namespace mtm{
@@ -229,6 +230,70 @@ namespace mtm{
 /**========================END EMPLOYEE=========================================**/
 
 /**============================MANAGER=========================================**/
+
+namespace mtm{
+    struct EmployeeAlreadyHired : public std::exception
+        //Im not sure that this is the way it's supposed tp be
+    {
+        const char * what () const throw ()//look! I hope char* is ok even though we shouldnt use it
+        {
+            return "EmployeeAlreadyHired";
+        }
+    };
+    struct EmployeeIsNotHired : public std::exception
+        //Im not sure that this is the way it's supposed tp be
+    {
+        const char * what () const throw ()//look! I hope char* is ok even though we shouldnt use it
+        {
+            return "EmployeeIsNotHired";
+        }
+    };
+    int Manager::getSalary() const {
+        return this->salary;
+    }
+
+    void Manager::addEmployee(Employee *employeeToAdd) {
+        for (std::list<Employee>::iterator employeeItr = employeesList.begin();employeeItr != employeesList.end(); employeeItr++) {
+            if ((*employeeToAdd).getId() == employeeItr->getId()){
+                throw EmployeeAlreadyHired();
+            }
+        }
+        //employee isn't hired
+        employeesList.push_back(*employeeToAdd);
+    }
+
+    void Manager::removeEmployee(const int id) {
+        for (std::list<Employee>::iterator employeeItr = employeesList.begin();employeeItr != employeesList.end(); employeeItr++) {
+            if (employeeItr->getId() == id){
+                employeesList.erase(employeeItr);
+                return;
+            }
+        }
+        throw EmployeeIsNotHired();
+    }
+
+    void Manager::setSalary(const int addSalary) {
+        helpForSetInt(salary,addSalary);
+    }
+
+    void Manager::printShort(std::ostream &os) {
+        std::string idStr = std::to_string(getId());
+        std::string birthYearStr = std::to_string(getBirthYear());
+        std::string salaryStr = std::to_string(salary);
+        os << getFirstName() + " " + getLastName()<<std::endl;
+        os << "id - " + idStr + " birth_year - " + birthYearStr;
+        os << "Salary: " + salaryStr << std::endl; //look! code duplication, maybe we should create a function
+    }
+
+    void Manager::printLong(std::ostream &os) {
+        printShort(os);
+        for (std::list<Employee>::iterator employeeItr = employeesList.begin();employeeItr != employeesList.end(); employeeItr++) {
+            employeeItr->printShort(os);
+        }
+    }
+
+}
+
 /**========================END MANAGER=========================================**/
 
 /**============================CITY=========================================**/
