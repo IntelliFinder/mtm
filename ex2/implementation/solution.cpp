@@ -160,7 +160,7 @@ namespace mtm{
         return score;
     }
     bool Employee::hasSkill(const int skillId) {
-        for (auto skillPtr = skillSet.begin(); skillPtr!=skillSet.end() ; skillPtr) {
+        for (std::set<Skill>::iterator skillPtr = skillSet.begin(); skillPtr!=skillSet.end() ; skillPtr) {
             if (skillPtr->getId() == skillId){
                 skillSet.erase(skillPtr);
                 return true;
@@ -180,7 +180,7 @@ namespace mtm{
     }
 
     void Employee::forgetSkill(const int skillId) {
-        for (auto skillPtr = skillSet.begin(); skillPtr!=skillSet.end() ; skillPtr) {
+        for (std::set<Skill>::iterator skillPtr = skillSet.begin(); skillPtr!=skillSet.end() ; skillPtr) {
             if (skillPtr->getId() == skillId){
                 skillSet.erase(skillPtr);
                 return;
@@ -218,7 +218,7 @@ namespace mtm{
         os << getFirstName() + " " + getLastName()<<std::endl;
         os << "id - " + idStr + " birth_year - " + birthYearStr;
         os << "Salary: " + salaryStr + " Score: " + scoreStr + " Skills: "<< std::endl;
-        for (auto skillPtr = skillSet.begin(); skillPtr!=skillSet.end() ; skillPtr) {
+        for (std::set<Skill>::iterator skillPtr = skillSet.begin(); skillPtr!=skillSet.end() ; skillPtr) {
             os << *skillPtr << std::endl;
         }
     }
