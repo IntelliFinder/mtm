@@ -30,5 +30,9 @@ namespace mtm {
         void printShort(std::ostream &os) override;
         void printLong(std::ostream &os) override;
 
+        class DidNotLearnSkill{};
+        class CanNotLearnSkill{};
+        class SkillAlreadyLearned{};
+
     };
 }
