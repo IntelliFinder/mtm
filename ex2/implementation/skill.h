@@ -23,7 +23,7 @@ namespace mtm {
 
         Skill &operator+(int amount);
         //or should it be friend to be able to do amount + Skill sk1
-
+        class NegativePoints{};
 
 
 

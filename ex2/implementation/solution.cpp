@@ -8,7 +8,7 @@
 /**==========================SKILL=========================================**/
 
 namespace mtm{
-
+    /*
     struct NegativePoints : public std::exception
             //Im not sure that this is the way it's supposed tp be
     {
@@ -17,7 +17,7 @@ namespace mtm{
             return "NegativePoints";
         }
     };
-
+    */
     unsigned int Skill::getId() const { return id; }
 
     std::string Skill::getName() const { return name; }
@@ -30,8 +30,9 @@ namespace mtm{
     }
 
     Skill& Skill::operator+=(const int amount) {
-        if (amount<0)
+        if (amount<0){
             throw NegativePoints();
+        }
         points = points + amount;
         return *this;
     }
@@ -127,6 +128,7 @@ namespace mtm{
 
 /**============================EMPLOYEE=========================================**/
 namespace mtm{
+   /*
     struct SkillAlreadyLearned : public std::exception
         //Im not sure that this is the way it's supposed tp be
     {
@@ -151,13 +153,13 @@ namespace mtm{
             return "DidNotLearnSkill";
         }
     };
+   */
 
-
-    int Employee::getSalary(){
+    int Employee::getSalary() const{
         return salary;
     }
 
-    int Employee::getScore() {
+    int Employee::getScore() const{
         return score;
     }
     bool Employee::hasSkill(const int skillId) {
@@ -189,10 +191,15 @@ namespace mtm{
         }
         throw DidNotLearnSkill();
     }
+    std::set<Skill> Employee::getCopySkillSet() const{
+        std::set<Skill> temp = this->skillSet; //alllocates new memory and copies set
+        return temp;
+    }
+
 
     void helpForSetInt(int &toChange, const int toAdd){
         toChange += toAdd;
-        if (toChange < 0){ //nice parenthesis!
+        if (toChange < 0){
             toChange = 0;
         }
     }
@@ -232,6 +239,7 @@ namespace mtm{
 /**============================MANAGER=========================================**/
 
 namespace mtm{
+    /*
     struct EmployeeAlreadyHired : public std::exception
         //Im not sure that this is the way it's supposed tp be
     {
@@ -248,6 +256,8 @@ namespace mtm{
             return "EmployeeIsNotHired";
         }
     };
+     */
+
     int Manager::getSalary() const {
         return this->salary;
     }
