@@ -22,13 +22,15 @@ namespace mtm {
                                                                                 managersSalary(managersSalary),
                                                                                 managersList(){};
 
-        int getId();
+        ~Workplace() = default;
 
-        std::string getName();
+        int getId() const;
 
-        int getWorkersSalary();
+        std::string getName() const;
 
-        int getManagersSalary();
+        int getWorkersSalary() const;
+
+        int getManagersSalary() const;
 
         template<class Condition>
         void hireEmployee(Condition condition, Employee *employeeAdd, int managerId){
@@ -52,7 +54,6 @@ namespace mtm {
 
 
 
-        ~Workplace() = default;
     };
 
 

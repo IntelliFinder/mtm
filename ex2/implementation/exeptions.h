@@ -5,6 +5,7 @@ namespace mtm {
     class SkillException: public Exception{};
     class EmpException: public Exception{};
     class ManagerException: public Exception{};
+    class FacultyException: public Exception{};
 
     class DidNotLearnSkill: public SkillException{};
     class CanNotLearnSkill: public SkillException{};
@@ -17,4 +18,6 @@ namespace mtm {
     class ManagerIsNotHired: public ManagerException{};
     class ManagerAlreadyHired: public ManagerException{};
     class CanNotHireManager: public ManagerException{};
-} //end namespace
+
+    class EmployeeNotAccepted: public FacultyException{};
+}

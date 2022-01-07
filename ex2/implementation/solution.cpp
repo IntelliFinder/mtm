@@ -265,19 +265,19 @@ namespace mtm {
         }
         return false;
     }
-    int Workplace::getId() {
+    int Workplace::getId() const{
         return id;
     }
 
-    std::string Workplace::getName() {
+    std::string Workplace::getName() const {
         return name;
     }
 
-    int Workplace::getWorkersSalary() {
+    int Workplace::getWorkersSalary() const{
         return workersSalary;
     }
 
-    int Workplace::getManagersSalary() {
+    int Workplace::getManagersSalary() const{
         return managersSalary;
     }
 
