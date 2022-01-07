@@ -2,18 +2,23 @@
 
 #include "citizen.h"
 #include "employee.h"
-#include "manager.h"
-
+#include "skill.h"
 
 
 namespace mtm {
-    template <typename T>
+
+    template <typename Predicate>
     class Faculty {
-        Skill
+        const int id;
+        Skill skill;
+        int addedPoints;
+        Predicate pred;
     public:
-        Faculty() = default;
+        Faculty<Predicate>(int id, Skill skill, int addedPoints, Predicate pred):
+                                id(id), skill(skill), addedPoints(addedPoints), pred(pred);
 
         ~Faculty() = default;
 
+        Employee& teach(Employee& emp);
     };
 }

@@ -6,6 +6,7 @@
 #include "employee.h"
 #include "manager.h"
 #include "workplace.h"
+#include "faculty.h"
 /**==========================SKILL=========================================**/
 
 namespace mtm{
@@ -173,7 +174,7 @@ namespace mtm{
     }
 
     void Employee::setScore(const int addScore) {
-        helpForSetInt(score,addScore); //look! course didn't say what to do in case of score < 0
+        helpForSetInt(score,addScore); //look! course didn't say what to do in case of score < 0 , snir: good point
     }
 
     void Employee::printShort(std::ostream &os){
@@ -350,4 +351,18 @@ namespace mtm {
 
 
 /**============================FACULTY=========================================**/
+namespace mtm{
+    template<typename Predicate>
+    Employee& Faculty<Predicate>::teach(Employee& emp){
+        if(emp.hasSkill(skill.getId())){
+            return emp;
+        }
+        if(!pred(emp)){
+            throw EmployeeNotAccepted();
+        }
+        emp.setScore(addedPoints); //added score
+        emp.learnSkill(skill); //adds skill already checked emp doesnt ahve it already
+        return emp;
+    }
+}
 /**========================END FACULTY=========================================**/
