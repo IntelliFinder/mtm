@@ -5,6 +5,7 @@
 #include "citizen.h"
 #include "employee.h"
 #include "manager.h"
+#include "workplace.h"
 /**==========================SKILL=========================================**/
 
 namespace mtm{
@@ -302,11 +303,103 @@ namespace mtm{
         }
     }
 
+
+
 }
 
 /**========================END MANAGER=========================================**/
 
+/**========================WORKPLACE===========================================**/
+namespace mtm {
+    bool Workplace::isManagerHired(const int managerId) {
+        for(Manager *runManager:managersList){
+            if ((*runManager).getId() == managerId){
+                return true;
+            }
+        }
+        return false;
+    }
+    int Workplace::getId() {
+        return id;
+    }
+
+    std::string Workplace::getName() {
+        return name;
+    }
+
+    int Workplace::getWorkersSalary() {
+        return workersSalary;
+    }
+
+    int Workplace::getManagersSalary() {
+        return managersSalary;
+    }
+
+    void Workplace::hireManager(Manager *managerAdd) {
+        if(isManagerHired(managerAdd->getId())){
+            throw ManagerAlreadyHired();
+        }
+        if (managerAdd->isHired){
+            throw CanNotHireManager();
+        }
+        managerAdd->isHired = true;
+        managersList.push_back(managerAdd);
+    }
+
+    void Workplace::fireEmployee(const int employeeId, const int managerId) {
+        if(!isManagerHired(managerId)){
+            throw ManagerIsNotHired();
+        }
+        Manager *manager = getPointerToManager(managerId);
+        manager->removeEmployee(employeeId);
+
+    }
+
+    void Workplace::fireManager(const int managerId) {
+        if(!isManagerHired(managerId)){
+            throw ManagerIsNotHired();
+        }
+        Manager *manager = getPointerToManager(managerId);
+        manager->isHired = false;
+        managersList.remove(manager);
+    }
+
+    Manager *Workplace::getPointerToManager(const int managerId) {
+        for(Manager *runManager:managersList){
+            if ((*runManager).getId() == managerId){
+                return runManager;
+            }
+        }
+        return nullptr;
+    }
+    std::ostream &operator<<(std::ostream &os, const Workplace &workplace) {
+        os << "Workplace name - " << workplace.name<< " Groups:";
+        //look! not sure where endl should be
+        for (Manager *pManager : workplace.managersList){
+            os<<std::endl;
+            pManager->printLong(os);
+        }
+        //endl here doesn't seem right
+        return os;
+    }
+    /*bool Workplace::isEmployeeHired(Employee *pEmployee, const int managerId) {
+         Manager *trueManager;
+         for(Manager *runManager:managersList){
+             if ((*runManager).getId() == managerId){
+                 trueManager = runManager;
+             }
+         }
+         trueManager->addEmployee(pEmployee);
+     }*/
+
+
+
+}
+
+/**========================END WORKPLACE=========================================**/
+
 /**============================CITY=========================================**/
+
 /**========================END CITY=========================================**/
 
 

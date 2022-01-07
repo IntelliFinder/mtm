@@ -15,11 +15,12 @@ namespace mtm {
     public:
         Manager(const unsigned int id, const std::string firstName, const std::string lastName, const int birthYear): Citizen(id,firstName,
                                                                                                                               lastName, birthYear),salary(0),
-                                                                                                                              employeesList(){};
+                                                                                                                              employeesList(),isHired(false){};
         Citizen* clone(){
 
             return new Manager(*this);
         }
+
         ~Manager() = default;
 
         int getSalary() const;
@@ -29,8 +30,9 @@ namespace mtm {
         void printShort(std::ostream &os) override;
         void printLong(std::ostream &os) override;
 
-        class EmployeeAlreadyHired{};
-        class EmployeeIsNotHired{};
+        bool isHired;//should be okay to be public , just in case for later: look! maybe should be private with methods
+
+
 
     };
 }

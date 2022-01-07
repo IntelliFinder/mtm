@@ -3,4 +3,4 @@ project(implementation)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(implementation main.cpp)
+add_executable(implementation main.cpp exeptions.h)

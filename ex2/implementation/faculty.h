@@ -9,3 +9,4 @@ namespace mtm {
         ~Faculty() = default;
 
     };
+}
