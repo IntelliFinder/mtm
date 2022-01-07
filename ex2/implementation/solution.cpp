@@ -9,16 +9,6 @@
 /**==========================SKILL=========================================**/
 
 namespace mtm{
-    /*
-    struct NegativePoints : public std::exception
-            //Im not sure that this is the way it's supposed tp be
-    {
-        const char * what () const throw ()//look! I hope char* is ok even though we shouldnt use it
-        {
-            return "NegativePoints";
-        }
-    };
-    */
     unsigned int Skill::getId() const { return id; }
 
     std::string Skill::getName() const { return name; }
@@ -129,32 +119,6 @@ namespace mtm{
 
 /**============================EMPLOYEE=========================================**/
 namespace mtm{
-   /*
-    struct SkillAlreadyLearned : public std::exception
-        //Im not sure that this is the way it's supposed tp be
-    {
-        const char * what () const throw ()//look! I hope char* is ok even though we shouldnt use it
-        {
-            return "SkillAlreadyLearned";
-        }
-    };
-    struct CanNotLearnSkill : public std::exception
-        //Im not sure that this is the way it's supposed tp be
-    {
-        const char * what () const throw ()//look! I hope char* is ok even though we shouldnt use it
-        {
-            return "CanNotLearnSkill";
-        }
-    };
-    struct DidNotLearnSkill : public std::exception
-        //Im not sure that this is the way it's supposed tp be
-    {
-        const char * what () const throw ()//look! I hope char* is ok even though we shouldnt use it
-        {
-            return "DidNotLearnSkill";
-        }
-    };
-   */
 
     int Employee::getSalary() const{
         return salary;
@@ -240,24 +204,6 @@ namespace mtm{
 /**============================MANAGER=========================================**/
 
 namespace mtm{
-    /*
-    struct EmployeeAlreadyHired : public std::exception
-        //Im not sure that this is the way it's supposed tp be
-    {
-        const char * what () const throw ()//look! I hope char* is ok even though we shouldnt use it
-        {
-            return "EmployeeAlreadyHired";
-        }
-    };
-    struct EmployeeIsNotHired : public std::exception
-        //Im not sure that this is the way it's supposed tp be
-    {
-        const char * what () const throw ()//look! I hope char* is ok even though we shouldnt use it
-        {
-            return "EmployeeIsNotHired";
-        }
-    };
-     */
 
     int Manager::getSalary() const {
         return this->salary;
@@ -280,7 +226,7 @@ namespace mtm{
                 return;
             }
         }
-        throw EmployeeIsNotHired();nig
+        throw EmployeeIsNotHired();
     }
 
     void Manager::setSalary(const int addSalary) {
