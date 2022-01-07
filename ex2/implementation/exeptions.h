@@ -1,17 +1,20 @@
 #include <iostream>
 namespace mtm {
 
-    class Exception:std::exception {
+    class Exception: public std::exception {};
+    class SkillException: public Exception{};
+    class EmpException: public Exception{};
+    class ManagerException: public Exception{};
 
-    public:
-        class DidNotLearnSkill:Exception{};//not sure how to do it
-        class CanNotLearnSkill{};
-        class SkillAlreadyLearned{};
-        class EmployeeAlreadyHired{};
-        class EmployeeIsNotHired{};
-        class EmployeeNotSelected{};
-        class ManagerIsNotHired:mtm::Exception{};
-        class ManagerAlreadyHired{};
-        class CanNotHireManager{};
-    };
+    class DidNotLearnSkill: public SkillException{};
+    class CanNotLearnSkill: public SkillException{};
+    class SkillAlreadyLearned: public SkillException{};
+
+    class EmployeeAlreadyHired: public EmpException{};
+    class EmployeeIsNotHired: public EmpException{};
+    class EmployeeNotSelected: public EmpException{};
+
+    class ManagerIsNotHired: public ManagerException{};
+    class ManagerAlreadyHired: public ManagerException{};
+    class CanNotHireManager: public ManagerException{};
 } //end namespace

@@ -280,7 +280,7 @@ namespace mtm{
                 return;
             }
         }
-        throw EmployeeIsNotHired();
+        throw EmployeeIsNotHired();nig
     }
 
     void Manager::setSalary(const int addSalary) {

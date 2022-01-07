@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "C:/Users/doron/OneDrive/מסמכים/GitHub/mtm/ex2/implementation/main.cpp" "C:/Users/doron/OneDrive/מסמכים/GitHub/mtm/ex2/implementation/cmake-build-debug/CMakeFiles/implementation.dir/main.cpp.obj"
+  "/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/implementation/main.cpp" "/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/implementation/cmake-build-debug/CMakeFiles/implementation.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
