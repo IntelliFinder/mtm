@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <memory>
 
 
 class BadInput: public std::exception {};
@@ -45,13 +46,12 @@ int main() {
 /**part B**/
 class A {
 public:
-    std::vector<int*> values;
-    void add(int x) { values.push_back(new int(x)); }
-    ~A(){
-        for(int i = 0; i < values.size(); i++){
-            delete values[i];
-        }
+    std::vector<std::shared_ptr<int>> values;
+    void add(int x) {
+        std::shared_ptr<int> p(new int(x));
+        values.push_back(p);
     }
+    ~A() =default;
 };
 int main() {
     A a, sliced;
