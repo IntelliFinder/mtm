@@ -24,7 +24,8 @@ std::vector<T> slice(std::vector<T> vec, int start, int step, int stop) {
     }
     return ans;
 }
-
+/**part A**/
+/*
 int main() {
     // this syntax initializes a vector with values a,b,c,d,e
     std::vector<char> vec1 {'a', 'b', 'c', 'd', 'e'};
@@ -39,5 +40,24 @@ int main() {
     for (int i = 0; i < 4; ++i) {
         std::cout<<vec_sliced2[i]<<",";
     }
+    return 0;
+}*/
+/**part B**/
+class A {
+public:
+    std::vector<int*> values;
+    void add(int x) { values.push_back(new int(x)); }
+    ~A(){
+        for(int i = 0; i < values.size(); i++){
+            delete values[i];
+        }
+    }
+};
+int main() {
+    A a, sliced;
+    a.add(0); a.add(1); a.add(2); a.add(3); a.add(4); a.add(5);
+    sliced.values = slice(a.values, 1, 1, 4);
+    *(sliced.values[0]) = 800;
+    std::cout << *(a.values[1]) << std::endl;
     return 0;
 }
