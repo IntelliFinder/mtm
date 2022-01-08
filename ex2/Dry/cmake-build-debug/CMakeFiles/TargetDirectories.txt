@@ -1,3 +1,0 @@
-C:/Users/doron/OneDrive/מסמכים/GitHub/mtm/ex2/Dry/cmake-build-debug/CMakeFiles/Dry.dir
-C:/Users/doron/OneDrive/מסמכים/GitHub/mtm/ex2/Dry/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/doron/OneDrive/מסמכים/GitHub/mtm/ex2/Dry/cmake-build-debug/CMakeFiles/rebuild_cache.dir
