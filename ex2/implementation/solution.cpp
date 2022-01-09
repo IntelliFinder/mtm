@@ -364,5 +364,21 @@ namespace mtm{
         emp.learnSkill(skill); //adds skill already checked emp doesnt ahve it already
         return emp;
     }
+
+    template<typename Predicate>
+    Skill Faculty<Predicate>::getSkill() const{
+        return skill;
+    }
+
+    template<typename Predicate>
+    int Faculty<Predicate>::getId() const {
+        return id;
+    }
+
+    template<typename Predicate>
+    int Faculty<Predicate>::getAddedPoints() const{
+        return addedPoints;
+    }
+
 }
 /**========================END FACULTY=========================================**/

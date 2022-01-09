@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include "exeptions.h"
 namespace mtm {
 
     class Skill {
@@ -7,7 +7,7 @@ namespace mtm {
         const std::string name;
         int points; //points needed to acquire skill
     public:
-        Skill(const unsigned int id, const std::string name, int points) : id(id), name(name), points(points), pro(0.0) {}
+        Skill(const unsigned int id, const std::string name, int points) : id(id), name(name), points(points) {}
 
         ~Skill() = default;
 
@@ -23,7 +23,6 @@ namespace mtm {
 
         Skill &operator+(int amount);
         //or should it be friend to be able to do amount + Skill sk1
-        class NegativePoints{};
 
 
 

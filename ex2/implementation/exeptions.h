@@ -10,6 +10,8 @@ namespace mtm {
     class DidNotLearnSkill: public SkillException{};
     class CanNotLearnSkill: public SkillException{};
     class SkillAlreadyLearned: public SkillException{};
+    class NegativePoints: public SkillException{};
+
 
     class EmployeeAlreadyHired: public EmpException{};
     class EmployeeIsNotHired: public EmpException{};
