@@ -117,34 +117,36 @@ int Employee::getScore() const{
     return score;
 }
 bool Employee::hasSkill(const int skillId) {
-    for (std::set<Skill>::iterator skillPtr = skillSet.begin(); skillPtr!=skillSet.end() ; skillPtr) {
-        if (skillPtr->getId() == skillId){
-            skillSet.erase(skillPtr);
+    for(std::set<Skill>::iterator i = skillSet.begin() ; i != skillSet.end(); ++i) {
+        if (i->getId() == skillId){
+            skillSet.erase(i);
             return true;
         }
     }
     return false;
 }
-void Employee::learnSkill(const Skill skill) {
+
+/*
+void Employee::learnSkill(Skill& skill) {
     if (score<skill.requiredPoints()){
         throw CanNotLearnSkill();
     }
     if(hasSkill(skill.getId())){
         throw SkillAlreadyLearned();
     }
-    skillSet.insert(skill);
-    return ;//because its void
+   skillSet.insert(skill);//bug here
 }
-
+*/
 void Employee::forgetSkill(const int skillId) {
-    for (std::set<Skill>::iterator skillPtr = skillSet.begin(); skillPtr!=skillSet.end() ; skillPtr) {
-        if (skillPtr->getId() == skillId){
-            skillSet.erase(skillPtr);
+    for ( std::set<Skill>::iterator i = skillSet.begin(); i!=skillSet.end(); ++i ) {
+        if (i->getId() == skillId){
+            skillSet.erase(i);
             return;
         }
     }
     throw DidNotLearnSkill();
 }
+
 std::set<Skill> Employee::getCopySkillSet() const{
     std::set<Skill> temp = this->skillSet; //alllocates new memory and copies set
     return temp;
@@ -180,8 +182,8 @@ void Employee::printLong(std::ostream& os) {
     os << getFirstName() + " " + getLastName()<<std::endl;
     os << "id - " + idStr + " birth_year - " + birthYearStr;
     os << "Salary: " + salaryStr + " Score: " + scoreStr + " Skills: "<< std::endl;
-    for (std::set<Skill>::iterator skillPtr = skillSet.begin(); skillPtr!=skillSet.end() ; skillPtr) {
-        os << skillPtr->getName() << std::endl; //ERROR overloading doesn't work
+    for (std::set<Skill>::iterator i = skillSet.begin(); i!=skillSet.end(); ++i) {
+        os << i->getName() << std::endl; //ERROR overloading doesn't work
     }
 }
 
