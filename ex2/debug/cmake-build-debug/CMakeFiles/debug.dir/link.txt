@@ -1,0 +1,1 @@
+/usr/bin/c++.exe -g -Wl,--enable-auto-import CMakeFiles/debug.dir/main.cpp.o -o debug.exe -Wl,--out-implib,libdebug.dll.a -Wl,--major-image-version,0,--minor-image-version,0 

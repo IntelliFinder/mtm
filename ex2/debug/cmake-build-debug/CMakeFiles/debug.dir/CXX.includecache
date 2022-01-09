@@ -1,0 +1,38 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/debug/citizen.h
+iostream
+-
+
+/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/debug/exceptions.h
+iostream
+-
+
+/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/debug/main.cpp
+iostream
+-
+solution.cpp
+/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/debug/solution.cpp
+
+/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/debug/skill.h
+iostream
+-
+
+/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/debug/solution.cpp
+iostream
+-
+string
+-
+skill.h
+/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/debug/skill.h
+citizen.h
+/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/debug/citizen.h
+exceptions.h
+/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/debug/exceptions.h
+

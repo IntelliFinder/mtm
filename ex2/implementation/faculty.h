@@ -1,10 +1,5 @@
 #include <iostream>
 
-#include "citizen.h"
-#include "employee.h"
-#include "skill.h"
-
-
 namespace mtm {
 
     template <typename Predicate>

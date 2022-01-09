@@ -1,5 +1,4 @@
 #include <iostream>
-#include "exeptions.h"
 namespace mtm {
 
     class Skill {

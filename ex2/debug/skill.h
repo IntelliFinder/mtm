@@ -1,17 +1,16 @@
 #include <iostream>
-#include "exceptions.h"
 namespace mtm {
 
     class Skill {
-        const unsigned int id;
+        const int id;
         const std::string name;
         int points; //points needed to acquire skill
     public:
-        Skill(const unsigned int id, const std::string name, int points) : id(id), name(name), points(points) {}
+        Skill(const int id, const std::string name, int points) : id(id), name(name), points(points) {}
 
         ~Skill() = default;
 
-        unsigned int getId() const;
+        int getId() const;
 
         std::string getName() const;
 
@@ -31,17 +30,17 @@ namespace mtm {
         friend std::ostream& operator<<(std::ostream& os, const Skill& sk);
 //std operators
 
-        friend bool operator>(const Skill sk1, const Skill sk2);
+        friend bool operator>(const Skill& sk1, const Skill& sk2);
 
-        friend bool operator<(const Skill sk1, const Skill sk2);
+        friend bool operator<(const Skill& sk1, const Skill& sk2);
 
-        friend bool operator!=(const Skill sk1, const Skill sk2);
+        friend bool operator!=(const Skill& sk1, const Skill& sk2);
 
-        friend bool operator>=(const Skill sk1, const Skill sk2);
+        friend bool operator>=(const Skill& sk1, const Skill& sk2);
 
-        friend bool operator<=(const Skill sk1, const Skill sk2);
+        friend bool operator<=(const Skill& sk1, const Skill& sk2);
 
-        friend bool operator==(const Skill sk1, const Skill sk2);
+        friend bool operator==(const Skill& sk1, const Skill& sk2);
      };
 
 } //end namespace

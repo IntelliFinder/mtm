@@ -1,7 +1,4 @@
 #include <iostream>
-
-#include "citizen.h"
-#include "employee.h"
 #include <list>
 
 namespace mtm {
