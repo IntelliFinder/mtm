@@ -2,18 +2,18 @@
 namespace mtm {
 
     class Citizen {
-        const unsigned int id;
+        const int id;
         const std::string firstName;
         const std::string lastName;
         const int birthYear;
     public:
-        Citizen(const unsigned int id, const std::string firstName, const std::string lastName, const int birthYear):id(id), firstName(firstName), lastName(lastName), birthYear(birthYear){}
+        Citizen(const int id, const std::string firstName, const std::string lastName, const int birthYear):id(id), firstName(firstName), lastName(lastName), birthYear(birthYear){}
         virtual //Ensures provoking the actual object destructor
             ~Citizen() = default;
         Citizen(const Citizen&) = default;
         virtual Citizen* clone() = 0;
 
-        virtual unsigned int getId() const;
+        virtual int getId() const;
         virtual std::string getFirstName() const;
         virtual std::string getLastName() const;
         virtual int getBirthYear() const;

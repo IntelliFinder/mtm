@@ -4,6 +4,8 @@
 #include "skill.h"
 #include "citizen.h"
 #include "employee.h"
+#include "manager.h"
+
 #include "exceptions.h"
 
 using namespace mtm;
@@ -68,7 +70,7 @@ bool operator==(const Skill& sk1, const Skill& sk2){
 /**=============================END SKILL=========================================**/
 
 /**===============================CITIZEN=========================================**/
-unsigned int Citizen::getId() const { return id; }
+int Citizen::getId() const { return id; }
 std::string Citizen::getFirstName() const {
     return firstName;
 }
@@ -186,8 +188,53 @@ void Employee::printLong(std::ostream& os) {
         os << i->getName() << std::endl; //ERROR overloading doesn't work
     }
 }
-
-
-
-
 /**========================END EMPLOYEE=========================================**/
+
+/**============================MANAGER=========================================**/
+int Manager::getSalary() const {
+    return this->salary;
+}
+
+void Manager::addEmployee(Employee *employeeToAdd) {
+    for (std::list<Employee*>::iterator employeeItr = employeesList.begin();employeeItr != employeesList.end(); employeeItr++) {
+        if ((*employeeToAdd).getId() == (*employeeItr)->getId()){
+            throw EmployeeAlreadyHired();
+        }
+    }
+    //employee isn't hired
+    employeesList.push_back(employeeToAdd);
+}
+
+void Manager::removeEmployee(const int id) {
+    for (std::list<Employee*>::iterator employeeItr = employeesList.begin();employeeItr != employeesList.end(); employeeItr++) {
+        if ((*employeeItr)->getId() == id){
+            employeesList.erase(employeeItr);
+            return;
+        }
+    }
+    throw EmployeeIsNotHired();
+}
+
+void Manager::setSalary(const int addSalary) {
+    helpForSetInt(salary,addSalary);
+}
+
+void Manager::printShort(std::ostream &os) {
+    std::string idStr = std::to_string(getId());
+    std::string birthYearStr = std::to_string(getBirthYear());
+    std::string salaryStr = std::to_string(salary);
+    os << getFirstName() + " " + getLastName()<<std::endl;
+    os << "id - " + idStr + " birth_year - " + birthYearStr;
+    os << "Salary: " + salaryStr << std::endl; //look! code duplication, maybe we should create a function
+}
+
+void Manager::printLong(std::ostream &os) {
+    printShort(os);
+    for (std::list<Employee*>::iterator employeeItr = employeesList.begin();employeeItr != employeesList.end(); employeeItr++) {
+        (*employeeItr)->printShort(os);
+    }
+}
+
+
+
+/**========================END MANAGER=========================================**/
