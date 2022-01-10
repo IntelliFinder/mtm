@@ -39,7 +39,7 @@ int main() {
     return 0;
 
 }*/
-/**workplace test**/
+/**workplace test**//*
 class Condition{
 public:
     bool operator()(Employee* emp){
@@ -62,8 +62,8 @@ int main() {
     std::cout<<std::endl<<"new line"<<std::endl;
     m1->printLong(std::cout);
     return 0;
-}
-/**faculty**//*
+}*/
+/**faculty**/
 #include "faculty.h"
 #include <vector>
 using namespace mtm;
@@ -99,4 +99,3 @@ int main() {
     }
     return 0;
 }
-*/

@@ -4,9 +4,7 @@
 #include "employee.h"
 class Condition{
 public:
-    virtual bool operator()(mtm::Employee* employee){
-        return false;
-    }
+    virtual bool operator()(mtm::Employee* employee)=0;
 };
 namespace mtm {
 
