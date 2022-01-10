@@ -5,8 +5,9 @@
 #include "citizen.h"
 #include "employee.h"
 #include "manager.h"
+#include "workplace.h"
 
-#include "exceptions.h"
+//#include "exceptions.h"
 
 using namespace mtm;
 /**==========================SKILL=========================================**/
@@ -241,6 +242,17 @@ void Manager::removeEmployee(const int id) {
     }
     throw EmployeeIsNotHired();
 }
+void Manager::removeEmployeeAndSalary(const int id,int salaryToMinus) {//salaryToMinus>0
+    for (std::list<Employee*>::iterator employeeItr = employeesList.begin();employeeItr != employeesList.end(); employeeItr++) {
+        if ((*employeeItr)->getId() == id){
+            employeesList.erase(employeeItr);
+            (*employeeItr)->setSalary(-salaryToMinus);
+            return;
+        }
+    }
+    throw EmployeeIsNotHired();
+}
+
 
 void Manager::setSalary(const int addSalary) {
     helpForSetInt(salary,addSalary);
@@ -266,3 +278,96 @@ void Manager::printLong(std::ostream &os) {
 
 
 /**========================END MANAGER=========================================**/
+
+/**========================WORKPLACE===========================================**/
+namespace mtm {
+    bool Workplace::isManagerHired(const int managerId) {
+        for(Manager *runManager:managersList){
+            if ((*runManager).getId() == managerId){
+                return true;
+            }
+        }
+        return false;
+    }
+    int Workplace::getId() const{
+        return id;
+    }
+
+    std::string Workplace::getName() const {
+        return name;
+    }
+
+    int Workplace::getWorkersSalary() const{
+        return workersSalary;
+    }
+
+    int Workplace::getManagersSalary() const{
+        return managersSalary;
+    }
+
+    void Workplace::hireManager(Manager *managerAdd) {
+        if(isManagerHired(managerAdd->getId())){
+            throw ManagerAlreadyHired();
+        }
+        if (managerAdd->isHired){
+            throw CanNotHireManager();
+        }
+        managersList.push_back(managerAdd);
+        managerAdd->isHired = true;
+        managerAdd->setSalary(managersSalary);
+    }
+
+    void Workplace::fireEmployee(const int employeeId, const int managerId) {
+        if(!isManagerHired(managerId)){
+            throw ManagerIsNotHired();
+        }
+        Manager *manager = getPointerToManager(managerId);
+        manager->removeEmployeeAndSalary(employeeId,workersSalary);//should be positive
+    }
+
+    void Workplace::fireManager(const int managerId) {
+        if(!isManagerHired(managerId)){
+            throw ManagerIsNotHired();
+        }
+        Manager *manager = getPointerToManager(managerId);
+        manager->isHired = false;
+        manager->setSalary(-managersSalary);
+        managersList.remove(manager);
+    }
+
+    Manager *Workplace::getPointerToManager(const int managerId) {
+        for(Manager *runManager:managersList){
+            if ((*runManager).getId() == managerId){
+                return runManager;
+            }
+        }
+        return nullptr;
+    }
+    std::ostream &operator<<(std::ostream &os, const Workplace &workplace) {
+        os << "Workplace name - " << workplace.name;
+        //look! not sure where endl should be
+        if (!workplace.managersList.empty()){
+            os<< " Groups:";
+        }
+        for (Manager *pManager : workplace.managersList){
+            os<<std::endl;
+            pManager->printLong(os);
+        }
+        //endl here doesn't seem right because short print does it for us
+        return os;
+    }
+    /*bool Workplace::isEmployeeHired(Employee *pEmployee, const int managerId) {
+         Manager *trueManager;
+         for(Manager *runManager:managersList){
+             if ((*runManager).getId() == managerId){
+                 trueManager = runManager;
+             }
+         }
+         trueManager->addEmployee(pEmployee);
+     }*/
+
+
+
+}
+
+/**========================END WORKPLACE=========================================**/

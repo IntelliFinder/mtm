@@ -23,6 +23,7 @@ namespace mtm {
         int getSalary() const;
         void addEmployee(Employee *employeeToAdd);
         void removeEmployee(const int id);
+        void removeEmployeeAndSalary(const int id,int salaryToMinus);//my function
         void setSalary(const int addSalary);
         void printShort(std::ostream &os) override;
         void printLong(std::ostream &os) override;
