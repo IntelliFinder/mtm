@@ -163,7 +163,7 @@ void Employee::learnSkill(Skill const& skill) {
     if(hasSkill(skill.getId())){
         throw SkillAlreadyLearned();
     }
-   skillSet.insert(skill);//bug here
+   skillSet.insert(skill);
 }
 
 void Employee::forgetSkill(const int skillId) {
@@ -209,7 +209,7 @@ void Employee::printLong(std::ostream& os) {
     std::string salaryStr = std::to_string(salary);
     std::string scoreStr = std::to_string(score);
     os << getFirstName() + " " + getLastName()<<std::endl;
-    os << "id - " + idStr + " birth_year - " + birthYearStr;
+    os << "id - " + idStr + " birth_year - " + birthYearStr<<std::endl;
     os << "Salary: " + salaryStr + " Score: " + scoreStr + " Skills: "<< std::endl;
     for (std::set<Skill>::iterator i = skillSet.begin(); i!=skillSet.end(); ++i) {
         os << i->getName() << std::endl; //ERROR overloading doesn't work
@@ -251,7 +251,7 @@ void Manager::printShort(std::ostream &os) {
     std::string birthYearStr = std::to_string(getBirthYear());
     std::string salaryStr = std::to_string(salary);
     os << getFirstName() + " " + getLastName()<<std::endl;
-    os << "id - " + idStr + " birth_year - " + birthYearStr;
+    os << "id - " + idStr + " birth_year - " + birthYearStr<<std::endl;
     os << "Salary: " + salaryStr << std::endl; //look! code duplication, maybe we should create a function
 }
 
