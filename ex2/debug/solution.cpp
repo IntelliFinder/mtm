@@ -12,6 +12,10 @@
 
 using namespace mtm;
 /**==========================SKILL=========================================**/
+Skill::Skill(const int id, const std::string name, int points) : id(id), name(name), points(points)
+{
+}
+
 int Skill::getId() const { return id; }
 
 std::string Skill::getName() const { return name; }

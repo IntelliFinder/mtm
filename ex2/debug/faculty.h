@@ -22,16 +22,16 @@ namespace mtm {
 
         ~Faculty() = default;
 
-        Employee& teach(Employee& emp){
-            if(emp.hasSkill(skill.getId())){
+        void teach(Employee* emp){
+            /*if(emp.hasSkill(skill.getId())){
                 return emp;
-            }
+            }*/
             if(!(*pred)(emp)){
                 throw EmployeeNotAccepted();
             }
-            emp.setScore(addedPoints); //added score
-            emp.learnSkill(skill); //adds skill already checked emp doesnt ahve it already
-            return emp;
+            emp->setScore(addedPoints); //added score
+            emp->learnSkill(skill); //adds skill already checked emp doesnt ahve it already
+            //return emp;
         }
 
         Skill getSkill() const{

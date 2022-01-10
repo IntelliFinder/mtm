@@ -38,9 +38,8 @@ int main() {
     m1.printLong(cout);
     return 0;
 
-    return 0;
 }*/
-/**workplace test**//*
+/**workplace test**/
 class Condition{
 public:
     bool operator()(Employee* emp){
@@ -60,11 +59,11 @@ int main() {
     Meta.fireManager(m1->getId());
     cout << Meta;
     //from now on my test
-    std::cout<<std::endl;
+    std::cout<<std::endl<<"new line"<<std::endl;
     m1->printLong(std::cout);
     return 0;
-}*/
-/**faculty**/
+}
+/**faculty**//*
 #include "faculty.h"
 #include <vector>
 using namespace mtm;
@@ -95,8 +94,9 @@ int main() {
     Faculties.push_back(faculty1);
     Faculties.push_back(faculty2);
     for(Faculty<Condition> faculty:Faculties){
-        faculty.teach(e1);
-        faculty.teach(e2);
+        faculty.teach(&e1);
+        faculty.teach(&e2);
     }
     return 0;
 }
+*/

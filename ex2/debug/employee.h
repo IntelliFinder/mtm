@@ -1,3 +1,6 @@
+
+#ifndef __EMPLOYEE__H__
+#define __EMPLOYEE__H__
 #include <iostream>
 
 #include <set>
@@ -33,3 +36,4 @@ namespace mtm {
 
     };
 }
+#endif
