@@ -257,6 +257,7 @@ void Manager::printShort(std::ostream &os) {
 
 void Manager::printLong(std::ostream &os) {
     printShort(os);
+    os << "Employees:"<<std::endl;
     for (std::list<Employee*>::iterator employeeItr = employeesList.begin();employeeItr != employeesList.end(); employeeItr++) {
         (*employeeItr)->printShort(os);
     }
