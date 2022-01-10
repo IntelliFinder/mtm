@@ -30,17 +30,17 @@ namespace mtm {
         friend std::ostream& operator<<(std::ostream& os, const Skill& sk);
 //std operators
 
-        friend bool operator>(const Skill& sk1, const Skill& sk2);
+        friend bool operator>( Skill const& sk1,  Skill const& sk2);
+        friend bool operator<(mtm::Skill const&, mtm::Skill const&);
+        //friend bool operator<( Skill const& sk1,  Skill const& sk2);
 
-        friend bool operator<(const Skill& sk1, const Skill& sk2);
+        friend bool operator!=( Skill const& sk1,  Skill const& sk2);
 
-        friend bool operator!=(const Skill& sk1, const Skill& sk2);
+        friend bool operator>=( Skill const& sk1,  Skill const& sk2);
 
-        friend bool operator>=(const Skill& sk1, const Skill& sk2);
+        friend bool operator<=( Skill const& sk1,  Skill const& sk2);
 
-        friend bool operator<=(const Skill& sk1, const Skill& sk2);
-
-        friend bool operator==(const Skill& sk1, const Skill& sk2);
+        friend bool operator==( Skill const& sk1,  Skill const& sk2);
      };
 
 } //end namespace

@@ -21,7 +21,7 @@ namespace mtm {
         int getSalary() const;
         int getScore() const;
         std::set<Skill> getCopySkillSet() const;
-        void learnSkill(Skill& skill);
+        void learnSkill(Skill const& skill);
         void forgetSkill(const int skillId);
         bool hasSkill(const int skillId);
         void setSalary(const int addSalary);

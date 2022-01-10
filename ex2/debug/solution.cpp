@@ -39,30 +39,57 @@ std::ostream& operator<<(std::ostream &os, const Skill &sk) {
     return os;
 }
 
+namespace mtm{
+    bool operator>( Skill const& sk1,  Skill const& sk2){
+        return sk1.getId() > sk2.getId();
+    }
 
-bool operator>(const Skill& sk1, const Skill& sk2){
+    bool operator<( mtm::Skill const& sk1,  mtm::Skill const& sk2){
+        return sk1.getId() < sk2.getId();
+    }
+
+    bool operator!=( Skill const& sk1,  Skill const& sk2){
+        return sk1.getId() != sk2.getId();
+    }
+
+    bool operator>=( Skill const& sk1,  Skill const& sk2){
+        return sk1.getId() >= sk2.getId();
+    }
+
+    bool operator<=( Skill const& sk1,  Skill const& sk2){
+        return sk1.getId() <= sk2.getId();
+    }
+
+    bool operator==( Skill const& sk1,  Skill const& sk2){
+        return sk1.getId() == sk2.getId();
+    }
+}
+/*
+bool mtm::operator>( Skill const& sk1,  Skill const& sk2){
     return sk1.getId() > sk2.getId();
 }
 
-bool operator<(const Skill& sk1, const Skill& sk2){
+bool mtm::operator<( mtm::Skill const& sk1,  mtm::Skill const& sk2){
     return sk1.getId() < sk2.getId();
 }
 
-bool operator!=(const Skill& sk1, const Skill& sk2){
+bool mtm::operator!=( Skill const& sk1,  Skill const& sk2){
     return sk1.getId() != sk2.getId();
 }
 
-bool operator>=(const Skill& sk1, const Skill& sk2){
+bool mtm::operator>=( Skill const& sk1,  Skill const& sk2){
     return sk1.getId() >= sk2.getId();
 }
 
-bool operator<=(const Skill& sk1, const Skill& sk2){
+bool mtm::operator<=( Skill const& sk1,  Skill const& sk2){
     return sk1.getId() <= sk2.getId();
 }
 
-bool operator==(const Skill& sk1, const Skill& sk2){
+bool mtm:: operator==( Skill const& sk1,  Skill const& sk2){
     return sk1.getId() == sk2.getId();
-}
+}*/
+
+
 
 
 
@@ -128,8 +155,8 @@ bool Employee::hasSkill(const int skillId) {
     return false;
 }
 
-/*
-void Employee::learnSkill(Skill& skill) {
+
+void Employee::learnSkill(Skill const& skill) {
     if (score<skill.requiredPoints()){
         throw CanNotLearnSkill();
     }
@@ -138,7 +165,7 @@ void Employee::learnSkill(Skill& skill) {
     }
    skillSet.insert(skill);//bug here
 }
-*/
+
 void Employee::forgetSkill(const int skillId) {
     for ( std::set<Skill>::iterator i = skillSet.begin(); i!=skillSet.end(); ++i ) {
         if (i->getId() == skillId){
