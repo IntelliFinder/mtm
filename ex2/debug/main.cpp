@@ -59,6 +59,9 @@ int main() {
     cout << Meta;
     Meta.fireManager(m1->getId());
     cout << Meta;
+    //from now on my test
+    std::cout<<std::endl;
+    m1->printLong(std::cout);
     return 0;
 }
 

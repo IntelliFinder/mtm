@@ -333,6 +333,7 @@ namespace mtm {
         manager->isHired = false;
         manager->setSalary(-managersSalary);
         managersList.remove(manager);
+
     }
 
     Manager *Workplace::getPointerToManager(const int managerId) {
