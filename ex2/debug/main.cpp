@@ -63,7 +63,7 @@ int main() {
     m1->printLong(std::cout);
     return 0;
 }*/
-/**faculty**/
+/**faculty**//*
 #include "faculty.h"
 #include <vector>
 using namespace mtm;
@@ -98,4 +98,5 @@ int main() {
         faculty.teach(&e2);
     }
     return 0;
-}
+}*/
+

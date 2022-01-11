@@ -44,7 +44,7 @@ namespace mtm {
             employeeAdd->setSalary(-employeeAdd->getSalary());
             employeeAdd->setSalary(workersSalary);
             return trueManager->addEmployee(employeeAdd);//will throw employeeIsNotHired if needed
-        };
+        }
 
         void hireManager(Manager *managerAdd);
 
