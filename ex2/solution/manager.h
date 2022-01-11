@@ -17,7 +17,7 @@ namespace mtm {
                                                                                                                              lastName, birthYear),salary(0),
                                                                                                                              employeesList(),isHired(false){};
         Manager(const Manager& manager);
-        Citizen* clone(){
+        Manager* clone(){
 
             return new Manager(*this);
         }
