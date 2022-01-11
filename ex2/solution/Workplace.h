@@ -16,7 +16,7 @@ namespace mtm {
         int workersSalary;
         int managersSalary;
         std::list<Manager *> managersList;//list is good for erasing
-        bool isManagerHired(const int managerId);
+        bool isManagerHired(const int managerId) const;
         Manager* getPointerToManager(const int managerId);//I need * and not & for the list
         //bool isEmployeeHired(Employee *pEmployee,const int managerId);//valid managerId pls
     public:

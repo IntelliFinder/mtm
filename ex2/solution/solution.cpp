@@ -338,7 +338,7 @@ void Manager::printLong(std::ostream &os) {
 
 /**========================WORKPLACE===========================================**/
 namespace mtm {
-    bool Workplace::isManagerHired(const int managerId) {
+    bool Workplace::isManagerHired(const int managerId) const{
         for(Manager *runManager:managersList){
             if ((*runManager).getId() == managerId){
                 return true;
