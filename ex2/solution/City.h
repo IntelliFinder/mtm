@@ -10,7 +10,7 @@
 #include "Employee.h"
 #include "Manager.h"
 #include "Workplace.h"
-#include "faculty.h"
+#include "Faculty.h"
 #include "exceptions.h"
 
 
