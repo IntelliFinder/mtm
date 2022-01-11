@@ -309,18 +309,26 @@ void Manager::setSalary(const int addSalary) {
 
 void Manager::printShort(std::ostream &os) {
     std::string idStr = std::to_string(getId());
+    //std::string birthYearStr = std::to_string(getBirthYear());
+    std::string salaryStr = std::to_string(salary);
+    os << getFirstName() + " " + getLastName()<<std::endl;
+    //os << "id - " + idStr + " birth_year - " + birthYearStr<<std::endl;
+    os << "Salary: " + salaryStr << std::endl; //look! code duplication, maybe we should create a function
+}
+
+void Manager::printLong(std::ostream &os) {
+    std::string idStr = std::to_string(getId());
     std::string birthYearStr = std::to_string(getBirthYear());
     std::string salaryStr = std::to_string(salary);
     os << getFirstName() + " " + getLastName()<<std::endl;
     os << "id - " + idStr + " birth_year - " + birthYearStr<<std::endl;
     os << "Salary: " + salaryStr << std::endl; //look! code duplication, maybe we should create a function
-}
-
-void Manager::printLong(std::ostream &os) {
-    printShort(os);
-    os << "Employees:"<<std::endl;
-    for (std::list<Employee*>::iterator employeeItr = employeesList.begin();employeeItr != employeesList.end(); employeeItr++) {
-        (*employeeItr)->printShort(os);
+    if(employeesList.size()) {
+        os << "Employees: " << std::endl;
+        for (std::reverse_iterator<std::list<Employee *>::iterator> employeeItr = employeesList.rbegin();
+             employeeItr != employeesList.rend(); employeeItr++) {
+            (*employeeItr)->printShort(os);
+        }
     }
 }
 
