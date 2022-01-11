@@ -1,6 +1,7 @@
 #include <iostream>
 #include <memory>
 #include <string>
+#include <list>
 
 #include "Skill.h"
 #include "Citizen.h"
@@ -21,32 +22,32 @@ int Skill::getId() const { return id; }
 
 std::string Skill::getName() const { return name; }
 
-int Skill::requiredPoints() const { return points; }
-
-Skill& Skill::operator++() {
-    points = points + 1;
-    return *this;
-}
-
-Skill& Skill::operator+=(const int amount) {
-    if (amount<0){
-        throw NegativePoints();
-    }
-    points = points + amount;
-    return *this;
-}
-Skill &Skill::operator+(int amount){
-    *this += amount;
-    return *this;
-}
-
-
-std::ostream& operator<<(std::ostream &os, const Skill &sk) {
-    os << sk.getName(); // without << std::endl
-    return os;
-}
-
+int Skill::getRequiredPoints() const { return points; }
 namespace mtm{
+    Skill& Skill::operator++() {
+        points = points + 1;
+        return *this;
+    }
+
+    Skill& Skill::operator+=(const int amount) {
+        if (amount<0){
+            throw NegativePoints();
+        }
+        points = points + amount;
+        return *this;
+    }
+    Skill &Skill::operator+(int amount){
+        *this += amount;
+        return *this;
+    }
+
+
+    std::ostream& operator<<(std::ostream &os, const Skill &sk) {
+        os << sk.getName(); // without << std::endl
+        return os;
+    }
+
+
     bool operator>( Skill const& sk1,  Skill const& sk2){
         return sk1.getId() > sk2.getId();
     }
@@ -164,7 +165,7 @@ bool Employee::hasSkill(const int skillId) {
 
 
 void Employee::learnSkill(Skill const& skill) {
-    if (score<skill.requiredPoints()){
+    if (score<skill.getRequiredPoints()){
         throw CanNotLearnSkill();
     }
     if(hasSkill(skill.getId())){
@@ -225,6 +226,13 @@ void Employee::printLong(std::ostream& os) {
 /**========================END EMPLOYEE=========================================**/
 
 /**============================MANAGER=========================================**/
+
+Manager::Manager(const Manager& manager):Citizen(manager.getId(),manager.getFirstName(),manager.getLastName(),manager.getBirthYear())
+,salary(manager.getSalary()),employeesList(),isHired(false){
+    for (Employee* pRunEmployee:manager.employeesList) {
+        employeesList.push_back(pRunEmployee);
+    }
+}
 int Manager::getSalary() const {
     return this->salary;
 }

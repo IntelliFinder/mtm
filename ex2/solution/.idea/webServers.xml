@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="36ce5cff-ba20-4992-bd60-6718e0c41664" name="csl3">
+        <fileTransfer accessType="SFTP" host="csl3.cs.technion.ac.il" port="22" sshConfigId="c175b92c-456f-48a9-80e3-601d466225f4" sshConfig="gh@csl3.cs.technion.ac.il:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

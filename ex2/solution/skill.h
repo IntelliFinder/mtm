@@ -16,7 +16,7 @@ namespace mtm {
 
         std::string getName() const;
 
-        int requiredPoints() const;
+        int getRequiredPoints() const;
 
         Skill &operator++();
 

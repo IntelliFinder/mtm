@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <list>
-
+#include "Citizen.h"
 namespace mtm {
 
     class Manager : public Citizen{
@@ -16,6 +16,7 @@ namespace mtm {
         Manager(const int id, const std::string firstName, const std::string lastName, const int birthYear): Citizen(id,firstName,
                                                                                                                              lastName, birthYear),salary(0),
                                                                                                                              employeesList(),isHired(false){};
+        Manager(const Manager& manager);
         Citizen* clone(){
 
             return new Manager(*this);
