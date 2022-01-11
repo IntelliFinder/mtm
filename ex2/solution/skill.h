@@ -22,7 +22,7 @@ namespace mtm {
 
         int getRequiredPoints() const;
 
-        Skill &operator++(int );
+        Skill operator++(int );
 
         Skill &operator+=(int amount);
 

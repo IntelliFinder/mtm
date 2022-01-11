@@ -4,6 +4,7 @@
 namespace mtm {
 
     class Exception: public std::exception {};
+    class CanNotLearnSkill:public Exception {};
     class SkillException: public Exception{};
     class EmpException: public Exception{};
     class ManagerException: public Exception{};
@@ -11,7 +12,7 @@ namespace mtm {
     class CityException: public Exception{};
 
     class DidNotLearnSkill: public SkillException{};
-    class CanNotLearnSkill: public SkillException{};
+    //class CanNotLearnSkill: public SkillException{};
     class SkillAlreadyLearned: public SkillException{};
     class NegativePoints: public SkillException{};
 

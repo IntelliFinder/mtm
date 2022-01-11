@@ -31,9 +31,11 @@ std::string Skill::getName() const { return name; }
 
 int Skill::getRequiredPoints() const { return points; }
 namespace mtm{
-    Skill& Skill::operator++(int ) {
-        points = points + 1;
-        return *this;
+    Skill Skill::operator++(int ) {
+        //Skill old(this->getId(), this->getName(), this->getRequiredPoints());
+        Skill old(*this);
+        points +=  1;
+        return old;
     }
 
     Skill& Skill::operator+=(const int amount) {
@@ -51,6 +53,9 @@ namespace mtm{
         return *this;
     }*/
     Skill operator+(const Skill &sk1, int amount) {
+        if(amount<0){
+            throw NegativePoints();
+        }
         return Skill(sk1.getId(),sk1.getName(),sk1.getRequiredPoints()+amount);
     }
     Skill operator+(int amount, const Skill &sk1) {
@@ -59,7 +64,7 @@ namespace mtm{
 
 
     std::ostream& operator<<(std::ostream &os, const Skill &sk) {
-        os << sk.getName(); // without << std::endl
+        os << sk.getName() << std::endl; // without << std::endl
         return os;
     }
 
@@ -175,10 +180,10 @@ int Employee::getSalary() const{
 int Employee::getScore() const{
     return score;
 }
-bool Employee::hasSkill(const int skillId) {
+
+bool Employee::hasSkill(const int skillId)  const {
     for(std::set<Skill>::iterator i = skillSet.begin() ; i != skillSet.end(); ++i) {
         if (i->getId() == skillId){
-            skillSet.erase(i);
             return true;
         }
     }
@@ -187,12 +192,13 @@ bool Employee::hasSkill(const int skillId) {
 
 
 void Employee::learnSkill(Skill const& skill) {
+    if(hasSkill(skill.getId())){
+        throw mtm::SkillAlreadyLearned();
+    }
     if (score<skill.getRequiredPoints()){
         throw CanNotLearnSkill();
     }
-    if(hasSkill(skill.getId())){
-        throw SkillAlreadyLearned();
-    }
+
    skillSet.insert(skill);
 }
 
@@ -240,10 +246,17 @@ void Employee::printLong(std::ostream& os) {
     std::string scoreStr = std::to_string(score);
     os << getFirstName() + " " + getLastName()<<std::endl;
     os << "id - " + idStr + " birth_year - " + birthYearStr<<std::endl;
-    os << "Salary: " + salaryStr + " Score: " + scoreStr + " Skills: "<< std::endl;
-    for (std::set<Skill>::iterator i = skillSet.begin(); i!=skillSet.end(); ++i) {
-        os << i->getName() << std::endl; //ERROR overloading doesn't work
+    os << "Salary: " + salaryStr + " Score: " + scoreStr ;
+    if(skillSet.size()!=0){
+        os<<" Skills: "<< std::endl;
+        for (std::set<Skill>::iterator i = skillSet.begin(); i!=skillSet.end(); ++i) {
+            os << i->getName() << std::endl; //ERROR overloading doesn't work
+        }
     }
+    else{
+        os<<std::endl;
+    }
+
 }
 /**========================END EMPLOYEE=========================================**/
 
