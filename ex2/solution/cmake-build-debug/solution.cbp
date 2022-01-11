@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="solution"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/solution/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/solution/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/solution/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/solution/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/solution/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/solution/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/solution/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/solution/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/solution/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/solution/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/solution/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/solution/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/solution/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/solution/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/solution/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="solution">
+				<Option output="/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/solution/cmake-build-debug/solution.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/solution/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/solution/."/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/6.4.0/include/c++"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/6.4.0/include/c++/x86_64-pc-cygwin"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/6.4.0/include/c++/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/6.4.0/include"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/6.4.0/../../../../lib/../include/w32api"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/solution/cmake-build-debug/Makefile&quot;  VERBOSE=1 solution"/>
+					<CompileFile command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/solution/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/solution/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/solution/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="solution/fast">
+				<Option output="/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/solution/cmake-build-debug/solution.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/solution/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/solution/."/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/6.4.0/include/c++"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/6.4.0/include/c++/x86_64-pc-cygwin"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/6.4.0/include/c++/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/6.4.0/include"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/6.4.0/../../../../lib/../include/w32api"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/solution/cmake-build-debug/Makefile&quot;  VERBOSE=1 solution/fast"/>
+					<CompileFile command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/solution/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/solution/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/solution/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/solution/City.h">
+			<Option target="solution"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/solution/Workplace.h">
+			<Option target="solution"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/solution/citizen.h">
+			<Option target="solution"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/solution/employee.h">
+			<Option target="solution"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/solution/exceptions.h">
+			<Option target="solution"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/solution/faculty.h">
+			<Option target="solution"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/solution/main.cpp">
+			<Option target="solution"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/solution/manager.h">
+			<Option target="solution"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/solution/skill.h">
+			<Option target="solution"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/solution/solution.cpp">
+			<Option target="solution"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/solution/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

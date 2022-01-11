@@ -283,11 +283,6 @@ namespace mtm {
     int Workplace::getManagersSalary() const{
         return managersSalary;
     }
-    std::list<Manager*> Workplace::getManagerList() const{
-        std::list<Manager*> li(managersList);
-        return li;
-    }//careful about memorry leak must be called only within copy const.
-
     void Workplace::hireManager(Manager *managerAdd) {
         if(isManagerHired(managerAdd->getId())){
             throw ManagerAlreadyHired();
@@ -357,35 +352,8 @@ namespace mtm {
 /**========================END WORKPLACE=========================================**/
 
 /**============================FACULTY=========================================**/\
-/*
-namespace mtm{
-    template<typename Predicate>
-    Employee& Faculty<Predicate>::teach(Employee& emp){
-        if(emp.hasSkill(skill.getId())){
-            return emp;
-        }
-        if(!pred(emp)){
-            throw EmployeeNotAccepted();
-        }
-        emp.setScore(addedPoints); //added score
-        emp.learnSkill(skill); //adds skill already checked emp doesnt ahve it already
-        return emp;
-    }
 
-    template<typename Predicate>
-    Skill Faculty<Predicate>::getSkill() const{
-        return skill;
-    }
-
-    template<typename Predicate>
-    int Faculty<Predicate>::getId() const {
-        return id;
-    }
-
-    template<typename Predicate>
-    int Faculty<Predicate>::getAddedPoints() const{
-        return addedPoints;
-    }
-
-}*/
 /**========================END FACULTY=========================================**/
+/**============================CITY=========================================**/\
+
+/**========================END CITY=========================================**/
