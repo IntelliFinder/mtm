@@ -84,7 +84,6 @@ namespace mtm {
          * 3.WorkplaceDoesNotExist
          */
         void fireEmployeeAtWorkplace(const int employeeId, const int managerId, const int workplaceId);
-
         /**
          * throws:
          * 1.ManagerDoesNotExist
