@@ -20,7 +20,7 @@ namespace mtm {
         Workplace(int id, std::string name, int workersSalary, int managersSalary) : id(id), name(name),
                                                                                 workersSalary(workersSalary),
                                                                                 managersSalary(managersSalary),
-                                                                                managersList(){};
+                                                                                managersList(getManagerList()){};
 
         ~Workplace() = default;
 
@@ -31,6 +31,8 @@ namespace mtm {
         int getWorkersSalary() const;
 
         int getManagersSalary() const;
+
+        std::list<Manager*> getManagerList() const;//careful about memorry leak must be called only within copy const.
 
         template<class Condition>
         void hireEmployee(Condition condition, Employee *employeeAdd, int managerId){

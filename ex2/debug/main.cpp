@@ -6,6 +6,11 @@
 using namespace mtm;
 using std::cout;
 using std::endl;
+
+int main(){
+    cout<<"Hello World!"<<endl;
+    return 0;
+}
 /**manager and emp test**//*
 int main() {
     Skill skill(45,"bb",10);

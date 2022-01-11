@@ -70,32 +70,6 @@ namespace mtm{
         return sk1.getId() == sk2.getId();
     }
 }
-/*
-bool mtm::operator>( Skill const& sk1,  Skill const& sk2){
-    return sk1.getId() > sk2.getId();
-}
-
-bool mtm::operator<( mtm::Skill const& sk1,  mtm::Skill const& sk2){
-    return sk1.getId() < sk2.getId();
-}
-
-bool mtm::operator!=( Skill const& sk1,  Skill const& sk2){
-    return sk1.getId() != sk2.getId();
-}
-
-bool mtm::operator>=( Skill const& sk1,  Skill const& sk2){
-    return sk1.getId() >= sk2.getId();
-}
-
-bool mtm::operator<=( Skill const& sk1,  Skill const& sk2){
-    return sk1.getId() <= sk2.getId();
-}
-
-bool mtm:: operator==( Skill const& sk1,  Skill const& sk2){
-    return sk1.getId() == sk2.getId();
-}*/
-
-
 
 
 
@@ -218,7 +192,7 @@ void Employee::printLong(std::ostream& os) {
     os << "id - " + idStr + " birth_year - " + birthYearStr<<std::endl;
     os << "Salary: " + salaryStr + " Score: " + scoreStr + " Skills: "<< std::endl;
     for (std::set<Skill>::iterator i = skillSet.begin(); i!=skillSet.end(); ++i) {
-        os << i->getName() << std::endl; //ERROR overloading doesn't work
+        os << (*i).getName() << std::endl; //BUG\ERROR overloading doesn't work
     }
 }
 /**========================END EMPLOYEE=========================================**/
@@ -309,6 +283,10 @@ namespace mtm {
     int Workplace::getManagersSalary() const{
         return managersSalary;
     }
+    std::list<Manager*> Workplace::getManagerList() const{
+        std::list<Manager*> li(managersList);
+        return li;
+    }//careful about memorry leak must be called only within copy const.
 
     void Workplace::hireManager(Manager *managerAdd) {
         if(isManagerHired(managerAdd->getId())){
@@ -343,7 +321,7 @@ namespace mtm {
 
     Manager *Workplace::getPointerToManager(const int managerId) {
         for(Manager *runManager:managersList){
-            if ((*runManager).getId() == managerId){
+            if ((*runManager).getId() == managerId){ //what if two managers with same id? safe to assume?
                 return runManager;
             }
         }
