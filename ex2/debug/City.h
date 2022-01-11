@@ -28,8 +28,8 @@ namespace mtm {
          * 2.ManagerDoesNotExist
          * 3.WorkplaceDoesNotExist
          */
-        template<class Condition>
-        void hireEmployeeAtWorkplace(Condition condition, Employee *employeeAdd, int managerId, int facultyId){
+        template<class ConditionEmp>
+        void hireEmployeeAtWorkplace(ConditionEmp condition, Employee *employeeAdd, int managerId, int facultyId){
 
         }
 
