@@ -17,6 +17,13 @@ using namespace mtm;
 Skill::Skill(const int id, const std::string name, int points) : id(id), name(name), points(points)
 {
 }
+Skill::Skill(const Skill &skill):id(skill.getId()),name(skill.getName()),points(skill.points) {
+
+}
+Skill &Skill::operator=(const Skill &skill) {
+    this->points = skill.getRequiredPoints();
+    return *this;
+}
 
 int Skill::getId() const { return id; }
 
@@ -24,7 +31,7 @@ std::string Skill::getName() const { return name; }
 
 int Skill::getRequiredPoints() const { return points; }
 namespace mtm{
-    Skill& Skill::operator++() {
+    Skill& Skill::operator++(int ) {
         points = points + 1;
         return *this;
     }
@@ -39,6 +46,12 @@ namespace mtm{
     Skill &Skill::operator+(int amount){
         *this += amount;
         return *this;
+    }
+    Skill operator+(const Skill &sk1, int amount) {
+        return Skill(sk1.getId(),sk1.getName(),sk1.getRequiredPoints()+amount);
+    }
+    Skill operator+(int amount, const Skill &sk1) {
+        return sk1 + amount;
     }
 
 
@@ -71,6 +84,10 @@ namespace mtm{
     bool operator==( Skill const& sk1,  Skill const& sk2){
         return sk1.getId() == sk2.getId();
     }
+
+
+
+
 }
 /*
 bool mtm::operator>( Skill const& sk1,  Skill const& sk2){

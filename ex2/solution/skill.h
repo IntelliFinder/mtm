@@ -10,6 +10,10 @@ namespace mtm {
     public:
         Skill(const int id, const std::string name, int points);// : id(id), name(name), points(points) {}
 
+        Skill(const Skill& skill);
+
+        Skill &operator=(const Skill& skill);
+
         ~Skill() = default;
 
         int getId() const;
@@ -18,7 +22,7 @@ namespace mtm {
 
         int getRequiredPoints() const;
 
-        Skill &operator++();
+        Skill &operator++(int );
 
         Skill &operator+=(int amount);
 
@@ -27,8 +31,10 @@ namespace mtm {
 
 
 
+        friend Skill operator+(Skill const& sk1, int amount);
+        friend Skill operator+(int amount, Skill const& sk1);
 
-//print operators
+        //print operators
         friend std::ostream& operator<<(std::ostream& os, const Skill& sk);
 //std operators
 
