@@ -8,6 +8,7 @@ namespace mtm {
     class EmpException: public Exception{};
     class ManagerException: public Exception{};
     class FacultyException: public Exception{};
+    class CityException: public Exception{};
 
     class DidNotLearnSkill: public SkillException{};
     class CanNotLearnSkill: public SkillException{};
@@ -24,5 +25,12 @@ namespace mtm {
     class CanNotHireManager: public ManagerException{};
 
     class EmployeeNotAccepted: public FacultyException{};
+
+    class CitizenAlreadyExists: public CityException{};
+    class FacultyAlreadyExists: public CityException{};
+    class EmployeeDoesNotExist: public CityException{};
+    class ManagerDoesNotExist: public CityException{};
+    class WorkplaceDoesNotExist: public CityException{};
+
 }
 #endif

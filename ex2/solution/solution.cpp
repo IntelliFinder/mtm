@@ -1,4 +1,5 @@
 #include <iostream>
+#include <memory>
 #include <string>
 
 #include "Skill.h"
@@ -6,9 +7,9 @@
 #include "Employee.h"
 #include "Manager.h"
 #include "Workplace.h"
-//#include "faculty.h"
-
-//#include "exceptions.h"
+#include "Faculty.h"
+#include "City.h"
+#include "exceptions.h"
 
 using namespace mtm;
 /**==========================SKILL=========================================**/
@@ -411,3 +412,41 @@ namespace mtm{
 
 }*/
 /**========================END FACULTY=========================================**/
+/**=======================City==================================================**/
+namespace mtm{
+
+    bool City::isCitizenExist(const int id, const std::list<std::shared_ptr<Citizen>>& citizenList){
+        for (const std::shared_ptr<Citizen>& runCitizen:citizenList){
+            if (runCitizen->getId() == id){
+                return true;
+            }
+        }
+        return false;
+    }
+    void City::addEmployee(const int employeeId, const std::string firstName, const std::string lastName, const int birthYear) {
+        if (isCitizenExist(employeeId, employeesList)){
+            throw CitizenAlreadyExists();
+        }
+        employeesList.push_back(std::make_shared<Employee>(employeeId, firstName, lastName, birthYear));
+    }
+
+    void City::addManager(const int managerId, const std::string firstName, const std::string lastName, const int birthYear) {
+        if (isCitizenExist(managerId, managersList)){
+            throw CitizenAlreadyExists();
+        }
+        managersList.push_back(std::make_shared<Manager>(managerId, firstName, lastName, birthYear));
+    }
+
+    void City::addFaculty(int id, Skill skill, int addedPoints, Condition *pred) {
+        for (const std::shared_ptr<Faculty<Condition>>& runFaculty:facultysList){
+            if (runFaculty->getId() == id){
+                throw FacultyAlreadyExists();
+            }
+        }
+        facultysList.push_back(std::make_shared<Faculty<Condition>>(id, skill, addedPoints, pred));
+    }//look! code duplication for all these functions
+
+}
+
+
+/**========================END City=========================================**/
