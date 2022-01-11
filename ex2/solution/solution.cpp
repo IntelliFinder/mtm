@@ -550,7 +550,28 @@ namespace mtm{
         }
     }
     void City::fireEmployeeAtWorkplace(const int employeeId, const int managerId, const int workplaceId){
-        
+        if(!isCitizenExist(managerId,managersList)){
+            throw ManagerDoesNotExist();
+        }
+        if(!isCitizenExist(employeeId,employeesList)){
+            throw EmployeeDoesNotExist();
+        }
+        Workplace* workplace1 = nullptr;
+        for(const std::shared_ptr<Workplace>& runWork: workplacesList){
+            if( runWork->getId() == workplaceId ){
+                workplace1 = runWork.get();
+            }
+        }
+        bool workplace =false;
+        for(const std::shared_ptr<Workplace>& runWork: workplace1->){
+            if( runWork->getId() == workplaceId ){
+                (runWork.get())->fireEmployee(employeeId, managerId);
+                workplace = true;
+            }
+        }
+        if(!workplace){
+            throw WorkplaceDoesNotExist();
+        }
     }
 
 }

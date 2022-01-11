@@ -44,7 +44,7 @@ namespace mtm {
                 throw ManagerIsNotHired();
             }
             Manager *trueManager = getPointerToManager(managerId);
-            employeeAdd->setSalary(-employeeAdd->getSalary());
+            employeeAdd->setSalary(employeeAdd->getSalary());
             employeeAdd->setSalary(workersSalary);
             return trueManager->addEmployee(employeeAdd);//will throw employeeIsNotHired if needed
         }
