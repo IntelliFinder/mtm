@@ -43,10 +43,13 @@ namespace mtm{
         points = points + amount;
         return *this;
     }
-    Skill &Skill::operator+(int amount){
+    /*Skill &Skill::operator+(int amount){
+        if(amount<0){
+            throw NegativePoints();
+        }
         *this += amount;
         return *this;
-    }
+    }*/
     Skill operator+(const Skill &sk1, int amount) {
         return Skill(sk1.getId(),sk1.getName(),sk1.getRequiredPoints()+amount);
     }
@@ -138,28 +141,30 @@ void Citizen::printShort( std::ostream &str) {
 void Citizen::printLong( std::ostream &str ){
     str<<std::endl; //placeholder
 }
+namespace mtm {
+    bool operator==(Citizen &c1, Citizen &c2) {
+        return c1.getId() == c2.getId();
+    }
 
-bool operator==(Citizen &c1, Citizen &c2) {
-    return c1.getId() == c2.getId();
-}
+    bool operator<=(Citizen &c1, Citizen &c2) {
+        return c1.getId() <= c2.getId();
+    }
 
-bool operator<=(Citizen &c1, Citizen &c2) {
-    return c1.getId() <= c2.getId();
-}
-bool operator>=(Citizen &c1, Citizen &c2) {
-    return c1.getId() >= c2.getId();
-}
+    bool operator>=(Citizen &c1, Citizen &c2) {
+        return c1.getId() >= c2.getId();
+    }
 
-bool operator!=(Citizen &c1, Citizen &c2) {
-    return c1.getId() != c2.getId();
-}
+    bool operator!=(Citizen &c1, Citizen &c2) {
+        return c1.getId() != c2.getId();
+    }
 
-bool operator<(Citizen &c1, Citizen &c2) {
-    return c1.getId() < c2.getId();
-}
+    bool operator<(Citizen &c1, Citizen &c2) {
+        return c1.getId() < c2.getId();
+    }
 
-bool operator>(Citizen &c1, Citizen &c2) {
-    return c1.getId() > c2.getId();
+    bool operator>(Citizen &c1, Citizen &c2) {
+        return c1.getId() > c2.getId();
+    }
 }
 /**========================END CITIZEN=========================================**/
 /**============================EMPLOYEE=========================================**/
