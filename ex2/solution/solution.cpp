@@ -496,7 +496,37 @@ namespace mtm{
         }
         facultysList.push_back(std::make_shared<Faculty<Condition>>(id, skill, addedPoints, pred));
     }//look! code duplication for all these functions
+    void City::createWorkplace(int id, std::string name, int workersSalary, int managersSalary )
+    {
+        for (const std::shared_ptr<Workplace>& runWorkplace: workplacesList){
+            if(runWorkplace->getId() == id ){
+                 throw WorkplaceAlreadyExists();
+            }
+        }
+        workplacesList.push_back(std::make_shared<Workplace>(id, name, workersSalary, managersSalary));
+    }
+    void City::teachAtFaculty(const int employeeId, const int facultyId){
+        if(!isCitizenExist(employeeId, employeesList)){
+            throw EmployeeDoesNotExist();
+        }
+        std::shared_ptr<Employee> employee= nullptr;
+        for (const std::shared_ptr<Citizen>& runEmp:employeesList){
+            if (runEmp->getId() == id){
+                employee = runEmp;
+            }
+        }
+        bool not_exists=true;
+        for (const std::shared_ptr<Faculty<Condition>>& runFaculty:facultysList){//code duplication
+            if (runFaculty->getId() == id){
+                runFaculty->teach(employee.get());
+                not_exists=false;
+            }
+        }
+        if( not_exists ){
+            throw FacultyDoesNotExist();
+        }
 
+    }
 }
 
 

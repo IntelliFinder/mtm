@@ -9,7 +9,10 @@ public:
 namespace mtm {
     class City{
         const std::string name;
-        int id;
+        std::list<Employee*> empList;
+        std::list<Manager*> mgrList;
+        std::list<Faculty*> facultyList;
+        std::list<Workplace*> workList;
     public:
         City(const std::string name):name(name),id(0){}
         virtual ~City() = default;

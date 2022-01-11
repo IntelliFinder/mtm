@@ -2,6 +2,7 @@
 namespace mtm {
 
     class Exception: public std::exception {};
+
     class SkillException: public Exception{};
     class EmpException: public Exception{};
     class ManagerException: public Exception{};

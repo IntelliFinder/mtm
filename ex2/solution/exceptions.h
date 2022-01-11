@@ -29,9 +29,11 @@ namespace mtm {
 
     class CitizenAlreadyExists: public CityException{};
     class FacultyAlreadyExists: public CityException{};
+    class WorkplaceAlreadyExists: public CityException{};
     class EmployeeDoesNotExist: public CityException{};
     class ManagerDoesNotExist: public CityException{};
     class WorkplaceDoesNotExist: public CityException{};
+    class FacultyDoesNotExist: public CityException{};
 
 }
 #endif

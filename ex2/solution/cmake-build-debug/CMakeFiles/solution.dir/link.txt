@@ -1,0 +1,1 @@
+/usr/bin/c++.exe -g -Wl,--enable-auto-import CMakeFiles/solution.dir/main.cpp.o CMakeFiles/solution.dir/solution.cpp.o -o solution.exe -Wl,--out-implib,libsolution.dll.a -Wl,--major-image-version,0,--minor-image-version,0 

@@ -7,14 +7,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c617aeb8-ca49-4e14-bf3f-e7eb29c5d7af" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/csl3.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../debug/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../debug/.idea/deployment.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../debug/a.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../../debug/a.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../debug/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../debug/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../debug/City.h" beforeDir="false" afterPath="$PROJECT_DIR$/../../debug/City.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../debug/exceptions.h" beforeDir="false" afterPath="$PROJECT_DIR$/../../debug/exceptions.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../debug/solution.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../debug/solution.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../debug/workplace.h" beforeDir="false" afterPath="$PROJECT_DIR$/../../debug/workplace.h" afterDir="false" />
     </list>
@@ -42,7 +37,7 @@
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="cf.first.check.clang-format" value="false" />
     <property name="cidr.known.project.marker" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../solution" />
   </component>
   <component name="RunManager">
     <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
@@ -59,7 +54,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1641917714045</updated>
-      <workItem from="1641917715615" duration="1124000" />
+      <workItem from="1641917715615" duration="1252000" />
     </task>
     <servers />
   </component>

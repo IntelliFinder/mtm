@@ -8,7 +8,7 @@
 #include "Skill.h"
 #include "Citizen.h"
 #include "Employee.h"
-#include "Manager.h"
+#include "manager.h"
 #include "Workplace.h"
 #include "Faculty.h"
 #include "exceptions.h"
@@ -53,10 +53,17 @@ namespace mtm {
             if (!isCitizenExist(managerId, managersList)){
                 throw ManagerDoesNotExist();
             }
-            for (const std::shared_ptr<Workplace>& runWorkplace:workplacesList){//look! code duplication here
+            for (const std::shared_ptr<Workplace>& runWorkplace:workplacesList){
                 if (runWorkplace->getId() == workPlaceId){
+                    for (const std::shared_ptr<Citizen>& runManager:managersList) { //we know exists
+                        if( runManager->getId() == managerId ){
+                            if(ConditionEmp(*employeeAdd)){
+                                Manager* manager = dynamic_cast<Manager*>(runManager.get());
+                                manager->addEmployee(employeeAdd);
+                            }
 
-                    return;
+                        }
+                    }
                 }
             }
             throw WorkplaceDoesNotExist();
