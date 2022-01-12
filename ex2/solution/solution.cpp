@@ -599,27 +599,29 @@ namespace mtm {
             throw WorkplaceDoesNotExist();
         }
     }
-    int City::getAllAboveSalary(std::stream &os, const int salary) const {
+    int City::getAllAboveSalary(std::ostream &os, const int salary) const {
         std::list<std::shared_ptr<Citizen>> aboveList;
         for(const std::shared_ptr<Citizen>& emp : employeesList){
-            if((emp.get())->getSalary()>=salary){
+            if(dynamic_cast<Employee*>(emp.get())->getSalary()>=salary){
                 aboveList.push_back(emp);
             }
         }
         for(const std::shared_ptr<Citizen>& man : managersList){
-            if((man.get())->getSalary()>=salary){
+            if(dynamic_cast<Manager*>(man.get())->getSalary()>=salary){
                 aboveList.push_back(man);
             }
         }
         //sort
         for(const std::shared_ptr<Citizen>& citizen : aboveList){
             Citizen* cit = citizen.get();
-            if( typeid( cit ) == typeid(Manager*) ){
+            if( typeid( cit ) == typeid( Manager* ) ){
                 dynamic_cast<Manager*>(cit)->printShort(os);
-            } else if( typeid( cit ) == typeid(Employee*) ){
+            } else if( typeid( cit ) == typeid( Employee* ) ){
                 dynamic_cast<Employee*>( cit )->printShort(os);
             }
         }
-        }
+        return aboveList.size();
+    }
+
 }
 /**========================END City=========================================**/
