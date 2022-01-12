@@ -17,7 +17,7 @@ namespace mtm {
                                                                                                                              lastName, birthYear),salary(0),
                                                                                                                              employeesList(),isHired(false){};
         Manager(const Manager& manager);
-        Manager* clone(){
+        Manager* clone() override{//not sure about type here I think it should be Citizen*
 
             return new Manager(*this);
         }

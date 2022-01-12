@@ -19,7 +19,7 @@ namespace mtm {
         Employee(const Employee& emp):
             Citizen(emp.getId(), emp.getFirstName(), emp.getLastName(), emp.getBirthYear()), salary(0),score(0), skillSet(emp.getCopySkillSet()) {};
         ~Employee() = default ;
-        Employee* clone(){
+        Employee* clone() override{//not sure about type here I think it should be Citizen*
             return new Employee(*this); //need to change copy constructor so it includes the skill set
         }
         int getSalary() const;

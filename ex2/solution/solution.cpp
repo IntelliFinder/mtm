@@ -538,8 +538,6 @@ namespace mtm {
         }
 
     }
-} //cancel after including next
-/*
     void City::hireManagerAtWorkplace(const int managerId, const int workplaceId) {
         if(!isCitizenExist( managerId, managersList)){
             throw ManagerDoesNotExist();
@@ -561,6 +559,8 @@ namespace mtm {
             throw WorkplaceDoesNotExist();
         }
     }
+
+
     void City::fireEmployeeAtWorkplace(const int employeeId, const int managerId, const int workplaceId){
         if(!isCitizenExist(managerId,managersList)){
             throw ManagerDoesNotExist();
@@ -568,24 +568,42 @@ namespace mtm {
         if(!isCitizenExist(employeeId,employeesList)){
             throw EmployeeDoesNotExist();
         }
-        Workplace* workplace1 = nullptr;
+        //what if doesn't exist in workplace but yes in city? weird
+        Workplace* workplace = nullptr;
+        bool workplace_exist =false;
         for(const std::shared_ptr<Workplace>& runWork: workplacesList){
             if( runWork->getId() == workplaceId ){
-                workplace1 = runWork.get();
+                workplace->fireEmployee(employeeId,managerId);
+                workplace_exist = true;
             }
         }
-        bool workplace =false;
-        for(const std::shared_ptr<Workplace>& runWork: workplace1->){
-            if( runWork->getId() == workplaceId ){
-                (runWork.get())->fireEmployee(employeeId, managerId);
-                workplace = true;
-            }
-        }
-        if(!workplace){
+        if(!workplace_exist){
             throw WorkplaceDoesNotExist();
         }
     }
-}
 
-*/
+    void City::fireManagerAtWorkplace(const int managerId, const int workplaceId){
+        if(!isCitizenExist(managerId,managersList)){
+            throw ManagerDoesNotExist();
+        }
+
+        Workplace* workplace = nullptr;
+        bool workplace_exist =false;
+        for(const std::shared_ptr<Workplace>& runWork: workplacesList){
+            if( runWork->getId() == workplaceId ){
+                workplace->fireManager(managerId);
+                workplace_exist = true;
+            }
+        }
+        if(!workplace_exist){
+            throw WorkplaceDoesNotExist();
+        }
+    }
+    int City::getAllAboveSalary(std::stream &os, const int salary) const {
+        std::list<std::shared_ptr<Citizen>> aboveList;
+        for(const std::shared_ptr<Citizen>& emp : employeesList){
+
+        }
+    }
+}
 /**========================END City=========================================**/

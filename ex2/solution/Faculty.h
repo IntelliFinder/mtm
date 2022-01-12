@@ -3,6 +3,7 @@
 #include <iostream>
 #include "Employee.h"
 #include "Skill.h"
+#include "Exceptions.h"
 class Condition{
 public:
     virtual bool operator()(mtm::Employee* employee)=0;
@@ -22,16 +23,11 @@ namespace mtm {
         ~Faculty() = default;
 
         void teach(Employee* emp){
-            /*if(emp.hasSkill(skill.getId())){
-                return emp;
-            }*/
-            //why did i comment out above? (BUG??)
             if(!(*pred)(emp)){
                 throw EmployeeNotAccepted();
             }
-            emp->setScore(addedPoints); //added score
-            emp->learnSkill(skill); //adds skill already checked emp doesnt ahve it already
-            //return emp;
+            emp->setScore(addedPoints);
+            emp->learnSkill(skill);
         }
 
         Skill getSkill() const{
