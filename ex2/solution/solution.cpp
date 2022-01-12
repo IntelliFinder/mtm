@@ -630,13 +630,14 @@ namespace mtm {
         }
         return aboveList.size();
     }
+    /*
     bool City::isWorkingInTheSameWorkplace(const int emp1Id, const int emp2Id){
         if(!isCitizenExist(emp1Id, employeesList) || !isCitizenExist(emp2Id, employeesList)){
             throw EmployeeDoesNotExist();
         }
-        for( const shared_ptr<Workplace>& work : workplacesList ){
+        for( const std::shared_ptr<Workplace>& work : workplacesList ){
             std::set<int> emps;
-            for( const Manager* manager : managersList ){
+            for( const std::sharedd_ptr<Manager>& manager : managersList ){
                 if( manager->isEmployeeSub(emp1Id)  ){
                     emps.insert( emp1Id )
                 }
@@ -651,6 +652,6 @@ namespace mtm {
         }
         return false;
     }
-
+*/
 }
 /**========================END City=========================================**/
