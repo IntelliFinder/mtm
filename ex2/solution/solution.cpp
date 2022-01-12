@@ -602,8 +602,24 @@ namespace mtm {
     int City::getAllAboveSalary(std::stream &os, const int salary) const {
         std::list<std::shared_ptr<Citizen>> aboveList;
         for(const std::shared_ptr<Citizen>& emp : employeesList){
-
+            if((emp.get())->getSalary()>=salary){
+                aboveList.push_back(emp);
+            }
         }
-    }
+        for(const std::shared_ptr<Citizen>& man : managersList){
+            if((man.get())->getSalary()>=salary){
+                aboveList.push_back(man);
+            }
+        }
+        //sort
+        for(const std::shared_ptr<Citizen>& citizen : aboveList){
+            Citizen* cit = citizen.get();
+            if( typeid( cit ) == typeid(Manager*) ){
+                dynamic_cast<Manager*>(cit)->printShort(os);
+            } else if( typeid( cit ) == typeid(Employee*) ){
+                dynamic_cast<Employee*>( cit )->printShort(os);
+            }
+        }
+        }
 }
 /**========================END City=========================================**/
