@@ -173,6 +173,8 @@ namespace mtm {
 }
 /**========================END CITIZEN=========================================**/
 /**============================EMPLOYEE=========================================**/
+Employee::Employee(const Employee& emp):
+        Citizen(emp.getId(), emp.getFirstName(), emp.getLastName(), emp.getBirthYear()), salary(0),score(0), skillSet(emp.getCopySkillSet()) {}
 int Employee::getSalary() const{
     return salary;
 }
@@ -366,7 +368,7 @@ namespace mtm {
         if(isManagerHired(managerAdd->getId())){
             throw ManagerAlreadyHired();
         }
-        if (managerAdd->isHired){
+        if (managerAdd->isHired || managerAdd->getSalary()>0){
             throw CanNotHireManager();
         }
         managersList.push_back(managerAdd);
