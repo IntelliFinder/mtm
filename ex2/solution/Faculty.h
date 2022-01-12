@@ -2,6 +2,7 @@
 #define FACULTY_H
 #include <iostream>
 #include "Employee.h"
+#include "Skill.h"
 class Condition{
 public:
     virtual bool operator()(mtm::Employee* employee)=0;

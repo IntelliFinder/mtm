@@ -7,7 +7,7 @@
 #include "Citizen.h"
 #include "Manager.h"
 #include "Employee.h"
-#include "exceptions.h"
+#include "Exceptions.h"
 namespace mtm {
     class Workplace {
     private:

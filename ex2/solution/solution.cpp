@@ -10,7 +10,7 @@
 #include "Workplace.h"
 #include "Faculty.h"
 #include "City.h"
-#include "exceptions.h"
+#include "Exceptions.h"
 
 using namespace mtm;
 /**==========================SKILL=========================================**/
@@ -472,55 +472,58 @@ namespace mtm{
 }*/
 /**========================END FACULTY=========================================**/
 /**=======================City==================================================**/
-namespace mtm{
+namespace mtm {
 
-    bool City::isCitizenExist(const int id, const std::list<std::shared_ptr<Citizen>>& citizenList){
-        for (const std::shared_ptr<Citizen>& runCitizen:citizenList){
-            if (runCitizen->getId() == id){
+    bool City::isCitizenExist(const int id, const std::list <std::shared_ptr<Citizen>> &citizenList) {
+        for (const std::shared_ptr <Citizen> &runCitizen: citizenList) {
+            if (runCitizen->getId() == id) {
                 return true;
             }
         }
         return false;
     }
-    void City::addEmployee(const int employeeId, const std::string firstName, const std::string lastName, const int birthYear) {
-        if (isCitizenExist(employeeId, employeesList)){
+
+    void City::addEmployee(const int employeeId, const std::string firstName, const std::string lastName,
+                           const int birthYear) {
+        if (isCitizenExist(employeeId, employeesList)) {
             throw CitizenAlreadyExists();
         }
         employeesList.push_back(std::make_shared<Employee>(employeeId, firstName, lastName, birthYear));
     }
 
-    void City::addManager(const int managerId, const std::string firstName, const std::string lastName, const int birthYear) {
-        if (isCitizenExist(managerId, managersList)){
+    void City::addManager(const int managerId, const std::string firstName, const std::string lastName,
+                          const int birthYear) {
+        if (isCitizenExist(managerId, managersList)) {
             throw CitizenAlreadyExists();
         }
         managersList.push_back(std::make_shared<Manager>(managerId, firstName, lastName, birthYear));
     }
 
     void City::addFaculty(int id, Skill skill, int addedPoints, Condition *pred) {
-        for (const std::shared_ptr<Faculty<Condition>>& runFaculty:facultysList){
-            if (runFaculty->getId() == id){
+        for (const std::shared_ptr <Faculty<Condition>> &runFaculty: facultysList) {
+            if (runFaculty->getId() == id) {
                 throw FacultyAlreadyExists();
             }
         }
         facultysList.push_back(std::make_shared<Faculty<Condition>>(id, skill, addedPoints, pred));
     }//look! code duplication for all these functions
-    void City::createWorkplace(int id, std::string name, int workersSalary, int managersSalary )
-    {
-        for (const std::shared_ptr<Workplace>& runWorkplace: workplacesList){
-            if(runWorkplace->getId() == id ){
+    void City::createWorkplace(int id, std::string name, int workersSalary, int managersSalary) {
+        for (const std::shared_ptr <Workplace> &runWorkplace: workplacesList) {
+            if (runWorkplace->getId() == id) {
                 throw WorkplaceAlreadyExists();
             }
         }
         workplacesList.push_back(std::make_shared<Workplace>(id, name, workersSalary, managersSalary));
     }
+
     void City::teachAtFaculty(const int employeeId, const int facultyId){
         if(!isCitizenExist(employeeId, employeesList)){
             throw EmployeeDoesNotExist();
         }
-        std::shared_ptr<Employee> employee= nullptr;
+        Employee* employee= nullptr;
         for (const std::shared_ptr<Citizen>& runEmp:employeesList){
             if (runEmp->getId() == id){
-                employee = runEmp;
+                employee = dynamic_cast<Employee*>(runEmp.get());
             }
         }
         bool not_exists=true;
@@ -535,7 +538,8 @@ namespace mtm{
         }
 
     }
-
+} //cancel after including next
+/*
     void City::hireManagerAtWorkplace(const int managerId, const int workplaceId) {
         if(!isCitizenExist( managerId, managersList)){
             throw ManagerDoesNotExist();
@@ -583,5 +587,5 @@ namespace mtm{
     }
 }
 
-
+*/
 /**========================END City=========================================**/

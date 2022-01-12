@@ -6,13 +6,12 @@ set(CMAKE_CXX_STANDARD 14)
 include_directories(.)
 
 add_executable(solution
-        citizen.h
+        Citizen.h
         City.h
-        employee.h
-        exceptions.h
-        faculty.h
-        main.cpp
-        manager.h
-        skill.h
+        Employee.h
+        Exceptions.h
+        Faculty.h
+        Manager.h
+        Skill.h
         solution.cpp
         Workplace.h)
