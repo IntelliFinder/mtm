@@ -8,7 +8,7 @@
 #include "Skill.h"
 #include "Citizen.h"
 #include "Employee.h"
-#include "manager.h"
+#include "Manager.h"
 #include "Workplace.h"
 #include "Faculty.h"
 #include "exceptions.h"
