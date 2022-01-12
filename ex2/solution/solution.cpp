@@ -611,7 +611,7 @@ namespace mtm {
                 aboveList.push_back(man);
             }
         }
-        //sort
+        aboveList.sort();//default compare function of citizen
         for(const std::shared_ptr<Citizen>& citizen : aboveList){
             Citizen* cit = citizen.get();
             if( typeid( cit ) == typeid( Manager* ) ){
@@ -622,6 +622,6 @@ namespace mtm {
         }
         return aboveList.size();
     }
-
+    
 }
 /**========================END City=========================================**/
