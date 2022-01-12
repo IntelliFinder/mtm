@@ -25,6 +25,7 @@ namespace mtm {
             /*if(emp.hasSkill(skill.getId())){
                 return emp;
             }*/
+            //why did i comment out above? (BUG??)
             if(!(*pred)(emp)){
                 throw EmployeeNotAccepted();
             }

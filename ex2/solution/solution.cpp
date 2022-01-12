@@ -529,7 +529,7 @@ namespace mtm {
         bool not_exists=true;
         for (const std::shared_ptr<Faculty<Condition>>& runFaculty:facultysList){//code duplication
             if (runFaculty->getId() == id){
-                runFaculty->teach(employee.get());
+                runFaculty->teach(employee);
                 not_exists=false;
             }
         }
