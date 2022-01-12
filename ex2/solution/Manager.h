@@ -33,7 +33,7 @@ namespace mtm {
         void printLong(std::ostream &os) override;
 
         bool isHired;//should be okay to be public , just in case for later: look! maybe should be private with methods
-
+        bool isEmployeeSub( const int employeeId) const; //not in instructionss, added for city
 
 
     };

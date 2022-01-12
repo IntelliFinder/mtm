@@ -24,7 +24,6 @@ namespace mtm {
                                                                                 workersSalary(workersSalary),
                                                                                 managersSalary(managersSalary),
                                                                                 managersList(){};
-
         ~Workplace() = default;
 
         int getId() const;

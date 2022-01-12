@@ -272,6 +272,14 @@ Manager::Manager(const Manager& manager):Citizen(manager.getId(),manager.getFirs
 int Manager::getSalary() const {
     return this->salary;
 }
+bool Manager::isEmployeeSub( const int employeeId) const{
+    for(const Employee* emp : employeesList){
+        if( emp->getId()==employeeId ){
+            return true;
+        }
+    }
+    return false;
+}
 
 void Manager::addEmployee(Employee *employeeToAdd) {
     for (std::list<Employee*>::iterator employeeItr = employeesList.begin();employeeItr != employeesList.end(); employeeItr++) {
@@ -622,6 +630,27 @@ namespace mtm {
         }
         return aboveList.size();
     }
-    
+    bool City::isWorkingInTheSameWorkplace(const int emp1Id, const int emp2Id){
+        if(!isCitizenExist(emp1Id, employeesList) || !isCitizenExist(emp2Id, employeesList)){
+            throw EmployeeDoesNotExist();
+        }
+        for( const shared_ptr<Workplace>& work : workplacesList ){
+            std::set<int> emps;
+            for( const Manager* manager : managersList ){
+                if( manager->isEmployeeSub(emp1Id)  ){
+                    emps.insert( emp1Id )
+                }
+                if( manager->isEmployeeSub(emp2Id)  ){
+                    emps.insert( emp2Id )
+                }
+
+            }
+            if( emps.count(emp1Id)==1 && emps.count(emp2Id)==1 ){
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
 /**========================END City=========================================**/
