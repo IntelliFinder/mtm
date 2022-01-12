@@ -173,8 +173,7 @@ namespace mtm {
 }
 /**========================END CITIZEN=========================================**/
 /**============================EMPLOYEE=========================================**/
-Employee::Employee(const Employee& emp):
-        Citizen(emp.getId(), emp.getFirstName(), emp.getLastName(), emp.getBirthYear()), salary(0),score(0), skillSet(emp.getCopySkillSet()) {}
+
 int Employee::getSalary() const{
     return salary;
 }
@@ -327,11 +326,15 @@ void Manager::printLong(std::ostream &os) {
     os << "Salary: " + salaryStr << std::endl; //look! code duplication, maybe we should create a function
     if(employeesList.size()) {
         os << "Employees: " << std::endl;
-        for (std::reverse_iterator<std::list<Employee *>::iterator> employeeItr = employeesList.rbegin();
+        /*for (std::reverse_iterator<std::list<Employee *>::iterator> employeeItr = employeesList.rbegin();
              employeeItr != employeesList.rend(); employeeItr++) {
+            (*employeeItr)->printShort(os);
+        }*/
+        for (std::list<Employee*>::iterator employeeItr = employeesList.begin();employeeItr != employeesList.end(); employeeItr++) {
             (*employeeItr)->printShort(os);
         }
     }
+
 }
 
 
@@ -407,10 +410,13 @@ namespace mtm {
         os << "Workplace name - " << workplace.name;
         //look! not sure where endl should be
         if (!workplace.managersList.empty()){
-            os<< " Groups:";
+            os<< " Groups:"<< std::endl;
+        }
+        else{
+            os<<std::endl;
         }
         for (Manager *pManager : workplace.managersList){
-            os<<std::endl;
+            os << "Manager ";
             pManager->printLong(os);
         }
         //endl here doesn't seem right because short print does it for us
@@ -502,7 +508,7 @@ namespace mtm{
     {
         for (const std::shared_ptr<Workplace>& runWorkplace: workplacesList){
             if(runWorkplace->getId() == id ){
-                 throw WorkplaceAlreadyExists();
+                throw WorkplaceAlreadyExists();
             }
         }
         workplacesList.push_back(std::make_shared<Workplace>(id, name, workersSalary, managersSalary));
@@ -575,7 +581,6 @@ namespace mtm{
             throw WorkplaceDoesNotExist();
         }
     }
-
 }
 
 
