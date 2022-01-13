@@ -29,7 +29,6 @@ std::string Skill::getName() const { return name; }
 int Skill::getRequiredPoints() const { return points; }
 namespace mtm{
     Skill Skill::operator++(int ) {
-        //Skill old(this->getId(), this->getName(), this->getRequiredPoints());
         Skill old(*this);
         points +=  1;
         return old;
@@ -42,13 +41,6 @@ namespace mtm{
         points = points + amount;
         return *this;
     }
-    /*Skill &Skill::operator+(int amount){
-        if(amount<0){
-            throw NegativePoints();
-        }
-        *this += amount;
-        return *this;
-    }*/
     Skill operator+(const Skill &sk1, int amount) {
         if(amount<0){
             throw NegativePoints();
@@ -89,35 +81,7 @@ namespace mtm{
     bool operator==( Skill const& sk1,  Skill const& sk2){
         return sk1.getId() == sk2.getId();
     }
-
-
-
-
 }
-/*
-bool mtm::operator>( Skill const& sk1,  Skill const& sk2){
-    return sk1.getId() > sk2.getId();
-}
-
-bool mtm::operator<( mtm::Skill const& sk1,  mtm::Skill const& sk2){
-    return sk1.getId() < sk2.getId();
-}
-
-bool mtm::operator!=( Skill const& sk1,  Skill const& sk2){
-    return sk1.getId() != sk2.getId();
-}
-
-bool mtm::operator>=( Skill const& sk1,  Skill const& sk2){
-    return sk1.getId() >= sk2.getId();
-}
-
-bool mtm::operator<=( Skill const& sk1,  Skill const& sk2){
-    return sk1.getId() <= sk2.getId();
-}
-
-bool mtm:: operator==( Skill const& sk1,  Skill const& sk2){
-    return sk1.getId() == sk2.getId();
-}*/
 
 
 
@@ -288,8 +252,6 @@ void Manager::addEmployee(Employee *employeeToAdd) {
         }
     }
     //list is empty
-
-
     employeesList.push_back(employeeToAdd);
 }
 
@@ -336,10 +298,6 @@ void Manager::printLong(std::ostream &os) {
     os << "Salary: " + salaryStr << std::endl; //look! code duplication, maybe we should create a function
     if(employeesList.size()) {
         os << "Employees: " << std::endl;
-        /*for (std::reverse_iterator<std::list<Employee *>::iterator> employeeItr = employeesList.rbegin();
-             employeeItr != employeesList.rend(); employeeItr++) {
-            (*employeeItr)->printShort(os);
-        }*/
         for (std::list<Employee*>::iterator employeeItr = employeesList.begin();employeeItr != employeesList.end(); employeeItr++) {
             (*employeeItr)->printShort(os);
         }
@@ -432,7 +390,6 @@ namespace mtm {
     }
     std::ostream &operator<<(std::ostream &os, const Workplace &workplace) {
         os << "Workplace name - " << workplace.name;
-        //look! not sure where endl should be
         if (!workplace.managersList.empty()){
             os<< " Groups:"<< std::endl;
         }
@@ -446,15 +403,7 @@ namespace mtm {
         //endl here doesn't seem right because short print does it for us
         return os;
     }
-    /*bool Workplace::isEmployeeHired(Employee *pEmployee, const int managerId) {
-         Manager *trueManager;
-         for(Manager *runManager:managersList){
-             if ((*runManager).getId() == managerId){
-                 trueManager = runManager;
-             }
-         }
-         trueManager->addEmployee(pEmployee);
-     }*/
+
 
 
 
@@ -544,23 +493,6 @@ namespace mtm {
         if(!isCitizenExist(employeeId, employeesList)){
             throw EmployeeDoesNotExist();
         }
-        /*
-        Employee* employee= nullptr;
-        for (const std::shared_ptr<Citizen>& runEmp:employeesList){
-            if (runEmp->getId() == id){
-                employee = dynamic_cast<Employee*>(runEmp.get());
-            }
-        }
-        bool not_exists=true;
-        for (const std::shared_ptr<Faculty<Condition>>& runFaculty:facultysList){//code duplication
-            if (runFaculty->getId() == id){
-                runFaculty->teach(employee);
-                not_exists=false;
-            }
-        }
-        if( not_exists ){
-            throw FacultyDoesNotExist();
-        }*/
         Citizen* employeeCitizen = getElementWithId<Citizen>(employeesList,employeeId);
         Employee* employee = dynamic_cast<Employee*>(employeeCitizen);
         Faculty<Condition>* pFaculty= getElementWithId<Faculty<Condition>>(facultysList,facultyId);
@@ -573,13 +505,6 @@ namespace mtm {
         if(!isCitizenExist( managerId, managersList)){
             throw ManagerDoesNotExist();
         }
-        /*
-        Manager* manager = nullptr;
-        for(const std::shared_ptr<Citizen>& runManager: managersList){
-            if( runManager->getId() == managerId ){
-                manager = dynamic_cast<Manager*>(runManager.get());
-            }
-        }*/
         Citizen* managerCitizen = getElementWithId<Citizen>(managersList,managerId);
         Manager* manager = dynamic_cast<Manager*>(managerCitizen);
         bool workplace =false;
@@ -603,13 +528,6 @@ namespace mtm {
             throw ManagerDoesNotExist();
         }
         //what if doesn't exist in workplace but yes in city? weird
-        //bool workplace_exist =false;
-        /*for(const std::shared_ptr<Workplace>& runWork: workplacesList){
-            if( runWork->getId() == workplaceId ){
-                runWork->fireEmployee(employeeId,managerId);
-                workplace_exist = true;
-            }
-        }*/
         Workplace* workplace = getElementWithId<Workplace>(workplacesList,workplaceId);
         if(!workplace) {
             throw WorkplaceDoesNotExist();
@@ -618,9 +536,6 @@ namespace mtm {
         Citizen* employeeCitizen = getElementWithId<Citizen>(employeesList,employeeId);
         Employee* employee = dynamic_cast<Employee*>(employeeCitizen);
         employee->setSalary(-workplace->getWorkersSalary());
-        /*if(!workplace_exist){
-            throw WorkplaceDoesNotExist();
-        }*/
     }
 
     void City::fireManagerAtWorkplace(const int managerId, const int workplaceId){
@@ -641,17 +556,6 @@ namespace mtm {
                 manager->removeEmployee(runEmp->getId());
             }
         }
-        //Workplace* workplace = nullptr;
-        /*bool workplace_exist =false;
-        for(const std::shared_ptr<Workplace>& runWork: workplacesList){
-            if( runWork->getId() == workplaceId ){
-                runWork->fireManager(managerId);
-                workplace_exist = true;
-            }
-        }
-        if(!workplace_exist){
-            throw WorkplaceDoesNotExist();
-        }*/
     }
 
 
@@ -676,12 +580,6 @@ namespace mtm {
         aboveList.sort(compareById);//default compare function of citizen
         for(const std::shared_ptr<Citizen>& citizen : aboveList){
             Citizen* cit = citizen.get();
-            /*
-            if( typeid( cit ) == typeid( Manager* ) ){
-                dynamic_cast<Manager*>(cit)->printShort(os);
-            } else if( typeid( cit ) == typeid( Employee* ) ){
-                dynamic_cast<Employee*>( cit )->printShort(os);
-            }*/
             cit->printShort(os);
         }
         return aboveList.size();
