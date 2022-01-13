@@ -11,7 +11,7 @@
 #include "Manager.h"
 #include "Workplace.h"
 #include "Faculty.h"
-#include "Exceptions.h"
+#include "exceptions.h"
 
 
 namespace mtm {

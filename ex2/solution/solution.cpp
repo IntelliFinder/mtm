@@ -10,7 +10,7 @@
 #include "Workplace.h"
 #include "Faculty.h"
 #include "City.h"
-#include "Exceptions.h"
+#include "exceptions.h"
 
 using namespace mtm;
 /**==========================SKILL=========================================**/
@@ -280,14 +280,19 @@ bool Manager::isEmployeeSub( const int employeeId) const{
     }
     return false;
 }
-
 void Manager::addEmployee(Employee *employeeToAdd) {
     for (std::list<Employee*>::iterator employeeItr = employeesList.begin();employeeItr != employeesList.end(); employeeItr++) {
         if ((*employeeToAdd).getId() == (*employeeItr)->getId()){
             throw EmployeeAlreadyHired();
         }
+        else if((*employeeToAdd).getId() < (*employeeItr)->getId()){
+            employeesList.insert(employeeItr,employeeToAdd);
+            return;
+        }
     }
-    //employee isn't hired
+    //list is empty
+
+
     employeesList.push_back(employeeToAdd);
 }
 
@@ -382,9 +387,15 @@ namespace mtm {
         if (managerAdd->isHired || managerAdd->getSalary()>0){
             throw CanNotHireManager();
         }
-        managersList.push_back(managerAdd);
         managerAdd->isHired = true;
         managerAdd->setSalary(managersSalary);
+        for (std::list<Manager*>::iterator managerItr = managersList.begin();managerItr != managersList.end(); managerItr++) {
+            if((*managerAdd).getId() < (*managerItr)->getId()){
+                managersList.insert(managerItr,managerAdd);
+                return;
+            }
+        }//look! a bit code duplication
+        managersList.push_back(managerAdd);
     }
 
     void Workplace::fireEmployee(const int employeeId, const int managerId) {
