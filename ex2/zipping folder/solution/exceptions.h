@@ -3,8 +3,8 @@
 #include <iostream>
 namespace mtm {
 
-    class Exception: public std::exception {};
-    class CanNotLearnSkill:public Exception {};
+    class Exception: public std::exception{};
+    class CanNotLearnSkill:public Exception{};
     class SkillException: public Exception{};
     class EmpException: public Exception{};
     class ManagerException: public Exception{};

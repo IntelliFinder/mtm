@@ -1,6 +1,13 @@
 #ifndef CITIZEN_H // include guard
 #define CITIZEN_H
 #include <iostream>
+#include <memory>
+#include <string>
+#include <list>
+
+#include "exceptions.h"
+
+
 namespace mtm {
 
     class Citizen {

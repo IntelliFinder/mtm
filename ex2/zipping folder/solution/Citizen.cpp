@@ -4,7 +4,9 @@
 #include <list>
 
 #include "exceptions.h"
+#include "Skill.h"
 #include "Citizen.h"
+
 namespace mtm{
 
     int Citizen::getId() const { return id; }

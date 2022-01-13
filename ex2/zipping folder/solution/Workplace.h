@@ -1,13 +1,16 @@
 #ifndef WORKPLACE_H // include guard
 #define WORKPLACE_H
 #include <iostream>
-#include <iostream>
+#include <memory>
 #include <string>
+#include <list>
 
-#include "Citizen.h"
-#include "Manager.h"
-#include "Employee.h"
 #include "exceptions.h"
+#include "Skill.h"
+#include "Citizen.h"
+#include "Employee.h"
+#include "Manager.h"
+
 namespace mtm {
     class Workplace {
     private:

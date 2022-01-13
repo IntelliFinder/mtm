@@ -4,10 +4,10 @@
 #include <list>
 
 #include "exceptions.h"
-
+#include "Skill.h"
 #include "Citizen.h"
 #include "Employee.h"
-#include "Skill.h"
+
 namespace mtm{
 
     int Employee::getSalary() const{

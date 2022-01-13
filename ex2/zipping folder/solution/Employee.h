@@ -1,18 +1,15 @@
 
 #ifndef __EMPLOYEE__H__
 #define __EMPLOYEE__H__
-
 #include <iostream>
-#include <list>
 #include <memory>
+#include <string>
+#include <list>
 
+#include "exceptions.h"
 #include "Skill.h"
 #include "Citizen.h"
-#include "Employee.h"
-#include "Manager.h"
-#include "Workplace.h"
-#include "Faculty.h"
-#include "exceptions.h"
+
 
 namespace mtm {
 

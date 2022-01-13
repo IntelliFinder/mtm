@@ -3,6 +3,7 @@
 #include <string>
 #include <list>
 
+#include "exceptions.h"
 #include "Skill.h"
 #include "Citizen.h"
 #include "Employee.h"
@@ -10,7 +11,6 @@
 #include "Workplace.h"
 #include "Faculty.h"
 #include "City.h"
-#include "exceptions.h"
 
 namespace mtm {
 

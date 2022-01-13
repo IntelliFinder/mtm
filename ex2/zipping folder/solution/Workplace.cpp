@@ -3,14 +3,13 @@
 #include <string>
 #include <list>
 
+#include "exceptions.h"
 #include "Skill.h"
 #include "Citizen.h"
 #include "Employee.h"
 #include "Manager.h"
 #include "Workplace.h"
-#include "Faculty.h"
-#include "City.h"
-#include "exceptions.h"
+
 namespace mtm {
     bool Workplace::isManagerHired(const int managerId) const{
         for(Manager *runManager:managersList){

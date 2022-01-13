@@ -2,8 +2,8 @@
 #include <memory>
 #include <string>
 #include <list>
-#include "exceptions.h"
 
+#include "exceptions.h"
 #include "Skill.h"
 
 namespace mtm{
