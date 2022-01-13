@@ -1,9 +1,18 @@
 #ifndef MANAGER_H // include guard
 #define MANAGER_H
-
 #include <iostream>
+#include <memory>
+#include <string>
 #include <list>
+
+#include "Skill.h"
 #include "Citizen.h"
+#include "Employee.h"
+#include "Manager.h"
+#include "Workplace.h"
+#include "Faculty.h"
+#include "City.h"
+#include "exceptions.h"
 namespace mtm {
 
     class Manager : public Citizen{

@@ -12,7 +12,6 @@ namespace mtm {
     class CityException: public Exception{};
 
     class DidNotLearnSkill: public SkillException{};
-    //class CanNotLearnSkill: public SkillException{};
     class SkillAlreadyLearned: public SkillException{};
     class NegativePoints: public SkillException{};
 

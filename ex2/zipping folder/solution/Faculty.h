@@ -1,8 +1,17 @@
 #ifndef FACULTY_H // include guard
 #define FACULTY_H
 #include <iostream>
-#include "Employee.h"
+#include <memory>
+#include <string>
+#include <list>
+
 #include "Skill.h"
+#include "Citizen.h"
+#include "Employee.h"
+#include "Manager.h"
+#include "Workplace.h"
+#include "Faculty.h"
+#include "City.h"
 #include "exceptions.h"
 class Condition{
 public:
