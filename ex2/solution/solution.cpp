@@ -573,13 +573,15 @@ namespace mtm {
         if(!isCitizenExist( managerId, managersList)){
             throw ManagerDoesNotExist();
         }
+        /*
         Manager* manager = nullptr;
         for(const std::shared_ptr<Citizen>& runManager: managersList){
-            if( runManager->getId() == workplaceId ){
+            if( runManager->getId() == managerId ){
                 manager = dynamic_cast<Manager*>(runManager.get());
             }
-        }
-
+        }*/
+        Citizen* managerCitizen = getElementWithId<Citizen>(managersList,managerId);
+        Manager* manager = dynamic_cast<Manager*>(managerCitizen);
         bool workplace =false;
         for(const std::shared_ptr<Workplace>& runWork: workplacesList){
             if( runWork->getId() == workplaceId ){
@@ -601,17 +603,21 @@ namespace mtm {
             throw EmployeeDoesNotExist();
         }
         //what if doesn't exist in workplace but yes in city? weird
-        Workplace* workplace = nullptr;
         bool workplace_exist =false;
-        for(const std::shared_ptr<Workplace>& runWork: workplacesList){
+        /*for(const std::shared_ptr<Workplace>& runWork: workplacesList){
             if( runWork->getId() == workplaceId ){
-                workplace->fireEmployee(employeeId,managerId);
+                runWork->fireEmployee(employeeId,managerId);
                 workplace_exist = true;
             }
-        }
-        if(!workplace_exist){
+        }*/
+        Workplace* workplace = getElementWithId<Workplace>(workplacesList,workplaceId);
+        if(!workplace) {
             throw WorkplaceDoesNotExist();
         }
+        workplace->fireEmployee(employeeId,managerId);
+        /*if(!workplace_exist){
+            throw WorkplaceDoesNotExist();
+        }*/
     }
 
     void City::fireManagerAtWorkplace(const int managerId, const int workplaceId){
@@ -619,11 +625,11 @@ namespace mtm {
             throw ManagerDoesNotExist();
         }
 
-        Workplace* workplace = nullptr;
+        //Workplace* workplace = nullptr;
         bool workplace_exist =false;
         for(const std::shared_ptr<Workplace>& runWork: workplacesList){
             if( runWork->getId() == workplaceId ){
-                workplace->fireManager(managerId);
+                runWork->fireManager(managerId);
                 workplace_exist = true;
             }
         }
