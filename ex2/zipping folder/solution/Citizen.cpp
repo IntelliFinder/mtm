@@ -51,7 +51,7 @@ namespace mtm{
        return c1.getId() > c2.getId();
    }
 
-   void helpForSetIntEmp(int &toChange, const int toAdd){
+   void Citizen::helpForSetIntEmp(int &toChange, const int toAdd){
        toChange += toAdd;
        if (toChange < 0){
            toChange = 0;
