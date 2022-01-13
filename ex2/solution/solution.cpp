@@ -14,12 +14,9 @@
 
 using namespace mtm;
 /**==========================SKILL=========================================**/
-Skill::Skill(const int id, const std::string name, int points) : id(id), name(name), points(points)
-{
-}
-Skill::Skill(const Skill &skill):id(skill.getId()),name(skill.getName()),points(skill.points) {
+Skill::Skill(const int id, const std::string name, int points) : id(id), name(name), points(points){}
 
-}
+Skill::Skill(const Skill &skill):id(skill.getId()),name(skill.getName()),points(skill.points) {}
 Skill &Skill::operator=(const Skill &skill) {
     this->points = skill.getRequiredPoints();
     return *this;
