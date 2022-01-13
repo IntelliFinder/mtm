@@ -23,6 +23,18 @@ namespace mtm {
         std::list<std::shared_ptr<Faculty<Condition>>> facultysList;//facultys and not ies for searching:)
         std::list<std::shared_ptr<Workplace>> workplacesList;
         bool isCitizenExist(const int id, const std::list<std::shared_ptr<Citizen>>& citizenList);
+
+        //assume element exists
+        template<class Element>
+        Element* getElementWithId(std::list<std::shared_ptr<Element>> list, const int id){
+            for (const std::shared_ptr<Element>& runElement:list){
+                if(runElement->getId() == id){
+                    return runElement.get();
+                }
+            }
+            return nullptr;
+        }
+
     public:
         explicit City(const std::string name):name(name),id(0),employeesList(),managersList(){}
         virtual ~City() = default;
@@ -53,26 +65,26 @@ namespace mtm {
             if (!isCitizenExist(managerId, managersList)){
                 throw ManagerDoesNotExist();
             }
+            /*
             for (const std::shared_ptr<Workplace>& runWorkplace:workplacesList){
                 if (runWorkplace->getId() == workPlaceId){
-                    for (const std::shared_ptr<Citizen>& runManager:managersList) { //we know exists
-                        if( runManager->getId() == managerId ){
-                            for(const std::shared_ptr<Citizen>& runEmployee:employeesList){
-                                /*if (ConditionEmp(*employeeAdd)) {
-                                    Manager *manager = dynamic_cast<Manager *>(runManager.get());
-                                    manager->addEmployee(employeeAdd);
-                                    return;
-                                }*/
-                                if(runEmployee->getId() == employeeId){
-                                    Employee *pEmployee = dynamic_cast<Employee *>(runEmployee.get());
-                                    runWorkplace->hireEmployee(condition,pEmployee,managerId);
-                                    return;
-                                }
-                            }
-                            throw EmployeeDoesNotExist();
+                    for(const std::shared_ptr<Citizen>& runEmployee:employeesList){
+
+                        if(runEmployee->getId() == employeeId){
+                            Employee *pEmployee = dynamic_cast<Employee *>(runEmployee.get());
+                            runWorkplace->hireEmployee(condition,pEmployee,managerId);
+                            return;
                         }
                     }
-                    throw ManagerDoesNotExist();
+                }
+            }
+            throw WorkplaceDoesNotExist();*/
+            for (const std::shared_ptr<Workplace>& runWorkplace:workplacesList){
+                if (runWorkplace->getId() == workPlaceId){
+                    Citizen* pCitizenAdd = getElementWithId<Citizen>(employeesList, employeeId);
+                    Employee *pEmployee = dynamic_cast<Employee *>(pCitizenAdd);
+                    runWorkplace->hireEmployee(condition,pEmployee,managerId);
+                    return;
                 }
             }
             throw WorkplaceDoesNotExist();

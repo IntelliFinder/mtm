@@ -623,6 +623,9 @@ namespace mtm {
             throw WorkplaceDoesNotExist();
         }
     }
+    bool compareById(const std::shared_ptr<Citizen>& first, const std::shared_ptr<Citizen>& second){
+        return first->getId()<second->getId();
+    }
     int City::getAllAboveSalary(std::ostream &os, const int salary) const {
         std::list<std::shared_ptr<Citizen>> aboveList;
         for(const std::shared_ptr<Citizen>& emp : employeesList){
@@ -635,7 +638,8 @@ namespace mtm {
                 aboveList.push_back(man);
             }
         }
-        aboveList.sort();//default compare function of citizen
+        // LOOK! this is comparison between pointers need to fix
+        aboveList.sort(compareById);//default compare function of citizen
         for(const std::shared_ptr<Citizen>& citizen : aboveList){
             Citizen* cit = citizen.get();
             if( typeid( cit ) == typeid( Manager* ) ){
@@ -656,6 +660,9 @@ namespace mtm {
             }
         }
         return false;
+    }
+    void City::printAllEmployeesWithSkill(std::ostream &os, const int skillId) {
+
     }
 }
 /**========================END City=========================================**/
