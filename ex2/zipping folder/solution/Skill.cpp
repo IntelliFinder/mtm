@@ -2,6 +2,7 @@
 #include <memory>
 #include <string>
 #include <list>
+#include <set>
 
 #include "exceptions.h"
 #include "Skill.h"

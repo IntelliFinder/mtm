@@ -5,6 +5,7 @@
 #include <memory>
 #include <string>
 #include <list>
+#include <set>
 
 #include "exceptions.h"
 #include "Skill.h"
@@ -13,11 +14,6 @@
 #include "Manager.h"
 #include "Workplace.h"
 #include "Faculty.h"
-
-class Condition{
-public:
-    virtual bool operator()(mtm::Employee* employee)=0;
-};
 
 namespace mtm {
     class City{

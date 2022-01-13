@@ -1,6 +1,8 @@
 #ifndef EXCPTIONS_H // include guard
 #define EXCPTIONS_H
 #include <iostream>
+#include <set>
+
 namespace mtm {
 
     class Exception: public std::exception{};

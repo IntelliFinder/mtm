@@ -1,6 +1,8 @@
 #ifndef SKILL_H // include guard
 #define SKILL_H
 #include <iostream>
+#include <set>
+
 #include "exceptions.h"
 namespace mtm {
 
