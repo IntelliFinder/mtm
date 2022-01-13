@@ -308,8 +308,8 @@ void Manager::removeEmployee(const int id) {
 void Manager::removeEmployeeAndSalary(const int id,int salaryToMinus) {//salaryToMinus>0
     for (std::list<Employee*>::iterator employeeItr = employeesList.begin();employeeItr != employeesList.end(); employeeItr++) {
         if ((*employeeItr)->getId() == id){
-            employeesList.erase(employeeItr);
             (*employeeItr)->setSalary(-salaryToMinus);
+            employeesList.erase(employeeItr);
             return;
         }
     }
