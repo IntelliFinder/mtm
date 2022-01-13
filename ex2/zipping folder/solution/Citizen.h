@@ -32,7 +32,7 @@ namespace mtm {
         virtual void printLong( std::ostream &str ) = 0;
 
 
-        void helpForSetIntEmp(int &toChange, const int toAdd);
+        void helpForSetInt(int &toChange, const int toAdd);
 
         friend bool operator==( Citizen &c1, Citizen &c2 );
         friend bool operator<=( Citizen &c1, Citizen &c2 );
