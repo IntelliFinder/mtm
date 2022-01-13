@@ -509,7 +509,7 @@ namespace mtm {
 
     void City::addEmployee(const int employeeId, const std::string firstName, const std::string lastName,
                            const int birthYear) {
-        if (isCitizenExist(employeeId, employeesList)) {
+        if (isCitizenExist(employeeId, employeesList) || isCitizenExist(employeeId, managersList)) {
             throw CitizenAlreadyExists();
         }
         employeesList.push_back(std::make_shared<Employee>(employeeId, firstName, lastName, birthYear));
@@ -517,7 +517,7 @@ namespace mtm {
 
     void City::addManager(const int managerId, const std::string firstName, const std::string lastName,
                           const int birthYear) {
-        if (isCitizenExist(managerId, managersList)) {
+        if (isCitizenExist(managerId, employeesList) || isCitizenExist(managerId, managersList)) {
             throw CitizenAlreadyExists();
         }
         managersList.push_back(std::make_shared<Manager>(managerId, firstName, lastName, birthYear));
@@ -603,7 +603,7 @@ namespace mtm {
             throw EmployeeDoesNotExist();
         }
         //what if doesn't exist in workplace but yes in city? weird
-        bool workplace_exist =false;
+        //bool workplace_exist =false;
         /*for(const std::shared_ptr<Workplace>& runWork: workplacesList){
             if( runWork->getId() == workplaceId ){
                 runWork->fireEmployee(employeeId,managerId);
