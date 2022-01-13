@@ -598,7 +598,7 @@ namespace mtm {
     void City::printAllEmployeesWithSkill(std::ostream &os, const int skillId) {
         std::list<std::shared_ptr<Citizen>> aboveList;
         for(const std::shared_ptr<Citizen>& emp : employeesList){
-            if(dynamic_cast<Employee*>(emp.g-et())->hasSkill(skillId)){
+            if(dynamic_cast<Employee*>(emp.get())->hasSkill(skillId)){
                 aboveList.push_back(emp);
             }
         }
