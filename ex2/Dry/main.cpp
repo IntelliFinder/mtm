@@ -26,23 +26,7 @@ std::vector<T> slice(std::vector<T> vec, int start, int step, int stop) {
     return ans;
 }
 /**part A**/
-/*
-int main() {
-    // this syntax initializes a vector with values a,b,c,d,e
-    std::vector<char> vec1 {'a', 'b', 'c', 'd', 'e'};
-// returns vector with values a,c
-    std::vector<char> vec_sliced = slice(vec1, 0, 2, 4);
-    for (int i = 0; i < 2; ++i) {
-        std::cout<<vec_sliced[i]<<",";
-    }
-    std::cout<<std::endl;
-// returns vector with values b,c,d,e
-    std::vector<char> vec_sliced2 = slice(vec1, 1, 1, 5);
-    for (int i = 0; i < 4; ++i) {
-        std::cout<<vec_sliced2[i]<<",";
-    }
-    return 0;
-}*/
+
 /**part B**/
 class A {
 public:
@@ -61,3 +45,21 @@ int main() {
     std::cout << *(a.values[1]) << std::endl;
     return 0;
 }
+
+/*
+int main() {
+    // this syntax initializes a vector with values a,b,c,d,e
+    std::vector<char> vec1 {'a', 'b', 'c', 'd', 'e'};
+// returns vector with values a,c
+    std::vector<char> vec_sliced = slice(vec1, 0, 2, 4);
+    for (int i = 0; i < 2; ++i) {
+        std::cout<<vec_sliced[i]<<",";
+    }
+    std::cout<<std::endl;
+// returns vector with values b,c,d,e
+    std::vector<char> vec_sliced2 = slice(vec1, 1, 1, 5);
+    for (int i = 0; i < 4; ++i) {
+        std::cout<<vec_sliced2[i]<<",";
+    }
+    return 0;
+}*/
