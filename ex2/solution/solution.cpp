@@ -544,6 +544,7 @@ namespace mtm {
         if(!isCitizenExist(employeeId, employeesList)){
             throw EmployeeDoesNotExist();
         }
+        /*
         Employee* employee= nullptr;
         for (const std::shared_ptr<Citizen>& runEmp:employeesList){
             if (runEmp->getId() == id){
@@ -559,8 +560,14 @@ namespace mtm {
         }
         if( not_exists ){
             throw FacultyDoesNotExist();
+        }*/
+        Citizen* employeeCitizen = getElementWithId<Citizen>(employeesList,employeeId);
+        Employee* employee = dynamic_cast<Employee*>(employeeCitizen);
+        Faculty<Condition>* pFaculty= getElementWithId<Faculty<Condition>>(facultysList,facultyId);
+        if(pFaculty == nullptr){
+            throw FacultyDoesNotExist();
         }
-
+        pFaculty->teach(employee);
     }
     void City::hireManagerAtWorkplace(const int managerId, const int workplaceId) {
         if(!isCitizenExist( managerId, managersList)){
@@ -572,6 +579,7 @@ namespace mtm {
                 manager = dynamic_cast<Manager*>(runManager.get());
             }
         }
+
         bool workplace =false;
         for(const std::shared_ptr<Workplace>& runWork: workplacesList){
             if( runWork->getId() == workplaceId ){
@@ -623,9 +631,13 @@ namespace mtm {
             throw WorkplaceDoesNotExist();
         }
     }
+
+
     bool compareById(const std::shared_ptr<Citizen>& first, const std::shared_ptr<Citizen>& second){
         return first->getId()<second->getId();
     }
+
+
     int City::getAllAboveSalary(std::ostream &os, const int salary) const {
         std::list<std::shared_ptr<Citizen>> aboveList;
         for(const std::shared_ptr<Citizen>& emp : employeesList){
