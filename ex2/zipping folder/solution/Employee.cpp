@@ -56,12 +56,7 @@ namespace mtm{
     }
 
 
-    void helpForSetInt(int &toChange, const int toAdd){
-        toChange += toAdd;
-        if (toChange < 0){
-            toChange = 0;
-        }
-    }
+
     void Employee::setSalary(const int addSalary) {
         helpForSetInt(salary,addSalary);//here the func is ok
     }
@@ -98,6 +93,5 @@ namespace mtm{
     }
 
 
-
-
 }
+
