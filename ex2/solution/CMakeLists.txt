@@ -9,7 +9,7 @@ add_executable(solution
         Citizen.h
         City.h
         Employee.h
-        Exceptions.h
+        exceptions.h
         Faculty.h
         Manager.h
         Skill.h

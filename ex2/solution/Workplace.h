@@ -54,6 +54,8 @@ namespace mtm {
 
         void fireManager(const int managerId);
 
+        bool employeeExist( const int empId ) const;
+
         friend std::ostream& operator<<(std::ostream& os, const Workplace& wp);
 
 

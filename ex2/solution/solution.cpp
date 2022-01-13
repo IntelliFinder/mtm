@@ -364,6 +364,14 @@ namespace mtm {
         }
         return false;
     }
+    bool Workplace::employeeExist( const int empId ) const{
+        for( const  Manager* manager: managersList){
+            if( manager->isEmployeeSub(empId) ){
+                return true;
+            }
+        }
+        return false;
+    }
     int Workplace::getId() const{
         return id;
     }
@@ -646,18 +654,7 @@ namespace mtm {
             throw EmployeeDoesNotExist();
         }
         for( const std::shared_ptr<Workplace>& work : workplacesList ){
-            std::set<int> emps;
-            for( const std::sharedd_ptr<Manager>& manager : managersList ){
-                Manager* man_ptr = manager.get();
-                if( man_ptr->isEmployeeSub(emp1Id) ){
-                    emps.insert( emp1Id );
-                }
-                if( man_ptr->isEmployeeSub(emp2Id) ){
-                    emps.insert( emp2Id );
-                }
-
-            }
-            if( emps.count(emp1Id)==1 && emps.count(emp2Id)==1 ){
+            if( work->employeeExist(emp1Id) && work->employeeExist(emp2Id) ){
                 return true;
             }
         }
