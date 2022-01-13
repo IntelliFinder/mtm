@@ -65,29 +65,17 @@ namespace mtm {
             if (!isCitizenExist(managerId, managersList)){
                 throw ManagerDoesNotExist();
             }
-            /*
-            for (const std::shared_ptr<Workplace>& runWorkplace:workplacesList){
-                if (runWorkplace->getId() == workPlaceId){
-                    for(const std::shared_ptr<Citizen>& runEmployee:employeesList){
+            Workplace *runWorkplace=getElementWithId<Workplace>(workplacesList,workPlaceId);
+            if(runWorkplace == nullptr){
+                throw WorkplaceDoesNotExist();
+            }
+            Citizen* pCitizenAdd = getElementWithId<Citizen>(employeesList, employeeId);
+            Employee *pEmployee = dynamic_cast<Employee *>(pCitizenAdd);
+            int previousSalary = pEmployee->getSalary();
+            runWorkplace->hireEmployee(condition,pEmployee,managerId);
+            pEmployee->setSalary(previousSalary);
+            return;
 
-                        if(runEmployee->getId() == employeeId){
-                            Employee *pEmployee = dynamic_cast<Employee *>(runEmployee.get());
-                            runWorkplace->hireEmployee(condition,pEmployee,managerId);
-                            return;
-                        }
-                    }
-                }
-            }
-            throw WorkplaceDoesNotExist();*/
-            for (const std::shared_ptr<Workplace>& runWorkplace:workplacesList){
-                if (runWorkplace->getId() == workPlaceId){
-                    Citizen* pCitizenAdd = getElementWithId<Citizen>(employeesList, employeeId);
-                    Employee *pEmployee = dynamic_cast<Employee *>(pCitizenAdd);
-                    runWorkplace->hireEmployee(condition,pEmployee,managerId);
-                    return;
-                }
-            }
-            throw WorkplaceDoesNotExist();
         }
         //look! generic functions for finding element in list will work way better
         /**
