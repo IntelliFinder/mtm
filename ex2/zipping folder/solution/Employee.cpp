@@ -3,8 +3,11 @@
 #include <string>
 #include <list>
 
-#include "Employee.h"
+#include "exceptions.h"
 
+#include "Citizen.h"
+#include "Employee.h"
+#include "Skill.h"
 namespace mtm{
 
     int Employee::getSalary() const{

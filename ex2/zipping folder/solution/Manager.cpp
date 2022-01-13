@@ -3,8 +3,11 @@
 #include <string>
 #include <list>
 
-#include "Manager.h"
+#include "exceptions.h"
 
+#include "Citizen.h"
+#include "Manager.h"
+#include "Skill.h"
 namespace mtm{
 
     Manager::Manager(const Manager& manager):Citizen(manager.getId(),manager.getFirstName(),manager.getLastName(),manager.getBirthYear())

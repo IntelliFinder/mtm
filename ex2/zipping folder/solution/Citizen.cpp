@@ -3,7 +3,7 @@
 #include <string>
 #include <list>
 
-
+#include "exceptions.h"
 #include "Citizen.h"
 namespace mtm{
 
