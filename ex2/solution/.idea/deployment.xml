@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="On explicit save action" serverName="Remote Host (e7997f42-2377-4b8e-b9a3-cc0e1c8bc15b)" remoteFilesAllowedToDisappearOnAutoupload="false">
+  <component name="PublishConfigData" autoUpload="On explicit save action" serverName="csl3" remoteFilesAllowedToDisappearOnAutoupload="false">
     <serverData>
-      <paths name="Remote Host (e7997f42-2377-4b8e-b9a3-cc0e1c8bc15b)">
+      <paths name="csl3">
         <serverdata>
           <mappings>
-            <mapping deploy="/mtm/ex2/solution" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/home/gh/mtm/ex2/wetCity/solution" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>

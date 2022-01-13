@@ -596,11 +596,11 @@ namespace mtm {
 
 
     void City::fireEmployeeAtWorkplace(const int employeeId, const int managerId, const int workplaceId){
-        if(!isCitizenExist(managerId,managersList)){
-            throw ManagerDoesNotExist();
-        }
         if(!isCitizenExist(employeeId,employeesList)){
             throw EmployeeDoesNotExist();
+        }
+        if(!isCitizenExist(managerId,managersList)){
+            throw ManagerDoesNotExist();
         }
         //what if doesn't exist in workplace but yes in city? weird
         //bool workplace_exist =false;
@@ -615,6 +615,9 @@ namespace mtm {
             throw WorkplaceDoesNotExist();
         }
         workplace->fireEmployee(employeeId,managerId);
+        Citizen* employeeCitizen = getElementWithId<Citizen>(employeesList,employeeId);
+        Employee* employee = dynamic_cast<Employee*>(employeeCitizen);
+        employee->setSalary(-workplace->getWorkersSalary());
         /*if(!workplace_exist){
             throw WorkplaceDoesNotExist();
         }*/
@@ -624,9 +627,22 @@ namespace mtm {
         if(!isCitizenExist(managerId,managersList)){
             throw ManagerDoesNotExist();
         }
-
+        Workplace* workplace = getElementWithId<Workplace>(workplacesList,workplaceId);
+        if(!workplace) {
+            throw WorkplaceDoesNotExist();
+        }
+        workplace->fireManager(managerId);
+        Citizen* managerCitizen = getElementWithId<Citizen>(managersList,managerId);
+        Manager* manager = dynamic_cast<Manager*>(managerCitizen);
+        manager->setSalary(-workplace->getManagersSalary());
+        for (const std::shared_ptr<Citizen>& runEmp:employeesList){
+            if(manager->isEmployeeSub(runEmp->getId())){
+                dynamic_cast<Employee*>(runEmp.get())->setSalary(-workplace->getWorkersSalary());
+                manager->removeEmployee(runEmp.getId());
+            }
+        }
         //Workplace* workplace = nullptr;
-        bool workplace_exist =false;
+        /*bool workplace_exist =false;
         for(const std::shared_ptr<Workplace>& runWork: workplacesList){
             if( runWork->getId() == workplaceId ){
                 runWork->fireManager(managerId);
@@ -635,7 +651,7 @@ namespace mtm {
         }
         if(!workplace_exist){
             throw WorkplaceDoesNotExist();
-        }
+        }*/
     }
 
 
