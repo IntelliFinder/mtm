@@ -638,7 +638,7 @@ namespace mtm {
         for (const std::shared_ptr<Citizen>& runEmp:employeesList){
             if(manager->isEmployeeSub(runEmp->getId())){
                 dynamic_cast<Employee*>(runEmp.get())->setSalary(-workplace->getWorkersSalary());
-                manager->removeEmployee(runEmp.getId());
+                manager->removeEmployee(runEmp->getId());
             }
         }
         //Workplace* workplace = nullptr;
