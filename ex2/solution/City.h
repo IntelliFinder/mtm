@@ -46,8 +46,8 @@ namespace mtm {
          * 3.WorkplaceDoesNotExist
          */
         template<class ConditionEmp>
-        void hireEmployeeAtWorkplace(ConditionEmp condition, Employee *employeeAdd, int managerId, int workPlaceId){
-            if (!isCitizenExist(employeeAdd->getId(), employeesList)){
+        void hireEmployeeAtWorkplace(ConditionEmp condition, int employeeId, int managerId, int workPlaceId){
+            if (!isCitizenExist(employeeId, employeesList)){
                 throw EmployeeDoesNotExist();
             }
             if (!isCitizenExist(managerId, managersList)){
@@ -57,18 +57,27 @@ namespace mtm {
                 if (runWorkplace->getId() == workPlaceId){
                     for (const std::shared_ptr<Citizen>& runManager:managersList) { //we know exists
                         if( runManager->getId() == managerId ){
-                            if(ConditionEmp(*employeeAdd)){
-                                Manager* manager = dynamic_cast<Manager*>(runManager.get());
-                                manager->addEmployee(employeeAdd);
+                            for(const std::shared_ptr<Citizen>& runEmployee:employeesList){
+                                /*if (ConditionEmp(*employeeAdd)) {
+                                    Manager *manager = dynamic_cast<Manager *>(runManager.get());
+                                    manager->addEmployee(employeeAdd);
+                                    return;
+                                }*/
+                                if(runEmployee->getId() == employeeId){
+                                    Employee *pEmployee = dynamic_cast<Employee *>(runEmployee.get());
+                                    runWorkplace->hireEmployee(condition,pEmployee,managerId);
+                                    return;
+                                }
                             }
-
+                            throw EmployeeDoesNotExist();
                         }
                     }
+                    throw ManagerDoesNotExist();
                 }
             }
             throw WorkplaceDoesNotExist();
         }
-
+        //look! generic functions for finding element in list will work way better
         /**
          * throws:
          * 1.ManagerDoesNotExist
