@@ -101,6 +101,7 @@ std::string Citizen::getLastName() const {
 int Citizen::getBirthYear() const {
     return birthYear;
 }
+
 void Citizen::printShort( std::ostream &str) {
     str<<std::endl; //placeholder
 }
@@ -477,7 +478,7 @@ namespace mtm {
             if (runFaculty->getId() == id) {
                 throw FacultyAlreadyExists();
             }
-        }
+        }//I wanted to use getElementWithID but it's different
         facultysList.push_back(std::make_shared<Faculty<Condition>>(id, skill, addedPoints, pred));
     }//look! code duplication for all these functions
     void City::createWorkplace(int id, std::string name, int workersSalary, int managersSalary) {
@@ -576,8 +577,7 @@ namespace mtm {
                 aboveList.push_back(man);
             }
         }
-        // LOOK! this is comparison between pointers need to fix
-        aboveList.sort(compareById);//default compare function of citizen
+        aboveList.sort(compareById);//the right comparison
         for(const std::shared_ptr<Citizen>& citizen : aboveList){
             Citizen* cit = citizen.get();
             cit->printShort(os);

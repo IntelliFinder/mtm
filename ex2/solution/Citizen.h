@@ -19,8 +19,7 @@ namespace mtm {
         virtual std::string getFirstName() const;
         virtual std::string getLastName() const;
         virtual int getBirthYear() const;
-
-
+        
         virtual void printShort( std::ostream &str ) = 0;
         virtual void printLong( std::ostream &str ) = 0;
 
