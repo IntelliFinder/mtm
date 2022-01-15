@@ -23,10 +23,10 @@ namespace mtm {
         Citizen(const Citizen&) = default;
         virtual Citizen* clone() = 0;
 
-        virtual int getId() const;
-        virtual std::string getFirstName() const;
-        virtual std::string getLastName() const;
-        virtual int getBirthYear() const;
+        int getId() const;
+        std::string getFirstName() const;
+        std::string getLastName() const;
+        int getBirthYear() const;
         
         virtual void printShort( std::ostream &str ) = 0;
         virtual void printLong( std::ostream &str ) = 0;
