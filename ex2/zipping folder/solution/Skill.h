@@ -35,13 +35,17 @@ namespace mtm {
 
         friend Skill operator+(int amount, Skill const& sk1);
 
-        //print operators
+        /**
+         * prints name of skill with end line
+         * @param os
+         * @param sk
+         * @return ostream
+         */
         friend std::ostream& operator<<(std::ostream& os, const Skill& sk);
-        //std operators
+        //compare operators, compare is by id
 
         friend bool operator>( Skill const& sk1,  Skill const& sk2);
         friend bool operator<(mtm::Skill const&, mtm::Skill const&);
-        //friend bool operator<( Skill const& sk1,  Skill const& sk2);
 
         friend bool operator!=( Skill const& sk1,  Skill const& sk2);
 

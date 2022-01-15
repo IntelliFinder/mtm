@@ -103,18 +103,21 @@ namespace mtm {
 
         /**
         prints short description to all citizens.salary>=salary
-         print order by id (from small to big)
-         return number of citizens that citizens.salary>=salary
+         print order is by worker's id (from small to big)
+         return number of workers(employee/manager) that worker.salary>=salary
          */
         int  getAllAboveSalary(std::ostream &os, const int salary) const;
 
-        /**
-         *throws EmployeeDoesNotExist
-         */
-        bool isWorkingInTheSameWorkplace(const int emp1Id, const int emp2Id);
+         /**
+          * (if needed,)throws EmployeeDoesNotExist
+          * @param employee1Id
+          * @param employee2Id
+          * @return true if the two matching employees are WorkingInTheSameWorkplace
+          */
+        bool isWorkingInTheSameWorkplace(const int employee1Id, const int employee2Id);
 
         /**
-         prints short
+         prints short for all EmployeesWithSkill, sorted by id
          */
         void printAllEmployeesWithSkill(std::ostream &os, const int skillId);
     };

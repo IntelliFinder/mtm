@@ -34,9 +34,27 @@ namespace mtm {
         int getSalary() const;
         void addEmployee(Employee *employeeToAdd);
         void removeEmployee(const int id);
+        /**
+         * removes employee and takes off <salaryToMinus> from his salary
+         * @param id
+         * @param salaryToMinus
+         */
         void removeEmployeeAndSalary(const int id,int salaryToMinus);//my function
         void setSalary(const int addSalary);
+        /**
+         * prints <full name>
+         * Salary: <Salary>
+         * @param os
+         */
         void printShort(std::ostream &os) override;
+        /**
+         * prints <full name>
+         * id - <id> birth_year - <birth_year>
+         * Salary: <Salary>
+         * Employees:
+         * <all employees>
+         * @param os
+         */
         void printLong(std::ostream &os) override;
 
         bool isHired;//bool variable that says if the manager is hired

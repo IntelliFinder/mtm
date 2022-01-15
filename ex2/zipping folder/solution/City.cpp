@@ -151,12 +151,12 @@ namespace mtm {
         }
         return aboveList.size();
     }
-    bool City::isWorkingInTheSameWorkplace(const int emp1Id, const int emp2Id){
-        if(!isCitizenExist(emp1Id, employeesList) || !isCitizenExist(emp2Id, employeesList)){
+    bool City::isWorkingInTheSameWorkplace(const int employee1Id, const int employee2Id){
+        if(!isCitizenExist(employee1Id, employeesList) || !isCitizenExist(employee2Id, employeesList)){
             throw EmployeeDoesNotExist();
         }
         for( const std::shared_ptr<Workplace>& work : workplacesList ){
-            if( work->employeeExist(emp1Id) && work->employeeExist(emp2Id) ){
+            if( work->employeeExist(employee1Id) && work->employeeExist(employee2Id) ){
                 return true;
             }
         }

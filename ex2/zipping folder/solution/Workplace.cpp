@@ -20,9 +20,9 @@ namespace mtm {
         }
         return false;
     }
-    bool Workplace::employeeExist( const int empId ) const{
+    bool Workplace::employeeExist( const int employeeId ) const{
         for( const  Manager* manager: managersList){
-            if( manager->isEmployeeSub(empId) ){
+            if( manager->isEmployeeSub(employeeId) ){
                 return true;
             }
         }

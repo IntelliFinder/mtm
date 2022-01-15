@@ -40,6 +40,7 @@ namespace mtm {
          */
         void helpForSetInt(int &toChange, const int toAdd);
 
+        //all compares are by id
         friend bool operator==( Citizen &c1, Citizen &c2 );
         friend bool operator<=( Citizen &c1, Citizen &c2 );
         friend bool operator>=( Citizen &c1, Citizen &c2 );

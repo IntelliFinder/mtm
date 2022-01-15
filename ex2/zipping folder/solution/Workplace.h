@@ -66,9 +66,19 @@ namespace mtm {
         void fireEmployee(const int employeeId, const int managerId);
 
         void fireManager(const int managerId);
+        /**
+         *
+         * @param employeeId
+         * @return true if the matching employee exist in workplace
+         */
+        bool employeeExist( const int employeeId ) const;
 
-        bool employeeExist( const int empId ) const;
-
+        /**
+         * prints name and groups(managers and their employees)
+         * @param os
+         * @param wp
+         * @return ostream
+         */
         friend std::ostream& operator<<(std::ostream& os, const Workplace& wp);
 
 
