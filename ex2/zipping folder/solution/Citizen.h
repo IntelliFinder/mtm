@@ -31,7 +31,13 @@ namespace mtm {
         virtual void printShort( std::ostream &str ) = 0;
         virtual void printLong( std::ostream &str ) = 0;
 
-
+        /**
+         *
+         * @param toChange
+         * @param toAdd
+         * adds "toAdd" to "toChange", "toChange" stays not negative
+         * - used for setSalary
+         */
         void helpForSetInt(int &toChange, const int toAdd);
 
         friend bool operator==( Citizen &c1, Citizen &c2 );

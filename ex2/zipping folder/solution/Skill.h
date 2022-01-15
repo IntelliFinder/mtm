@@ -25,21 +25,19 @@ namespace mtm {
 
         int getRequiredPoints() const;
 
+        //plus operators
         Skill operator++(int );
 
         Skill &operator+=(int amount);
 
-        //Skill &operator+(int amount);
-        //or should it be friend to be able to do amount + Skill sk1
-
-
-
+        //friend zone ;D
         friend Skill operator+(Skill const& sk1, int amount);
+
         friend Skill operator+(int amount, Skill const& sk1);
 
         //print operators
         friend std::ostream& operator<<(std::ostream& os, const Skill& sk);
-//std operators
+        //std operators
 
         friend bool operator>( Skill const& sk1,  Skill const& sk2);
         friend bool operator<(mtm::Skill const&, mtm::Skill const&);

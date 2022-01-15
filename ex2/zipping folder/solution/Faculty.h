@@ -29,7 +29,11 @@ namespace mtm {
                                 id(id), skill(skill), addedPoints(addedPoints), pred(pred){}
 
         ~Faculty() = default;
-
+        /**
+         *
+         * @param emp
+         * teches emp
+         */
         void teach(Employee* emp){
             if(!(*pred)(emp)){
                 throw EmployeeNotAccepted();

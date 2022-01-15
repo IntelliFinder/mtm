@@ -20,7 +20,17 @@ namespace mtm {
         int workersSalary;
         int managersSalary;
         std::list<Manager *> managersList;//list is good for erasing
+        /**
+         *
+         * @param managerId
+         * @return true if the matching manager is hired
+         */
         bool isManagerHired(const int managerId) const;
+        /**
+         *
+         * @param managerId
+         * @return the matching pointer, if doesn't exist, returns nullptr
+         */
         Manager* getPointerToManager(const int managerId);//I need * and not & for the list
     public:
         Workplace(int id, std::string name, int workersSalary, int managersSalary) : id(id), name(name),

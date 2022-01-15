@@ -39,7 +39,12 @@ namespace mtm {
         void printShort(std::ostream &os) override;
         void printLong(std::ostream &os) override;
 
-        bool isHired;//should be okay to be public , just in case for later: look! maybe should be private with methods
+        bool isHired;//bool variable that says if the manager is hired
+        /**
+         *
+         * @param employeeId
+         * @return true if the matching employee is in his list
+         */
         bool isEmployeeSub( const int employeeId) const; //not in instructionss, added for city
 
 
