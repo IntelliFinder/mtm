@@ -15,16 +15,16 @@ namespace mtm {
 
     class Manager : public Citizen{
         int salary;
-        std::list<Employee*> employeesList;//list is good for erasing
+        std::list<Employee*> employees_list;//list is good for erasing
 
 
 
     public:
-        Manager(const int id, const std::string firstName, const std::string lastName, const int birthYear): Citizen(id,firstName,
-                                                                                                                             lastName, birthYear),salary(0),
-                                                                                                                             employeesList(),isHired(false){};
+        Manager(const int id, const std::string first_name, const std::string last_name, const int birth_year): Citizen(id, first_name,
+                                                                                                                        last_name, birth_year), salary(0),
+                                                                                                                employees_list(), is_hired(false){};
         Manager(const Manager& manager);
-        Manager* clone() override{//not sure about type here I think it should be Citizen*
+        Manager* clone() override{
 
             return new Manager(*this);
         }
@@ -32,15 +32,49 @@ namespace mtm {
         ~Manager() = default;
 
         int getSalary() const;
-        void addEmployee(Employee *employeeToAdd);
+        /**
+         * addEmployee: adds employee to list<Employee*> of manager
+         * @param employee_to_add
+         */
+        void addEmployee(Employee *employee_to_add);
         void removeEmployee(const int id);
-        void removeEmployeeAndSalary(const int id,int salaryToMinus);//my function
-        void setSalary(const int addSalary);
-        void printShort(std::ostream &os) override;
-        void printLong(std::ostream &os) override;
+        /**
+         * removeEmployeeAndSalary: removes employee and takes off <salary_to_minus> from his salary
+         * @param id
+         * @param salary_to_minus
+         */
+        void removeEmployeeAndSalary(const int id,int salary_to_minus);
+        void setSalary(const int add_salary);
+        /**
+         * prints <full name>
+         * Salary: <Salary>
+         * @param stream - stream to output
+         */
+        void printShort(std::ostream &stream) override;
+        /**
+         * prints <full name>
+         * id - <id> birth_year - <birth_year>
+         * Salary: <Salary>
+         * Employees:
+         * <all employees>
+         * @param stream
+         */
+        void printLong(std::ostream &stream) override;
 
-        bool isHired;//should be okay to be public , just in case for later: look! maybe should be private with methods
-        bool isEmployeeSub( const int employeeId) const; //not in instructionss, added for city
+        /** is Hireed: bool variable that says if the manager is hired**/
+        bool is_hired;
+        /**
+         * isEmployeeSun: functions checks whether an employee is subordinate of manager
+         * @param employee_id
+         * @return true if the matching employee is in his list
+         */
+        bool isEmployeeSub( const int employee_id) const;
+
+        /**
+         * deductAllEmployeesSalary: deductAllEmployeesSalary salary_to_deduct
+         * @param salary_to_deduct
+         */
+        void deductAllEmployeesSalary(const int salary_to_deduct);
 
 
     };

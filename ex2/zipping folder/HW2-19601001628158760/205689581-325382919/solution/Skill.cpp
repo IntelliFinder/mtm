@@ -35,46 +35,48 @@ namespace mtm{
         points = points + amount;
         return *this;
     }
-    Skill operator+(const Skill &sk1, int amount) {
+    Skill operator+(const Skill &skill_1, int amount) {
         if(amount<0){
             throw NegativePoints();
         }
-        return Skill(sk1.getId(),sk1.getName(),sk1.getRequiredPoints()+amount);
+        return Skill(skill_1.getId(),skill_1.getName(),skill_1.getRequiredPoints()+amount);
     }
-    Skill operator+(int amount, const Skill &sk1) {
-        return sk1 + amount;
+    Skill operator+(int amount, const Skill &skill_1) {
+        return skill_1 + amount;
     }
 
 
-    std::ostream& operator<<(std::ostream &os, const Skill &sk) {
-        os << sk.getName() << std::endl; // without << std::endl
+    std::ostream& operator<<(std::ostream &os, const Skill &skill) {
+        os << skill.getName() << std::endl;
         return os;
     }
 
-
-    bool operator>( Skill const& sk1,  Skill const& sk2){
-        return sk1.getId() > sk2.getId();
+    /**==================friends=====================**/
+    bool operator>(Skill const& skill_1, Skill const& skill_2){
+        return skill_1.getId() > skill_2.getId();
     }
 
-    bool operator<( mtm::Skill const& sk1,  mtm::Skill const& sk2){
-        return sk1.getId() < sk2.getId();
+    bool operator<( mtm::Skill const& skill_1,  mtm::Skill const& skill_2){
+        return skill_1.getId() < skill_2.getId();
     }
 
-    bool operator!=( Skill const& sk1,  Skill const& sk2){
-        return sk1.getId() != sk2.getId();
+    bool operator==(Skill const& skill_1, Skill const& skill_2){
+        return skill_1.getId() == skill_2.getId();
+    }
+    /**===================end friends================**/
+
+    bool operator!=( Skill const& skill_1,  Skill const& skill_2){
+        return !(skill_1 == skill_2);
     }
 
-    bool operator>=( Skill const& sk1,  Skill const& sk2){
-        return sk1.getId() >= sk2.getId();
+    bool operator>=( Skill const& skill_1,  Skill const& skill_2){
+        return !(skill_1 < skill_2);
     }
 
-    bool operator<=( Skill const& sk1,  Skill const& sk2){
-        return sk1.getId() <= sk2.getId();
+    bool operator<=( Skill const& skill_1,  Skill const& skill_2){
+        return !(skill_1 > skill_2);
     }
 
-    bool operator==( Skill const& sk1,  Skill const& sk2){
-        return sk1.getId() == sk2.getId();
-    }
 
 
 

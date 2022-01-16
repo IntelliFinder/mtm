@@ -19,38 +19,38 @@ namespace mtm {
     class City{
         const std::string name;
         int id;
-        std::list<std::shared_ptr<Citizen>> employeesList;
-        std::list<std::shared_ptr<Citizen>> managersList;
-        std::list<std::shared_ptr<Faculty<Condition>>> facultysList;//facultys and not ies for searching:)
-        std::list<std::shared_ptr<Workplace>> workplacesList;
-        bool isCitizenExist(const int id, const std::list<std::shared_ptr<Citizen>>& citizenList);
+        std::list<std::shared_ptr<Citizen>> employees_list;
+        std::list<std::shared_ptr<Citizen>> managers_list;
+        std::list<std::shared_ptr<Faculty<Condition>>> facultys_list;
+        std::list<std::shared_ptr<Workplace>> workplaces_list;
+        bool isCitizenExist(const int id, const std::list<std::shared_ptr<Citizen>>& citizen_list);
 
         //assume element exists
         template<class Element>
         Element* getElementWithId(std::list<std::shared_ptr<Element>> list, const int id){
-            for (const std::shared_ptr<Element>& runElement:list){
-                if(runElement->getId() == id){
-                    return runElement.get();
+            for (const std::shared_ptr<Element>& run_element:list){
+                if(run_element->getId() == id){
+                    return run_element.get();
                 }
             }
             return nullptr;
         }
 
     public:
-        explicit City(const std::string name):name(name),id(0),employeesList(),managersList(){}
+        explicit City(const std::string name): name(name), id(0), employees_list(), managers_list(){}
         virtual ~City() = default;
 
-        void addEmployee(const int employeeId, const std::string firstName, const std::string lastName, const int birthYear);
+        void addEmployee(const int employee_id, const std::string first_name, const std::string last_name, const int birth_year);
         //if employee already exist throw CitizenAlreadyExists
-        void addManager(const int managerId, const std::string firstName, const std::string lastName, const int birthYear);
+        void addManager(const int manager_id, const std::string first_name, const std::string last_name, const int birth_year);
         //if manager already exist throw CitizenAlreadyExists
-        void addFaculty(int id, Skill skill, int addedPoints, Condition* pred);
+        void addFaculty(int id, Skill skill, int added_points, Condition* predicate);
         //if faculty already exist throw FacultyAlreadyExists
 
-        void createWorkplace(int id, std::string name, int workersSalary, int managersSalary);
+        void createWorkplace(int id, std::string name, int workers_salary, int managers_salary);
         //throws WorkplaceAlreadyExists
 
-        void teachAtFaculty(const int employeeId, const int facultyId);
+        void teachAtFaculty(const int employee_id, const int faculty_id);
         // throws FacultyDoesNotExist
         /**
          * throws:
@@ -59,22 +59,20 @@ namespace mtm {
          * 3.WorkplaceDoesNotExist
          */
         template<class ConditionEmp>
-        void hireEmployeeAtWorkplace(ConditionEmp condition, int employeeId, int managerId, int workPlaceId){
-            if (!isCitizenExist(employeeId, employeesList)){
+        void hireEmployeeAtWorkplace(ConditionEmp condition, int employee_id, int manager_id, int workplace_id){
+            if (!isCitizenExist(employee_id, employees_list)){
                 throw EmployeeDoesNotExist();
             }
-            if (!isCitizenExist(managerId, managersList)){
+            if (!isCitizenExist(manager_id, managers_list)){
                 throw ManagerDoesNotExist();
             }
-            Workplace *runWorkplace=getElementWithId<Workplace>(workplacesList,workPlaceId);
-            if(runWorkplace == nullptr){
+            Workplace *ptr_workplace=getElementWithId<Workplace>(workplaces_list, workplace_id);
+            if(ptr_workplace == nullptr){
                 throw WorkplaceDoesNotExist();
             }
-            Citizen* pCitizenAdd = getElementWithId<Citizen>(employeesList, employeeId);
-            Employee *pEmployee = dynamic_cast<Employee *>(pCitizenAdd);
-            int previousSalary = pEmployee->getSalary();
-            runWorkplace->hireEmployee(condition,pEmployee,managerId);
-            pEmployee->setSalary(previousSalary);
+            Citizen* ptr_citizen_add = getElementWithId<Citizen>(employees_list, employee_id);
+            Employee *ptr_employee = dynamic_cast<Employee *>(ptr_citizen_add);
+            ptr_workplace->hireEmployee(condition, ptr_employee, manager_id);
             return;
 
         }
@@ -84,7 +82,7 @@ namespace mtm {
          * 1.ManagerDoesNotExist
          * 2.WorkplaceDoesNotExist
          */
-        void hireManagerAtWorkplace(const int managerId,const int workplaceId);
+        void hireManagerAtWorkplace(const int manager_id, const int workplace_id);
 
 
         /**
@@ -93,30 +91,33 @@ namespace mtm {
          * 2.ManagerDoesNotExist
          * 3.WorkplaceDoesNotExist
          */
-        void fireEmployeeAtWorkplace(const int employeeId, const int managerId, const int workplaceId);
+        void fireEmployeeAtWorkplace(const int employee_id, const int manager_id, const int workplace_id);
         /**
          * throws:
          * 1.ManagerDoesNotExist
          * 2.WorkplaceDoesNotExist
          */
-        void fireManagerAtWorkplace(const int managerId, const int workplaceId);
+        void fireManagerAtWorkplace(const int manager_id, const int workplace_id);
 
         /**
         prints short description to all citizens.salary>=salary
-         print order by id (from small to big)
-         return number of citizens that citizens.salary>=salary
+         print order is by worker's id (from small to big)
+         return number of workers(employee/manager) that worker.salary>=salary
          */
-        int  getAllAboveSalary(std::ostream &os, const int salary) const;
+        int  getAllAboveSalary(std::ostream &stream, const int salary) const;
+
+         /**
+          * (if needed,)throws EmployeeDoesNotExist
+          * @param employee_id_1
+          * @param employee_id_2
+          * @return true if the two matching employees are WorkingInTheSameWorkplace
+          */
+        bool isWorkingInTheSameWorkplace(const int employee_id_1, const int employee_id_2);
 
         /**
-         *throws EmployeeDoesNotExist
+         prints short for all EmployeesWithSkill, sorted by id
          */
-        bool isWorkingInTheSameWorkplace(const int emp1Id, const int emp2Id);
-
-        /**
-         prints short
-         */
-        void printAllEmployeesWithSkill(std::ostream &os, const int skillId);
+        void printAllEmployeesWithSkill(std::ostream &stream, const int skill_id);
     };
 
 

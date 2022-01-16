@@ -17,16 +17,26 @@ namespace mtm {
     private:
         const int id;
         const std::string name;
-        int workersSalary;
-        int managersSalary;
-        std::list<Manager *> managersList;//list is good for erasing
-        bool isManagerHired(const int managerId) const;
-        Manager* getPointerToManager(const int managerId);//I need * and not & for the list
+        int workers_salary;
+        int managers_salary;
+        std::list<Manager *> managers_list;
+        /**
+         *
+         * @param manager_id
+         * @return true if the matching manager is hired
+         */
+        bool isManagerHired(const int manager_id) const;
+        /**
+         *
+         * @param manager_id
+         * @return the matching pointer, if doesn't exist, returns nullptr
+         */
+        Manager* getPointerToManager(const int manager_id);//I need * and not & for the list
     public:
         Workplace(int id, std::string name, int workersSalary, int managersSalary) : id(id), name(name),
-                                                                                workersSalary(workersSalary),
-                                                                                managersSalary(managersSalary),
-                                                                                managersList(){};
+                                                                                     workers_salary(workersSalary),
+                                                                                     managers_salary(managersSalary),
+                                                                                     managers_list(){};
         ~Workplace() = default;
 
         int getId() const;
@@ -38,28 +48,38 @@ namespace mtm {
         int getManagersSalary() const;
 
         template<class Condition>
-        void hireEmployee(Condition condition, Employee *employeeAdd, int managerId){
-            if (!condition(employeeAdd)){
+        void hireEmployee(Condition condition, Employee *employee_add, int manager_id){
+            if (!condition(employee_add)){
                 throw EmployeeNotSelected();
             }
-            if(!isManagerHired(managerId)){
+            if(!isManagerHired(manager_id)){
                 throw ManagerIsNotHired();
             }
-            Manager *trueManager = getPointerToManager(managerId);
-            employeeAdd->setSalary(-employeeAdd->getSalary());
-            employeeAdd->setSalary(workersSalary);
-            return trueManager->addEmployee(employeeAdd);//will throw employeeIsNotHired if needed
+            Manager *trueManager = getPointerToManager(manager_id);
+            trueManager->addEmployee(employee_add);//will throw employeeIsNotHired if needed
+            employee_add->setSalary(workers_salary);
+
         }
 
-        void hireManager(Manager *managerAdd);
+        void hireManager(Manager *manager_add);
 
-        void fireEmployee(const int employeeId, const int managerId);
+        void fireEmployee(const int employee_id, const int manager_id);
 
-        void fireManager(const int managerId);
+        void fireManager(const int manager_id);
+        /**
+         *
+         * @param employee_id
+         * @return true if the matching employee exist in workplace
+         */
+        bool employeeExist( const int employee_id ) const;
 
-        bool employeeExist( const int empId ) const;
-
-        friend std::ostream& operator<<(std::ostream& os, const Workplace& wp);
+        /**
+         * prints name and groups(managers and their employees)
+         * @param stream
+         * @param workplace
+         * @return ostream
+         */
+        friend std::ostream& operator<<(std::ostream& stream, const Workplace& workplace);
 
 
 

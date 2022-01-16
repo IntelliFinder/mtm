@@ -22,20 +22,24 @@ namespace mtm {
     class Faculty {
         const int id;
         Skill skill;
-        int addedPoints;
+        int added_points;
         Predicate* pred;
     public:
         Faculty<Predicate>(int id, Skill skill, int addedPoints, Predicate* pred):
-                                id(id), skill(skill), addedPoints(addedPoints), pred(pred){}
+                id(id), skill(skill), added_points(addedPoints), pred(pred){}
 
         ~Faculty() = default;
-
-        void teach(Employee* emp){
-            if(!(*pred)(emp)){
+        /**
+         * teach: teaches an employee a skill taught by faculty , adds score acquired by skill
+         * @param employee
+         * teches employee
+         */
+        void teach(Employee* employee){
+            if(!(*pred)(employee)){
                 throw EmployeeNotAccepted();
             }
-            emp->setScore(addedPoints);
-            emp->learnSkill(skill);
+            employee->setScore(added_points);
+            employee->learnSkill(skill);
         }
 
         Skill getSkill() const{
@@ -46,7 +50,7 @@ namespace mtm {
             return id;
         }
         int getAddedPoints() const{
-            return addedPoints;
+            return added_points;
         }
     };
 }

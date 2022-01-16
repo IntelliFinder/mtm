@@ -12,17 +12,17 @@
 #include "Workplace.h"
 
 namespace mtm {
-    bool Workplace::isManagerHired(const int managerId) const{
-        for(Manager *runManager:managersList){
-            if ((*runManager).getId() == managerId){
+    bool Workplace::isManagerHired(const int manager_id) const{
+        for(Manager *run_manager:managers_list){
+            if ((*run_manager).getId() == manager_id){
                 return true;
             }
         }
         return false;
     }
-    bool Workplace::employeeExist( const int empId ) const{
-        for( const  Manager* manager: managersList){
-            if( manager->isEmployeeSub(empId) ){
+    bool Workplace::employeeExist( const int employee_id ) const{
+        for( const  Manager* manager: managers_list){
+            if( manager->isEmployeeSub(employee_id) ){
                 return true;
             }
         }
@@ -37,72 +37,74 @@ namespace mtm {
     }
 
     int Workplace::getWorkersSalary() const{
-        return workersSalary;
+        return workers_salary;
     }
 
     int Workplace::getManagersSalary() const{
-        return managersSalary;
+        return managers_salary;
     }
 
-    void Workplace::hireManager(Manager *managerAdd) {
-        if(isManagerHired(managerAdd->getId())){
+    void Workplace::hireManager(Manager *manager_add) {
+        if(isManagerHired(manager_add->getId())){
             throw ManagerAlreadyHired();
         }
-        if (managerAdd->isHired || managerAdd->getSalary()>0){
+        if (manager_add->is_hired || manager_add->getSalary() > 0){
             throw CanNotHireManager();
         }
-        managerAdd->isHired = true;
-        managerAdd->setSalary(managersSalary);
-        for (std::list<Manager*>::iterator managerItr = managersList.begin();managerItr != managersList.end(); managerItr++) {
-            if((*managerAdd).getId() < (*managerItr)->getId()){
-                managersList.insert(managerItr,managerAdd);
+        manager_add->is_hired = true;
+        manager_add->setSalary(managers_salary);
+        manager_add->deductAllEmployeesSalary(-workers_salary);//it's negative so it adds
+        for (std::list<Manager*>::iterator manager_iterator = managers_list.begin(); manager_iterator != managers_list.end(); manager_iterator++) {
+            if((*manager_add).getId() < (*manager_iterator)->getId()){
+                managers_list.insert(manager_iterator, manager_add);
                 return;
             }
-        }//look! a bit code duplication
-        managersList.push_back(managerAdd);
+        }
+        managers_list.push_back(manager_add);
     }
 
-    void Workplace::fireEmployee(const int employeeId, const int managerId) {
-        if(!isManagerHired(managerId)){
+    void Workplace::fireEmployee(const int employee_id, const int manager_id) {
+        if(!isManagerHired(manager_id)){
             throw ManagerIsNotHired();
         }
-        Manager *manager = getPointerToManager(managerId);
-        manager->removeEmployeeAndSalary(employeeId,workersSalary);//should be positive
+        Manager *manager = getPointerToManager(manager_id);
+        manager->removeEmployeeAndSalary(employee_id, workers_salary);//should be positive
     }
 
-    void Workplace::fireManager(const int managerId) {
-        if(!isManagerHired(managerId)){
+    void Workplace::fireManager(const int manager_id) {
+        if(!isManagerHired(manager_id)){
             throw ManagerIsNotHired();
         }
-        Manager *manager = getPointerToManager(managerId);
-        manager->isHired = false;
-        manager->setSalary(-managersSalary);
-        managersList.remove(manager);
+        Manager *manager = getPointerToManager(manager_id);
+        manager->is_hired = false;
+        manager->setSalary(-managers_salary);
+        manager->deductAllEmployeesSalary(workers_salary);
+        managers_list.remove(manager);
 
     }
 
-    Manager *Workplace::getPointerToManager(const int managerId) {
-        for(Manager *runManager:managersList){
-            if ((*runManager).getId() == managerId){
-                return runManager;
+    Manager *Workplace::getPointerToManager(const int manager_id) {
+        for(Manager *manager_iterator:managers_list){
+            if ((*manager_iterator).getId() == manager_id){
+                return manager_iterator;
             }
         }
         return nullptr;
     }
-    std::ostream &operator<<(std::ostream &os, const Workplace &workplace) {
-        os << "Workplace name - " << workplace.name;
-        if (!workplace.managersList.empty()){
-            os<< " Groups:"<< std::endl;
+    std::ostream &operator<<(std::ostream &stream, const Workplace &workplace) {
+        stream << "Workplace name - " << workplace.name;
+        if (!workplace.managers_list.empty()){
+            stream << " Groups:" << std::endl;
         }
         else{
-            os<<std::endl;
+            stream << std::endl;
         }
-        for (Manager *pManager : workplace.managersList){
-            os << "Manager ";
-            pManager->printLong(os);
+        for (Manager *ptr_manager : workplace.managers_list){
+            stream << "Manager ";
+            ptr_manager->printLong(stream);
         }
         //endl here doesn't seem right because short print does it for us
-        return os;
+        return stream;
     }
 
 

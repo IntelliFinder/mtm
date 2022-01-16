@@ -13,51 +13,51 @@
 
 namespace mtm{
 
-    Manager::Manager(const Manager& manager):Citizen(manager.getId(),manager.getFirstName(),manager.getLastName(),manager.getBirthYear())
-            ,salary(manager.getSalary()),employeesList(),isHired(false){
-        for (Employee* pRunEmployee:manager.employeesList) {
-            employeesList.push_back(pRunEmployee);
+    Manager::Manager(const Manager& manager): Citizen(manager.getId(),manager.getFirstName(),manager.getLastName(),manager.getBirthYear())
+            , salary(manager.getSalary()), employees_list(), is_hired(false){
+        for (Employee* pRunEmployee:manager.employees_list) {
+            employees_list.push_back(pRunEmployee);
         }
     }
     int Manager::getSalary() const {
         return this->salary;
     }
-    bool Manager::isEmployeeSub( const int employeeId) const{
-        for(const Employee* emp : employeesList){
-            if( emp->getId()==employeeId ){
+    bool Manager::isEmployeeSub( const int employee_id) const{
+        for(const Employee* emp : employees_list){
+            if(emp->getId() == employee_id ){
                 return true;
             }
         }
         return false;
     }
-    void Manager::addEmployee(Employee *employeeToAdd) {
-        for (std::list<Employee*>::iterator employeeItr = employeesList.begin();employeeItr != employeesList.end(); employeeItr++) {
-            if ((*employeeToAdd).getId() == (*employeeItr)->getId()){
+    void Manager::addEmployee(Employee *employee_to_add) {
+        for (std::list<Employee*>::iterator employeeItr = employees_list.begin(); employeeItr != employees_list.end(); employeeItr++) {
+            if ((*employee_to_add).getId() == (*employeeItr)->getId()){
                 throw EmployeeAlreadyHired();
             }
-            else if((*employeeToAdd).getId() < (*employeeItr)->getId()){
-                employeesList.insert(employeeItr,employeeToAdd);
+            else if((*employee_to_add).getId() < (*employeeItr)->getId()){
+                employees_list.insert(employeeItr, employee_to_add);
                 return;
             }
         }
         //list is empty
-        employeesList.push_back(employeeToAdd);
+        employees_list.push_back(employee_to_add);
     }
 
     void Manager::removeEmployee(const int id) {
-        for (std::list<Employee*>::iterator employeeItr = employeesList.begin();employeeItr != employeesList.end(); employeeItr++) {
+        for (std::list<Employee*>::iterator employeeItr = employees_list.begin(); employeeItr != employees_list.end(); employeeItr++) {
             if ((*employeeItr)->getId() == id){
-                employeesList.erase(employeeItr);
+                employees_list.erase(employeeItr);
                 return;
             }
         }
         throw EmployeeIsNotHired();
     }
-    void Manager::removeEmployeeAndSalary(const int id,int salaryToMinus) {//salaryToMinus>0
-        for (std::list<Employee*>::iterator employeeItr = employeesList.begin();employeeItr != employeesList.end(); employeeItr++) {
+    void Manager::removeEmployeeAndSalary(const int id,int salary_to_minus) {//salary_to_minus>0
+        for (std::list<Employee*>::iterator employeeItr = employees_list.begin(); employeeItr != employees_list.end(); employeeItr++) {
             if ((*employeeItr)->getId() == id){
-                (*employeeItr)->setSalary(-salaryToMinus);
-                employeesList.erase(employeeItr);
+                (*employeeItr)->setSalary(-salary_to_minus);
+                employees_list.erase(employeeItr);
                 return;
             }
         }
@@ -65,34 +65,38 @@ namespace mtm{
     }
 
 
-    void Manager::setSalary(const int addSalary) {
-        helpForSetInt(salary,addSalary);
+    void Manager::setSalary(const int add_salary) {
+        helpForSetInt(salary, add_salary);
     }
 
-    void Manager::printShort(std::ostream &os) {
-        std::string idStr = std::to_string(getId());
-        //std::string birthYearStr = std::to_string(getBirthYear());
-        std::string salaryStr = std::to_string(salary);
-        os << getFirstName() + " " + getLastName()<<std::endl;
-        //os << "id - " + idStr + " birth_year - " + birthYearStr<<std::endl;
-        os << "Salary: " + salaryStr << std::endl; //look! code duplication, maybe we should create a function
+    void Manager::printShort(std::ostream &stream) {
+        std::string id_str = std::to_string(getId());
+        std::string salary_str = std::to_string(salary);
+        stream << getFirstName() + " " + getLastName() << std::endl;
+        stream << "Salary: " + salary_str << std::endl;
     }
 
-    void Manager::printLong(std::ostream &os) {
-        std::string idStr = std::to_string(getId());
-        std::string birthYearStr = std::to_string(getBirthYear());
-        std::string salaryStr = std::to_string(salary);
-        os << getFirstName() + " " + getLastName()<<std::endl;
-        os << "id - " + idStr + " birth_year - " + birthYearStr<<std::endl;
-        os << "Salary: " + salaryStr << std::endl; //look! code duplication, maybe we should create a function
-        if(employeesList.size()) {
-            os << "Employees: " << std::endl;
-            for (std::list<Employee*>::iterator employeeItr = employeesList.begin();employeeItr != employeesList.end(); employeeItr++) {
-                (*employeeItr)->printShort(os);
+    void Manager::printLong(std::ostream &stream) {
+        std::string id_str = std::to_string(getId());
+        std::string birth_year_str = std::to_string(getBirthYear());
+        std::string salary_str = std::to_string(salary);
+        stream << getFirstName() + " " + getLastName() << std::endl;
+        stream << "id - " + id_str + " birth_year - " + birth_year_str << std::endl;
+        stream << "Salary: " + salary_str << std::endl;
+        if(!employees_list.empty()) {
+            stream << "Employees: " << std::endl;
+            for (std::list<Employee*>::iterator employeeItr = employees_list.begin(); employeeItr != employees_list.end(); employeeItr++) {
+                (*employeeItr)->printShort(stream);
             }
         }
 
     }
+    void Manager::deductAllEmployeesSalary(const int salary_to_deduct) {
+        for (Employee* run_employee:employees_list) {
+            run_employee->setSalary(-salary_to_deduct);
+        }
+    }
+
 
 }
 
