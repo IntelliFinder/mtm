@@ -32,8 +32,8 @@ class A {
 public:
     std::vector<std::shared_ptr<int>> values;
     void add(int x) {
-        std::shared_ptr<int> p(new int(x));
-        values.push_back(p);
+        std::shared_ptr<int> shared_ptr_to_x(new int(x));
+        values.push_back(shared_ptr_to_x);
     }
     ~A() =default;
 };
