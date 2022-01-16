@@ -97,7 +97,7 @@ namespace mtm {
         }
         //what if doesn't exist in workplace but yes in city? weird
         Workplace* workplace = getElementWithId<Workplace>(workplaces_list, workplace_id);
-        if(!workplace) {
+        if(workplace == nullptr) {
             throw WorkplaceDoesNotExist();
         }
         workplace->fireEmployee(employee_id, manager_id);
@@ -111,7 +111,7 @@ namespace mtm {
             throw ManagerDoesNotExist();
         }
         Workplace* workplace = getElementWithId<Workplace>(workplaces_list, workplace_id);
-        if(!workplace) {
+        if(workplace == nullptr) {
             throw WorkplaceDoesNotExist();
         }
         workplace->fireManager(manager_id);
@@ -120,8 +120,7 @@ namespace mtm {
         manager->setSalary(-workplace->getManagersSalary());
         for (const std::shared_ptr<Citizen>& runEmp:employees_list){
             if(manager->isEmployeeSub(runEmp->getId())){
-                dynamic_cast<Employee*>(runEmp.get())->setSalary(-workplace->getWorkersSalary());
-                manager->removeEmployee(runEmp->getId());
+                manager->removeEmployeeAndSalary(runEmp->getId(),workplace->getWorkersSalary());
             }
         }
     }

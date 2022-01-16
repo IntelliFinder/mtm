@@ -8,12 +8,12 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping folder/solution/Citizen.cpp" "/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping folder/cmake-build-debug/CMakeFiles/zipping_folder.dir/solution/Citizen.cpp.o"
-  "/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping folder/solution/City.cpp" "/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping folder/cmake-build-debug/CMakeFiles/zipping_folder.dir/solution/City.cpp.o"
-  "/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping folder/solution/Employee.cpp" "/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping folder/cmake-build-debug/CMakeFiles/zipping_folder.dir/solution/Employee.cpp.o"
-  "/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping folder/solution/Manager.cpp" "/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping folder/cmake-build-debug/CMakeFiles/zipping_folder.dir/solution/Manager.cpp.o"
-  "/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping folder/solution/Skill.cpp" "/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping folder/cmake-build-debug/CMakeFiles/zipping_folder.dir/solution/Skill.cpp.o"
-  "/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping folder/solution/Workplace.cpp" "/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping folder/cmake-build-debug/CMakeFiles/zipping_folder.dir/solution/Workplace.cpp.o"
+  "C:/Users/doron/OneDrive/מסמכים/GitHub/mtm/ex2/zipping folder/solution/Citizen.cpp" "C:/Users/doron/OneDrive/מסמכים/GitHub/mtm/ex2/zipping folder/cmake-build-debug/CMakeFiles/zipping_folder.dir/solution/Citizen.cpp.obj"
+  "C:/Users/doron/OneDrive/מסמכים/GitHub/mtm/ex2/zipping folder/solution/City.cpp" "C:/Users/doron/OneDrive/מסמכים/GitHub/mtm/ex2/zipping folder/cmake-build-debug/CMakeFiles/zipping_folder.dir/solution/City.cpp.obj"
+  "C:/Users/doron/OneDrive/מסמכים/GitHub/mtm/ex2/zipping folder/solution/Employee.cpp" "C:/Users/doron/OneDrive/מסמכים/GitHub/mtm/ex2/zipping folder/cmake-build-debug/CMakeFiles/zipping_folder.dir/solution/Employee.cpp.obj"
+  "C:/Users/doron/OneDrive/מסמכים/GitHub/mtm/ex2/zipping folder/solution/Manager.cpp" "C:/Users/doron/OneDrive/מסמכים/GitHub/mtm/ex2/zipping folder/cmake-build-debug/CMakeFiles/zipping_folder.dir/solution/Manager.cpp.obj"
+  "C:/Users/doron/OneDrive/מסמכים/GitHub/mtm/ex2/zipping folder/solution/Skill.cpp" "C:/Users/doron/OneDrive/מסמכים/GitHub/mtm/ex2/zipping folder/cmake-build-debug/CMakeFiles/zipping_folder.dir/solution/Skill.cpp.obj"
+  "C:/Users/doron/OneDrive/מסמכים/GitHub/mtm/ex2/zipping folder/solution/Workplace.cpp" "C:/Users/doron/OneDrive/מסמכים/GitHub/mtm/ex2/zipping folder/cmake-build-debug/CMakeFiles/zipping_folder.dir/solution/Workplace.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

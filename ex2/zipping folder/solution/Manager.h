@@ -70,6 +70,12 @@ namespace mtm {
          */
         bool isEmployeeSub( const int employee_id) const;
 
+        /**
+         * deductAllEmployeesSalary: deductAllEmployeesSalary salary_to_deduct
+         * @param salary_to_deduct
+         */
+        void deductAllEmployeesSalary(const int salary_to_deduct);
+
 
     };
 }

@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/zipping folder.iml" filepath="$PROJECT_DIR$/.idea/zipping folder.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/zipping_folder.iml" filepath="$PROJECT_DIR$/.idea/zipping_folder.iml" />
     </modules>
   </component>
 </project>

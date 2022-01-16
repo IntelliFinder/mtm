@@ -91,6 +91,12 @@ namespace mtm{
         }
 
     }
+    void Manager::deductAllEmployeesSalary(const int salary_to_deduct) {
+        for (Employee* run_employee:employees_list) {
+            run_employee->setSalary(-salary_to_deduct);
+        }
+    }
+
 
 }
 

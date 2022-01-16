@@ -77,6 +77,7 @@ namespace mtm {
         Manager *manager = getPointerToManager(manager_id);
         manager->is_hired = false;
         manager->setSalary(-managers_salary);
+        manager->deductAllEmployeesSalary(workers_salary);
         managers_list.remove(manager);
 
     }

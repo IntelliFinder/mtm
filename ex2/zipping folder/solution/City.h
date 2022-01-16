@@ -72,9 +72,7 @@ namespace mtm {
             }
             Citizen* ptr_citizen_add = getElementWithId<Citizen>(employees_list, employee_id);
             Employee *ptr_employee = dynamic_cast<Employee *>(ptr_citizen_add);
-            int previous_salary = ptr_employee->getSalary();
             ptr_workplace->hireEmployee(condition, ptr_employee, manager_id);
-            ptr_employee->setSalary(previous_salary);
             return;
 
         }
