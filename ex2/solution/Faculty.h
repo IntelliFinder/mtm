@@ -1,9 +1,17 @@
 #ifndef FACULTY_H // include guard
 #define FACULTY_H
 #include <iostream>
-#include "Employee.h"
-#include "Skill.h"
+#include <memory>
+#include <string>
+#include <list>
+#include <set>
+
 #include "exceptions.h"
+#include "Skill.h"
+#include "Citizen.h"
+#include "Employee.h"
+#include "Manager.h"
+
 class Condition{
 public:
     virtual bool operator()(mtm::Employee* employee)=0;
@@ -21,7 +29,11 @@ namespace mtm {
                                 id(id), skill(skill), addedPoints(addedPoints), pred(pred){}
 
         ~Faculty() = default;
-
+        /**
+         *
+         * @param emp
+         * teches emp
+         */
         void teach(Employee* emp){
             if(!(*pred)(emp)){
                 throw EmployeeNotAccepted();

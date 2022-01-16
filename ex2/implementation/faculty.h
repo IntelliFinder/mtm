@@ -1,5 +1,21 @@
+#ifndef FACULTY_H // include guard
+#define FACULTY_H
 #include <iostream>
+#include <memory>
+#include <string>
+#include <list>
+#include <set>
 
+#include "exceptions.h"
+#include "Skill.h"
+#include "Citizen.h"
+#include "Employee.h"
+#include "Manager.h"
+
+class Condition{
+public:
+    virtual bool operator()(mtm::Employee* employee)=0;
+};
 namespace mtm {
 
     template <typename Predicate>
@@ -7,19 +23,35 @@ namespace mtm {
         const int id;
         Skill skill;
         int addedPoints;
-        Predicate pred;
+        Predicate* pred;
     public:
-        Faculty<Predicate>(int id, Skill skill, int addedPoints, Predicate pred):
+        Faculty<Predicate>(int id, Skill skill, int addedPoints, Predicate* pred):
                                 id(id), skill(skill), addedPoints(addedPoints), pred(pred){}
 
         ~Faculty() = default;
+        /**
+         *
+         * @param emp
+         * teches emp
+         */
+        void teach(Employee* emp){
+            if(!(*pred)(emp)){
+                throw EmployeeNotAccepted();
+            }
+            emp->setScore(addedPoints);
+            emp->learnSkill(skill);
+        }
 
-        Employee& teach(Employee& emp);
+        Skill getSkill() const{
+            return skill;
+        }
 
-        Skill getSkill() const;
-
-        int getId() const;
-
-        int getAddedPoints() const;
+        int getId() const{
+            return id;
+        }
+        int getAddedPoints() const{
+            return addedPoints;
+        }
     };
 }
+#endif

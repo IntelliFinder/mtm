@@ -1,6 +1,14 @@
 #ifndef CITIZEN_H // include guard
 #define CITIZEN_H
 #include <iostream>
+#include <memory>
+#include <string>
+#include <list>
+#include <set>
+
+#include "exceptions.h"
+
+
 namespace mtm {
 
     class Citizen {
@@ -15,16 +23,24 @@ namespace mtm {
         Citizen(const Citizen&) = default;
         virtual Citizen* clone() = 0;
 
-        virtual int getId() const;
-        virtual std::string getFirstName() const;
-        virtual std::string getLastName() const;
-        virtual int getBirthYear() const;
+        int getId() const;
+        std::string getFirstName() const;
+        std::string getLastName() const;
+        int getBirthYear() const;
         
         virtual void printShort( std::ostream &str ) = 0;
         virtual void printLong( std::ostream &str ) = 0;
 
+        /**
+         *
+         * @param toChange
+         * @param toAdd
+         * adds "toAdd" to "toChange", "toChange" stays not negative
+         * - used for setSalary
+         */
+        void helpForSetInt(int &toChange, const int toAdd);
 
-
+        //all compares are by id
         friend bool operator==( Citizen &c1, Citizen &c2 );
         friend bool operator<=( Citizen &c1, Citizen &c2 );
         friend bool operator>=( Citizen &c1, Citizen &c2 );

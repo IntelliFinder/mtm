@@ -6,7 +6,13 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
+<<<<<<< Updated upstream
     <list default="true" id="f598eb4e-0523-445e-b104-e9625516e18e" name="Changes" comment="" />
+=======
+    <list default="true" id="f598eb4e-0523-445e-b104-e9625516e18e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
+>>>>>>> Stashed changes
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -39,8 +45,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1642087915977</updated>
+<<<<<<< Updated upstream
       <workItem from="1642087921095" duration="9000" />
       <workItem from="1642339726072" duration="299000" />
+=======
+      <workItem from="1642087921095" duration="733000" />
+>>>>>>> Stashed changes
     </task>
     <servers />
   </component>

@@ -2,8 +2,15 @@
 #ifndef __EMPLOYEE__H__
 #define __EMPLOYEE__H__
 #include <iostream>
-
+#include <memory>
+#include <string>
+#include <list>
 #include <set>
+
+#include "exceptions.h"
+#include "Skill.h"
+#include "Citizen.h"
+
 
 namespace mtm {
 
@@ -29,7 +36,19 @@ namespace mtm {
         bool hasSkill(const int skillId) const;
         void setSalary(const int addSalary);
         void setScore(const int addScore);
+        /**
+         * prints <full name>
+         * Salary: <Salary> Score: <Score>
+         * @param os
+         */
         void printShort(std::ostream &os) override;
+        /**
+         * prints <full name>
+         * id - <id> birth_year - <birth_year>
+         * Salary: <Salary> Score: <Score> Skills:
+         * <all skills>
+         * @param os
+         */
         void printLong(std::ostream &os) override;
 
 

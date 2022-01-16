@@ -1,4 +1,25 @@
 C:\Users\Snir\AppData\Local\JetBrains\CLion2021.2\cygwin_cmake\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -DCMAKE_DEPENDS_USE_COMPILER=FALSE -G "CodeBlocks - Unix Makefiles" /cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/solution
+-- The C compiler identification is GNU 6.4.0
+-- The CXX compiler identification is GNU 6.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++.exe - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
 -- Configuring done
--- Generating done
--- Build files have been written to: /cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/solution/cmake-build-debug
+CMake Error at CMakeLists.txt:8 (add_executable):
+  Cannot find source file:
+
+    solution.cpp
+
+
+CMake Error at CMakeLists.txt:8 (add_executable):
+  No SOURCES given to target: solution
+
+
+CMake Generate step failed.  Build files cannot be regenerated correctly.

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="zipping_folder"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping folder/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping\ folder/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping\ folder/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping\ folder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping\ folder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping folder/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping\ folder/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping\ folder/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping\ folder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping\ folder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping folder/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping\ folder/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping\ folder/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping\ folder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping\ folder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="zipping_folder">
+				<Option output="/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping folder/cmake-build-debug/zipping_folder.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping folder/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping folder/solution"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/6.4.0/include/c++"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/6.4.0/include/c++/x86_64-pc-cygwin"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/6.4.0/include/c++/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/6.4.0/include"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/6.4.0/../../../../lib/../include/w32api"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping\ folder/cmake-build-debug/Makefile&quot;  VERBOSE=1 zipping_folder"/>
+					<CompileFile command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping\ folder/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping\ folder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping\ folder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="zipping_folder/fast">
+				<Option output="/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping folder/cmake-build-debug/zipping_folder.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping folder/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping folder/solution"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/6.4.0/include/c++"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/6.4.0/include/c++/x86_64-pc-cygwin"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/6.4.0/include/c++/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/6.4.0/include"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/6.4.0/../../../../lib/../include/w32api"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping\ folder/cmake-build-debug/Makefile&quot;  VERBOSE=1 zipping_folder/fast"/>
+					<CompileFile command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping\ folder/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping\ folder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping\ folder/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping folder/solution/Citizen.cpp">
+			<Option target="zipping_folder"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping folder/solution/Citizen.h">
+			<Option target="zipping_folder"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping folder/solution/City.cpp">
+			<Option target="zipping_folder"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping folder/solution/City.h">
+			<Option target="zipping_folder"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping folder/solution/Employee.cpp">
+			<Option target="zipping_folder"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping folder/solution/Employee.h">
+			<Option target="zipping_folder"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping folder/solution/Faculty.h">
+			<Option target="zipping_folder"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping folder/solution/Manager.cpp">
+			<Option target="zipping_folder"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping folder/solution/Manager.h">
+			<Option target="zipping_folder"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping folder/solution/Skill.cpp">
+			<Option target="zipping_folder"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping folder/solution/Skill.h">
+			<Option target="zipping_folder"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping folder/solution/Workplace.cpp">
+			<Option target="zipping_folder"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping folder/solution/Workplace.h">
+			<Option target="zipping_folder"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping folder/solution/exceptions.h">
+			<Option target="zipping_folder"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/Snir/Desktop/technion/MSc/ISP/mtm/ex2/zipping folder/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

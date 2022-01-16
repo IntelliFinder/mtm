@@ -1,9 +1,16 @@
 #ifndef MANAGER_H // include guard
 #define MANAGER_H
-
 #include <iostream>
+#include <memory>
+#include <string>
 #include <list>
+#include <set>
+
+#include "exceptions.h"
+#include "Skill.h"
 #include "Citizen.h"
+#include "Employee.h"
+
 namespace mtm {
 
     class Manager : public Citizen{
@@ -27,12 +34,35 @@ namespace mtm {
         int getSalary() const;
         void addEmployee(Employee *employeeToAdd);
         void removeEmployee(const int id);
+        /**
+         * removes employee and takes off <salaryToMinus> from his salary
+         * @param id
+         * @param salaryToMinus
+         */
         void removeEmployeeAndSalary(const int id,int salaryToMinus);//my function
         void setSalary(const int addSalary);
+        /**
+         * prints <full name>
+         * Salary: <Salary>
+         * @param os
+         */
         void printShort(std::ostream &os) override;
+        /**
+         * prints <full name>
+         * id - <id> birth_year - <birth_year>
+         * Salary: <Salary>
+         * Employees:
+         * <all employees>
+         * @param os
+         */
         void printLong(std::ostream &os) override;
 
-        bool isHired;//should be okay to be public , just in case for later: look! maybe should be private with methods
+        bool isHired;//bool variable that says if the manager is hired
+        /**
+         *
+         * @param employeeId
+         * @return true if the matching employee is in his list
+         */
         bool isEmployeeSub( const int employeeId) const; //not in instructionss, added for city
 
 

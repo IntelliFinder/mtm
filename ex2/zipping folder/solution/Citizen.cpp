@@ -21,40 +21,40 @@ namespace mtm{
         return birthYear;
     }
 
-    void Citizen::printShort( std::ostream &str) {
-        str<<std::endl; //placeholder
+    void Citizen::printShort( std::ostream &stream) {
+        stream << std::endl; //placeholder
     }
-    void Citizen::printLong( std::ostream &str ){
-        str<<std::endl; //placeholder
+    void Citizen::printLong( std::ostream &stream ){
+        stream << std::endl; //placeholder
     }
-   bool operator==(Citizen &c1, Citizen &c2) {
-       return c1.getId() == c2.getId();
+   bool operator==(Citizen &citizen_1, Citizen &citizen_2) {
+       return citizen_1.getId() == citizen_2.getId();
    }
 
-   bool operator<=(Citizen &c1, Citizen &c2) {
-       return c1.getId() <= c2.getId();
+   bool operator<=(Citizen &citizen_1, Citizen &citizen_2) {
+       return citizen_1.getId() <= citizen_2.getId();
    }
 
-   bool operator>=(Citizen &c1, Citizen &c2) {
-       return c1.getId() >= c2.getId();
+   bool operator>=(Citizen &citizen_1, Citizen &citizen_2) {
+       return citizen_1.getId() >= citizen_2.getId();
    }
 
-   bool operator!=(Citizen &c1, Citizen &c2) {
-       return c1.getId() != c2.getId();
+   bool operator!=(Citizen &citizen_1, Citizen &citizen_2) {
+       return citizen_1.getId() != citizen_2.getId();
    }
 
-   bool operator<(Citizen &c1, Citizen &c2) {
-       return c1.getId() < c2.getId();
+   bool operator<(Citizen &citizen_1, Citizen &citizen_2) {
+       return citizen_1.getId() < citizen_2.getId();
    }
 
-   bool operator>(Citizen &c1, Citizen &c2) {
-       return c1.getId() > c2.getId();
+   bool operator>(Citizen &citizen_1, Citizen &citizen_2) {
+       return citizen_1.getId() > citizen_2.getId();
    }
 
-   void Citizen::helpForSetInt(int &toChange, const int toAdd){
-       toChange += toAdd;
-       if (toChange < 0){
-           toChange = 0;
+   void Citizen::helpForSetInt(int &to_change, const int to_add){
+       to_change += to_add;
+       if (to_change < 0){
+           to_change = 0;
        }
    }
 }

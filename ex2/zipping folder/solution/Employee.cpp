@@ -19,9 +19,9 @@ namespace mtm{
         return score;
     }
 
-    bool Employee::hasSkill(const int skillId)  const {
-        for(std::set<Skill>::iterator i = skillSet.begin() ; i != skillSet.end(); ++i) {
-            if (i->getId() == skillId){
+    bool Employee::hasSkill(const int skill_id)  const {
+        for(std::set<Skill>::iterator i = skill_set.begin() ; i != skill_set.end(); ++i) {
+            if (i->getId() == skill_id){
                 return true;
             }
         }
@@ -37,13 +37,13 @@ namespace mtm{
             throw CanNotLearnSkill();
         }
 
-        skillSet.insert(skill);
+        skill_set.insert(skill);
     }
 
-    void Employee::forgetSkill(const int skillId) {
-        for ( std::set<Skill>::iterator i = skillSet.begin(); i!=skillSet.end(); ++i ) {
-            if (i->getId() == skillId){
-                skillSet.erase(i);
+    void Employee::forgetSkill(const int skill_id) {
+        for (std::set<Skill>::iterator i = skill_set.begin(); i != skill_set.end(); ++i ) {
+            if (i->getId() == skill_id){
+                skill_set.erase(i);
                 return;
             }
         }
@@ -51,43 +51,43 @@ namespace mtm{
     }
 
     std::set<Skill> Employee::getCopySkillSet() const{
-        std::set<Skill> temp = this->skillSet; //alllocates new memory and copies set
+        std::set<Skill> temp = this->skill_set; //alllocates new memory and copies set
         return temp;
     }
 
 
 
-    void Employee::setSalary(const int addSalary) {
-        helpForSetInt(salary,addSalary);//here the func is ok
+    void Employee::setSalary(const int add_salary) {
+        helpForSetInt(salary, add_salary);//here the func is ok
     }
 
-    void Employee::setScore(const int addScore) {
-        helpForSetInt(score,addScore); //look! course didn't say what to do in case of score < 0 , snir: good point
+    void Employee::setScore(const int add_score) {
+        helpForSetInt(score, add_score); //look! course didn't say what to do in case of score < 0 , snir: good point
     }
 
-    void Employee::printShort(std::ostream &os){
-        os <<getFirstName() + " " + getLastName()<<std::endl;
+    void Employee::printShort(std::ostream &stream){
+        stream << getFirstName() + " " + getLastName() << std::endl;
         std::string salaryStr = std::to_string(salary);
         std::string scoreStr = std::to_string(score);
-        os << "Salary: " + salaryStr + " Score: " + scoreStr << std::endl;
+        stream << "Salary: " + salaryStr + " Score: " + scoreStr << std::endl;
     }
 
-    void Employee::printLong(std::ostream& os) {
+    void Employee::printLong(std::ostream& stream) {
         std::string idStr = std::to_string(getId());
         std::string birthYearStr = std::to_string(getBirthYear());
         std::string salaryStr = std::to_string(salary);
         std::string scoreStr = std::to_string(score);
-        os << getFirstName() + " " + getLastName()<<std::endl;
-        os << "id - " + idStr + " birth_year - " + birthYearStr<<std::endl;
-        os << "Salary: " + salaryStr + " Score: " + scoreStr ;
-        if(skillSet.size()!=0){
-            os<<" Skills: "<< std::endl;
-            for (std::set<Skill>::iterator i = skillSet.begin(); i!=skillSet.end(); ++i) {
-                os << i->getName() << std::endl; //ERROR overloading doesn't work
+        stream << getFirstName() + " " + getLastName() << std::endl;
+        stream << "id - " + idStr + " birth_year - " + birthYearStr << std::endl;
+        stream << "Salary: " + salaryStr + " Score: " + scoreStr ;
+        if(skill_set.size() != 0){
+            stream << " Skills: " << std::endl;
+            for (std::set<Skill>::iterator i = skill_set.begin(); i != skill_set.end(); ++i) {
+                stream << *i;
             }
         }
         else{
-            os<<std::endl;
+            stream << std::endl;
         }
 
     }

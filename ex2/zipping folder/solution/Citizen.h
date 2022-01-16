@@ -28,17 +28,17 @@ namespace mtm {
         std::string getLastName() const;
         int getBirthYear() const;
         
-        virtual void printShort( std::ostream &str ) = 0;
-        virtual void printLong( std::ostream &str ) = 0;
+        virtual void printShort( std::ostream &stream ) = 0;
+        virtual void printLong( std::ostream &stream ) = 0;
 
         /**
          *
-         * @param toChange
-         * @param toAdd
-         * adds "toAdd" to "toChange", "toChange" stays not negative
+         * @param to_change
+         * @param to_add
+         * adds "to_add" to "to_change", "to_change" stays not negative
          * - used for setSalary
          */
-        void helpForSetInt(int &toChange, const int toAdd);
+        void helpForSetInt(int &to_change, const int to_add);
 
         //all compares are by id
         friend bool operator==( Citizen &c1, Citizen &c2 );

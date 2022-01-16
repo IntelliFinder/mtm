@@ -1,13 +1,17 @@
 #ifndef WORKPLACE_H // include guard
 #define WORKPLACE_H
 #include <iostream>
-#include <iostream>
+#include <memory>
 #include <string>
+#include <list>
+#include <set>
 
-#include "Citizen.h"
-#include "Manager.h"
-#include "Employee.h"
 #include "exceptions.h"
+#include "Skill.h"
+#include "Citizen.h"
+#include "Employee.h"
+#include "Manager.h"
+
 namespace mtm {
     class Workplace {
     private:
@@ -16,7 +20,17 @@ namespace mtm {
         int workersSalary;
         int managersSalary;
         std::list<Manager *> managersList;//list is good for erasing
+        /**
+         *
+         * @param managerId
+         * @return true if the matching manager is hired
+         */
         bool isManagerHired(const int managerId) const;
+        /**
+         *
+         * @param managerId
+         * @return the matching pointer, if doesn't exist, returns nullptr
+         */
         Manager* getPointerToManager(const int managerId);//I need * and not & for the list
     public:
         Workplace(int id, std::string name, int workersSalary, int managersSalary) : id(id), name(name),
@@ -52,9 +66,19 @@ namespace mtm {
         void fireEmployee(const int employeeId, const int managerId);
 
         void fireManager(const int managerId);
+        /**
+         *
+         * @param employeeId
+         * @return true if the matching employee exist in workplace
+         */
+        bool employeeExist( const int employeeId ) const;
 
-        bool employeeExist( const int empId ) const;
-
+        /**
+         * prints name and groups(managers and their employees)
+         * @param os
+         * @param wp
+         * @return ostream
+         */
         friend std::ostream& operator<<(std::ostream& os, const Workplace& wp);
 
 
