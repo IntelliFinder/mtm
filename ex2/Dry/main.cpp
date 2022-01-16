@@ -5,11 +5,11 @@
 
 class BadInput: public std::exception {};
 
-bool isInRangeStart(const int num,const int vectorSize){
-    return num < vectorSize && num >= 0;
+bool isInRangeStart(const int num,const int vector_size){
+    return num < vector_size && num >= 0;
 }
-bool isInRangeStop(const int num,const int vectorSize) {
-    return num <= vectorSize && num >= 0;
+bool isInRangeStop(const int num,const int vector_size) {
+    return num <= vector_size && num >= 0;
 }
 template <class T>
 std::vector<T> slice(std::vector<T> vec, int start, int step, int stop) {
