@@ -53,6 +53,7 @@ namespace mtm {
         }
         manager_add->is_hired = true;
         manager_add->setSalary(managers_salary);
+        manager_add->deductAllEmployeesSalary(-workers_salary);//it's negative so it adds
         for (std::list<Manager*>::iterator manager_iterator = managers_list.begin(); manager_iterator != managers_list.end(); manager_iterator++) {
             if((*manager_add).getId() < (*manager_iterator)->getId()){
                 managers_list.insert(manager_iterator, manager_add);

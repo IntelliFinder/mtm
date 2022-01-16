@@ -120,7 +120,7 @@ namespace mtm {
         manager->setSalary(-workplace->getManagersSalary());
         for (const std::shared_ptr<Citizen>& runEmp:employees_list){
             if(manager->isEmployeeSub(runEmp->getId())){
-                manager->removeEmployeeAndSalary(runEmp->getId(),workplace->getWorkersSalary());
+                manager->removeEmployee(runEmp->getId());
             }
         }
     }
