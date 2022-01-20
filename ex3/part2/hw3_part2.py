@@ -52,7 +52,7 @@ def check_match(str):
     # there is a valid swap funcntion
     return True
 
-
+'''
 if __name__ == '__main__':
     print(is_palindrom("hello"), "F")
     print(is_palindrom("ab"), "F")
@@ -74,6 +74,8 @@ if __name__ == '__main__':
     print(check_match("sdaadd"), "T")  # sad,dad, swapped order
     print(split_by_mod2("chheelcpk"))
     print(check_match("chheelcpk"), "F")  #check,help
+    print(split_by_mod2("aabbccddeeffgf"))
+    print(check_match("aabbccddeeffgf"), "T")
 
-
+'''
 
