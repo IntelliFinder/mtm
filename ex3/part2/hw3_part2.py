@@ -36,20 +36,23 @@ def split_by_mod2(str):
 def check_match(str):
     """returns True iff word made from odd indexes can "swap"
      with the one from even indexes"""
-    if len(str)%2 != 0:
+    if len(str) % 2 != 0: #makes sure both str's have same length
         return False
     left_str, right_str = split_by_mod2(str)
-    swap_function = {} #keys are swap char(key) by char(value)
+    swap_function = {}  # keys are swap char(key) by char(value)
     for i in range(len(left_str)):
         letter_in_left = left_str[i]
         letter_in_right = right_str[i]
-        if (letter_in_left in swap_function) and swap_function[key]!=letter_in_right:
-            return False
+        if letter_in_left in swap_function:
+            if swap_function[letter_in_left] != letter_in_right:
+                #it cant be a function
+                return False
         else:
-            swap_function[key] = letter_in_right
-
-    #thre is a valid swap funcntion
+            swap_function[letter_in_left] = letter_in_right
+    # there is a valid swap funcntion
     return True
+
+
 if __name__ == '__main__':
     print(is_palindrom("hello"), "F")
     print(is_palindrom("ab"), "F")
@@ -60,3 +63,17 @@ if __name__ == '__main__':
     print(get_palindrom_dict("AbbAcaBBa"))
     print(get_palindrom_dict("abcdcba"))
     print(get_palindrom_dict("abcddcba"))
+
+    print(split_by_mod2("dkoeoerp"))
+    print(check_match("dkoeoerp"),"T")#door, keep
+    print(split_by_mod2("xtaptmapld"))
+    print(check_match("xtaptmapld"),"T")#xatal,tpmpd
+    print(split_by_mod2("dsaadd"))
+    print(check_match("dsaadd"),"F")#dad,sad
+    print(split_by_mod2("sdaadd"))
+    print(check_match("sdaadd"), "T")  # sad,dad, swapped order
+    print(split_by_mod2("chheelcpk"))
+    print(check_match("chheelcpk"), "F")  #check,help
+
+
+
