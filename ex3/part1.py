@@ -1,11 +1,14 @@
 def find_best_selling_product(filename):
     sequence = [line.split() for line in filename]
-    best = []
-    for item in sequence:
+    best = {}
+    for idx, item in enumerate(sequence):
         if item[0] == 'add' and item[1] == 'product':
-            best.append([item[2], float(item[3]), float(item[4]), 0])
+            best[item[2]] = [float(item[3]), float(item[4]), 0]
         if item[0] == 'change' and item[1] == 'amount':
-            best[[idx for idx, val in enumerate(best) if val[0] == item[2]][0]][2] += float(item[3])
+            best[item[2]][1] += float(item[3])
+        if item[0] == 'ship' and item[1] == 'order':
+            orders = [line.split('--') for line in filename if line.split()[0] == 'ship' and line.split()[1] == 'order']
+    print(best)
     return None
 
 
