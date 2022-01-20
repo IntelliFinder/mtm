@@ -10,15 +10,10 @@ def find_best_selling_product(filename):
             orders = [[item[i+1][:-1], float(item[i+2])] for i, add in enumerate(item) if add == 'order' or add == '--']
             for order in orders:
                 if order[0] in best:
-                    if (best[order[0]][1] - order[1]) < 0:
-                        print("Fail")
-                    else:
-                        print("success")
-            #for order in orders:
-            #    if order[0] in best:
-            #        if (best[order[0]][1] - order[1]) >= 0:
-            #            best[order[0]][1] -= order[1]
-            #            best[order[0]][2] += order[1]*best[order[0]][0]
+                    if (best[order[0]][1] - order[1]) >= 0:
+                        best[order[0]][1] -= order[1]
+                        best[order[0]][2] += order[1]*best[order[0]][0]
+
     print(best)
     return None
 
