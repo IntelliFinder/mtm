@@ -1,11 +1,5 @@
-
-def print_wrong_output(test, expected, test_num):
-    print("Failed test " + str(test_num) + " :(")
-    print("Your result: " + str(test))
-    print("Expected Result: " + str(expected) + "\n")
-
-def find_best_selling_product(filename):
-    file = open(filename, 'r')
+def find_best_selling_product(file_name):
+    file = open(file_name, 'r')
     sequence = [line.split() for line in file]
     file.close()
     if not sequence:
@@ -33,9 +27,43 @@ def find_best_selling_product(filename):
     return (products[0], current_selling_price)
 
 
+def find_k_most_expensive_products(file_name, k):
+    file = open(file_name, 'r')
+    sequence = [line.split() for line in file]
+    file.close()
+    products = {}
+    for item in sequence:
+        if item[0] == 'add' and item[1] == 'product':
+            if item[2] not in products:
+                products[item[2]] = float(item[3])
+    ordered = [(key, product) for key, product in products.items()]
+    list_names = [item[0] for item in ordered]
+    list_prices = [item[1] for item in ordered]
+    dict_prices = {}
+    for idx, item in enumerate(list_prices):
+        dict_prices[item] = idx
+    #print(list_names)
+    #print(list_prices)
+    #print(ordered)
+    #print(dict_prices)
+    rank = sorted(list_prices)
+    rank.reverse()# from big to small
+    #print(rank)
+    best_k = [list_names[dict_prices[number]] for number in rank[:k]]
+    return best_k
+
+def print_wrong_output(test, expected, test_num):
+    print("Failed test " + str(test_num) + " :(")
+    print("Your result: " + str(test))
+    print("Expected Result: " + str(expected) + "\n")
+
+
 def main():
     test1 = find_best_selling_product("hw3_part1_tests_files/items1.txt")
     test1_expected_result = ('baloon', 5600)
+    find_k_most_expensive_products("hw3_part1_tests_files/items1.txt", 3)
+    test2 = find_k_most_expensive_products("hw3_part1_tests_files/items1.txt", 3)
+    test2_expected_result = ['chair', 'lamp', 'pizza']
     test3 = find_best_selling_product("hw3_part1_tests_files/items2.txt")
     test3_expected_result = ('pineapple', 23200)
     test5 = find_best_selling_product("hw3_part1_tests_files/items3.txt")
@@ -51,6 +79,11 @@ def main():
         print("Passed test 1!\n")
     else:
         print_wrong_output(test1, test1_expected_result, 1)
+
+    if (test2 == test2_expected_result):
+        print("Passed test 2!\n")
+    else:
+        print_wrong_output(test2, test2_expected_result, 2)
     if (test3 == test3_expected_result):
         print("Passed test 3!\n")
     else:

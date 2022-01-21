@@ -28,6 +28,10 @@ def find_best_selling_product(filename):
     return value
 
 
+def find_k_most_expensive_product(filename,k):
+
+    return None
+
 def main():
     file = open("example.txt", 'r')
     find_best_selling_product(file)
