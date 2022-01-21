@@ -66,6 +66,8 @@ def main():
     test2_expected_result = ['chair', 'lamp', 'pizza']
     test3 = find_best_selling_product("hw3_part1_tests_files/items2.txt")
     test3_expected_result = ('pineapple', 23200)
+    test4 = find_k_most_expensive_products("hw3_part1_tests_files/items2.txt", 3)
+    test4_expected_result = ['banana', 'pineapple', 'bike']
     test5 = find_best_selling_product("hw3_part1_tests_files/items3.txt")
     test5_expected_result = ('apple', 9500)
     test7 = find_best_selling_product("hw3_part1_tests_files/items4.txt")
@@ -74,6 +76,14 @@ def main():
     test9_expected_result = ('', 0)
     test11 = find_best_selling_product("hw3_part1_tests_files/items6.txt")
     test11_expected_result = ('bike', 52200)
+    test6 = find_k_most_expensive_products("hw3_part1_tests_files/items3.txt", 7)
+    test6_expected_result = ['apple', 'banana', 'bike', 'chair', 'lamp', 'phone', 'pineapple']
+    test8 = find_k_most_expensive_products("hw3_part1_tests_files/items4.txt", 7)
+    test8_expected_result = ['apple', 'baloon', 'pizza', 'bike', 'pineapple', 'phone', 'chair']
+    test10 = find_k_most_expensive_products("hw3_part1_tests_files/items5.txt", 3)
+    test10_expected_result = []
+    test12 = find_k_most_expensive_products("hw3_part1_tests_files/items6.txt", 7)
+    test12_expected_result = ['apple', 'lamp', 'bike', 'banana', 'chair', 'pineapple', 'phone']
 
     if (test1 == test1_expected_result):
         print("Passed test 1!\n")
@@ -84,31 +94,57 @@ def main():
         print("Passed test 2!\n")
     else:
         print_wrong_output(test2, test2_expected_result, 2)
+
     if (test3 == test3_expected_result):
         print("Passed test 3!\n")
     else:
         print_wrong_output(test3, test3_expected_result, 3)
+
+    if (test4 == test4_expected_result):
+        print("Passed test 4!\n")
+    else:
+        print_wrong_output(test4, test4_expected_result, 4)
 
     if (test5 == test5_expected_result):
         print("Passed test 5!\n")
     else:
         print_wrong_output(test5, test5_expected_result, 5)
 
+    if (test6 == test6_expected_result):
+        print("Passed test 6!\n")
+    else:
+        print_wrong_output(test6, test6_expected_result, 6)
+
     if (test7 == test7_expected_result):
         print("Passed test 7!\n")
     else:
         print_wrong_output(test7, test7_expected_result, 7)
+
+    if (test8 == test8_expected_result):
+        print("Passed test 8!\n")
+    else:
+        print_wrong_output(test8, test8_expected_result, 8)
 
     if (test9 == test9_expected_result):
         print("Passed test 9!\n")
     else:
         print_wrong_output(test9, test9_expected_result, 9)
 
+    if (test10 == test10_expected_result):
+        print("Passed test 10!\n")
+    else:
+        print_wrong_output(test10, test10_expected_result, 10)
+
     if (test11 == test11_expected_result):
         print("Passed test 11!\n")
     else:
         print_wrong_output(test11, test11_expected_result, 11)
-    
+
+    if (test12 == test12_expected_result):
+        print("Passed test 12!\n")
+    else:
+        print_wrong_output(test12, test12_expected_result, 12)
+
 
 if __name__ == '__main__':
     main()
