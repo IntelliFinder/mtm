@@ -40,17 +40,28 @@ def find_k_most_expensive_products(file_name, k):
     list_names = [item[0] for item in ordered]
     list_prices = [item[1] for item in ordered]
     dict_prices = {}
-    for idx, item in enumerate(list_prices):
-        dict_prices[item] = idx
+    for idx, price in enumerate(list_prices):
+        dict_prices[idx] = price
     #print(list_names)
     #print(list_prices)
     #print(ordered)
     #print(dict_prices)
     rank = sorted(list_prices)
     rank.reverse()# from big to small
-    #print(rank)
-    best_k = [list_names[dict_prices[number]] for number in rank[:k]]
-    return best_k
+    rank_k_dict = {}
+    for price in rank[:k]:
+        if price not in rank_k_dict:#not necessary i think
+            rank_k_dict[price] = 0
+        elif price in rank_k_dict:
+            rank_k_dict[price] += 1
+    rank_top_k = sorted([price for price in rank_k_dict.keys()])
+    rank_top_k.reverse()
+    print(rank_top_k)
+    final = []
+    for price in rank_top_k:
+        to_add = sorted([name for idx, name in enumerate(list_names) if price == dict_prices[idx]])
+        final.extend(to_add)
+    return final
 
 def print_wrong_output(test, expected, test_num):
     print("Failed test " + str(test_num) + " :(")
@@ -61,7 +72,6 @@ def print_wrong_output(test, expected, test_num):
 def main():
     test1 = find_best_selling_product("hw3_part1_tests_files/items1.txt")
     test1_expected_result = ('baloon', 5600)
-    find_k_most_expensive_products("hw3_part1_tests_files/items1.txt", 3)
     test2 = find_k_most_expensive_products("hw3_part1_tests_files/items1.txt", 3)
     test2_expected_result = ['chair', 'lamp', 'pizza']
     test3 = find_best_selling_product("hw3_part1_tests_files/items2.txt")
