@@ -1,6 +1,6 @@
 def find_best_selling_product(filename):
     sequence = [line.split() for line in filename]
-    if sequence == ['']: #not sure about this
+    if sequence == ['']: #not sure about this, test it !
         value = ('', 0)
         return value
     best = {}
@@ -20,14 +20,11 @@ def find_best_selling_product(filename):
                         best[order[0]][2] += order[1]*best[order[0]][0]
     #get maximum sold product and total money made while shipping it
     current_selling_price = max([val[2] for val in best.values()])
-    products = []
-    for key in best.keys():
-        if best[key][2] == current_selling_price:
-            products.append(key)
-    products.sort()
-    print(products)
-    #if value is zero
-    value = (current_selling_price, products[0])
+    products = sorted([key for key in best.keys() if best[key][2] == current_selling_price])
+    if not products:
+        value = ('', 0)
+        return value
+    value = (products[0], current_selling_price)
     return value
 
 
@@ -35,7 +32,6 @@ def main():
     file = open("example.txt", 'r')
     find_best_selling_product(file)
     file.close()
-    print("Hello World!")
 
 
 if __name__ == '__main__':
