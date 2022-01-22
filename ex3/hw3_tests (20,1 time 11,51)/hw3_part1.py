@@ -46,14 +46,9 @@ def find_k_most_expensive_products(file_name, k):
     rank.reverse()# from big to small
     rank_k_dict = {}
     for price in rank[:k]:
-        if price not in rank_k_dict:#not necessary i think
-            rank_k_dict[price] = 0
-        elif price in rank_k_dict:
-            rank_k_dict[price] += 1
-    print(sum([float(value) for value in rank_k_dict.values()]))
+        rank_k_dict[price] = 0
     rank_top_k = sorted([price for price in rank_k_dict.keys()])
     rank_top_k.reverse()
-    print(rank_top_k)
     final = []
     for price in rank_top_k:
         to_add = sorted([name for idx, name in enumerate(list_names) if price == dict_prices[idx]])
