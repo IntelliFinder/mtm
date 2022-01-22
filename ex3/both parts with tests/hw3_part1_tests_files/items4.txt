@@ -1,0 +1,174 @@
+ship order bike, 2 -- bike, 4 -- banana, 4 -- baloon, 4
+ship order pineapple, 4
+add product pineapple 720 19
+change amount pineapple 19
+ship order lamp, 2 -- pineapple, 2 -- phone, 3 -- banana, 4
+change amount pineapple 12
+add product banana 70 13
+change amount pineapple 10
+ship order bike, 5 -- bike, 3 -- lamp, 3 -- apple, 3
+change amount banana 6
+change amount pineapple 2
+add product pizza 850 1
+add product bike 720 8
+add product apple 960 16
+change amount pizza 11
+change amount pineapple 5
+ship order banana, 1
+ship order pineapple, 2 -- banana, 2 -- chair, 4 -- lamp, 5
+add product bike 100 7
+change amount apple 19
+add product banana 110 11
+change amount bike 13
+change amount banana 7
+change amount pineapple 19
+ship order baloon, 2 -- pizza, 4 -- lamp, 2 -- chair, 2
+ship order banana, 5 -- pizza, 2 -- bike, 5
+add product pineapple 250 1
+change amount apple 20
+ship order apple, 1 -- bike, 2 -- phone, 4 -- chair, 1
+change amount bike 20
+add product phone 680 9
+change amount banana 5
+ship order chair, 3 -- phone, 3
+ship order apple, 1 -- baloon, 5 -- banana, 3 -- baloon, 4
+change amount bike 17
+add product lamp 220 19
+change amount apple 17
+ship order phone, 4 -- pizza, 1 -- pizza, 4
+ship order phone, 1 -- lamp, 3 -- baloon, 5
+ship order chair, 2 -- lamp, 4 -- baloon, 1
+ship order apple, 3 -- lamp, 1 -- bike, 1
+change amount lamp 4
+change amount banana 5
+add product banana 520 6
+add product bike 320 5
+change amount apple 5
+change amount pizza 15
+ship order chair, 5 -- pizza, 5 -- lamp, 5 -- apple, 5
+add product lamp 530 6
+ship order chair, 1 -- pizza, 1 -- bike, 4 -- pineapple, 3
+change amount pizza 3
+ship order chair, 3 -- apple, 5 -- lamp, 1
+add product pizza 690 7
+ship order apple, 3 -- lamp, 1
+change amount banana 7
+add product apple 80 11
+ship order bike, 5 -- chair, 5
+add product pizza 150 14
+change amount phone 5
+ship order lamp, 5 -- pizza, 5 -- baloon, 3
+change amount pizza 12
+add product pizza 870 12
+change amount pizza 2
+change amount phone 1
+add product chair 670 18
+change amount pineapple 19
+add product pineapple 690 18
+ship order pizza, 5
+change amount apple 13
+ship order pizza, 5 -- chair, 2 -- banana, 1 -- lamp, 3
+add product pineapple 310 8
+add product banana 550 7
+change amount apple 10
+ship order pineapple, 4 -- phone, 4 -- chair, 4
+change amount phone 3
+change amount pizza 17
+change amount bike 2
+add product pizza 620 17
+change amount phone 13
+ship order bike, 2
+change amount pineapple 10
+add product apple 220 12
+add product banana 240 16
+change amount pineapple 15
+ship order apple, 4 -- pineapple, 3 -- chair, 5
+ship order phone, 4
+add product baloon 860 6
+ship order phone, 2
+ship order chair, 5 -- lamp, 5
+ship order lamp, 2 -- banana, 1
+ship order phone, 5
+add product lamp 380 1
+add product chair 110 13
+ship order lamp, 4
+ship order phone, 2
+add product apple 590 9
+ship order baloon, 2 -- phone, 5 -- chair, 1 -- banana, 3
+ship order chair, 1 -- apple, 2
+change amount pineapple 13
+change amount lamp 14
+change amount pizza 9
+add product pizza 150 18
+add product banana 710 8
+ship order phone, 5 -- pizza, 3 -- apple, 4
+add product phone 630 17
+change amount bike 1
+add product chair 170 2
+change amount lamp 5
+change amount pineapple 14
+change amount apple 10
+change amount pizza 17
+add product pizza 170 4
+change amount phone 12
+change amount baloon 18
+ship order phone, 1 -- apple, 3
+add product pineapple 30 12
+add product pizza 510 2
+change amount phone 17
+ship order baloon, 1
+add product pizza 130 4
+add product chair 880 16
+change amount bike 6
+add product banana 960 16
+change amount bike 7
+add product baloon 270 9
+change amount bike 15
+ship order chair, 1 -- apple, 5 -- lamp, 1 -- lamp, 1
+add product lamp 310 13
+change amount apple 11
+change amount apple 16
+ship order pineapple, 5
+add product banana 730 8
+add product apple 280 9
+ship order pineapple, 2 -- pizza, 1
+ship order lamp, 4 -- pineapple, 4 -- lamp, 2
+change amount baloon 10
+add product baloon 680 8
+change amount chair 1
+ship order baloon, 1 -- bike, 4 -- apple, 5 -- banana, 2
+change amount bike 18
+change amount apple 15
+change amount apple 11
+add product pizza 950 20
+ship order apple, 1 -- chair, 2 -- pizza, 1
+add product chair 950 5
+add product banana 700 17
+add product phone 800 16
+add product lamp 570 15
+change amount lamp 20
+add product baloon 640 7
+add product apple 380 5
+change amount phone 1
+change amount phone 7
+change amount banana 11
+ship order banana, 2
+change amount baloon 16
+add product chair 700 16
+ship order baloon, 1 -- lamp, 3
+ship order pizza, 5 -- phone, 3
+add product phone 700 20
+change amount baloon 1
+change amount banana 1
+change amount baloon 9
+ship order bike, 3 -- phone, 5
+change amount pineapple 15
+ship order pizza, 2
+change amount chair 20
+ship order phone, 4 -- pizza, 5 -- pizza, 2
+change amount pizza 10
+change amount pineapple 3
+ship order apple, 2 -- pineapple, 5
+add product apple 930 6
+add product bike 630 3
+ship order phone, 2
