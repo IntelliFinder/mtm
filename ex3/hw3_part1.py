@@ -28,17 +28,15 @@ def find_best_selling_product(file_name):
 
 
 #
-#Function recieves list and whether insertion into dict should be indexed
+#Function recieves list and whether insertion into dict should be by index or value
 #returns dict populated with respective list elements
 #
-def fill_dict(list_1, enum_1):
-    empty_dict ={}
-    if enum_1:
-        for item in list_1:
+def fill_dict(list_1, by_value):
+    empty_dict = {}
+    for idx, item in enumerate(list_1):
+        if by_value:
             empty_dict[item] = 0
-    elif not enum_1:
-        for idx, item in enumerate(list_1):
-            empty_dict[idx] = item
+        empty_dict[idx] = item
     return empty_dict
 
 
