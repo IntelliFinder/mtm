@@ -14,7 +14,7 @@ def get_palindrom_dict(str):
     values are the matching subwords"""
     # Shai ran one test
     dict = {}
-    for palindrome_size in range(1, len(str) + 1):
+    for palindrome_size in range(1, len(str) + 1): #why +1 ??
         dict[palindrome_size] = []
         for subword_start_index in range(0, len(str) - palindrome_size + 1):
             subword = str[subword_start_index:subword_start_index + palindrome_size]
