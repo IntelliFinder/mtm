@@ -1,0 +1,1 @@
+/usr/bin/c++.exe -g -Wl,--enable-auto-import CMakeFiles/exam.dir/main.cpp.o -o exam.exe -Wl,--out-implib,libexam.dll.a -Wl,--major-image-version,0,--minor-image-version,0 

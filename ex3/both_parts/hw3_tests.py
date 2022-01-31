@@ -32,6 +32,9 @@ test11 = hw3_part1.find_best_selling_product("hw3_part1_tests_files/items6.txt")
 test11_expected_result = ('bike', 52200)
 test12 = hw3_part1.find_k_most_expensive_products("hw3_part1_tests_files/items6.txt", 7)
 test12_expected_result = ['apple', 'lamp', 'bike', 'banana', 'chair', 'pineapple', 'phone']
+test13 = hw3_part1.find_best_selling_product("hw3_part1_tests_files/items7.txt")
+test13_expected_result = ("apple", 27.1)
+
 
 results = [
     test1 == test1_expected_result,
@@ -45,7 +48,8 @@ results = [
     test9 == test9_expected_result,
     test10 == test10_expected_result,
     test11 == test11_expected_result,
-    test12 == test12_expected_result
+    test12 == test12_expected_result,
+    test13 == test13_expected_result
 ]
 
 if(test1 == test1_expected_result):
@@ -108,6 +112,11 @@ if (test12 == test12_expected_result):
 else:
     print_wrong_output(test12, test12_expected_result, 12)
 
+if (test13 == test13_expected_result):
+    print("Passed test 13!\n")
+else:
+    print_wrong_output(test13, test13_expected_result, 13)
+
 if all(results):
     print("You passed all the tests!")
 else:
@@ -121,7 +130,9 @@ tests1 = {
     "aaaaaa": {1: ['a', 'a', 'a', 'a', 'a', 'a'], 3: ['aaa', 'aaa', 'aaa', 'aaa'], 5: ['aaaaa', 'aaaaa'], 2: ['aa', 'aa', 'aa', 'aa', 'aa'], 4: ['aaaa', 'aaaa', 'aaaa'], 6: ['aaaaaa']},
     "ababababa": {1: ['a', 'b', 'a', 'b', 'a', 'b', 'a', 'b', 'a'], 3: ['aba', 'bab', 'aba', 'bab', 'aba', 'bab', 'aba'], 5: ['ababa', 'babab', 'ababa', 'babab', 'ababa'], 7: ['abababa', 'bababab', 'abababa'], 9: ['ababababa']},
     "AbcAbcbaBa": {1: ['A', 'b', 'c', 'A', 'b', 'c', 'b', 'a', 'B', 'a'], 3: ['bcb', 'aBa']},
-    "AbcDefgHgfeDcbA": {1: ['A', 'b', 'c', 'D', 'e', 'f', 'g', 'H', 'g', 'f', 'e', 'D', 'c', 'b', 'A'], 3: ['gHg'], 5: ['fgHgf'], 7: ['efgHgfe'], 9: ['DefgHgfeD'], 11: ['cDefgHgfeDc'], 13: ['bcDefgHgfeDcb'], 15: ['AbcDefgHgfeDcbA']}
+    "AbcDefgHgfeDcbA": {1: ['A', 'b', 'c', 'D', 'e', 'f', 'g', 'H', 'g', 'f', 'e', 'D', 'c', 'b', 'A'], 3: ['gHg'], 5: ['fgHgf'], 7: ['efgHgfe'], 9: ['DefgHgfeD'], 11: ['cDefgHgfeDc'], 13: ['bcDefgHgfeDcb'], 15: ['AbcDefgHgfeDcbA']},
+    "asgab": {1: ['a', 's', 'g', 'a', 'b']},
+    "adah": {1: ['a', 'd', 'a', 'h'], 3: ['ada']}
 }
 
 tests2 = {

@@ -1,0 +1,10 @@
+add product apple 5.42 2
+change amount apple 3
+add product pear 1.84 5
+add product pear 1.286
+ship order apple, 5 -- pear, 5 
+change amount boom 90
+ship order apple, 1 -- pear, 1
+ship order boom, 90 -- boom, 26 
+add product watermelon 540.21 50
+ship order watermelon, 49.5
