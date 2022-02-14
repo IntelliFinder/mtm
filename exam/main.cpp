@@ -1,4 +1,6 @@
 #include <iostream>
+#include <list>
+#include <vector>
 using namespace std;
 /**
 class A{
@@ -24,7 +26,10 @@ class B : public A{
 };
 
 int main() {
-    A* a = new B();
-    a->f();
+    vector<int> l = {1 , 2 ,3};
+    int val = l.back();
+    l.pop_back();
+    cout << val << "\n";
+    cout << l.back() << "\n";
     return 0;
 }
